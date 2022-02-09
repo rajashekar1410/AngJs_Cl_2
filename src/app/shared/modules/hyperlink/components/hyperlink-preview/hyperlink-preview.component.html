@@ -1,0 +1,41 @@
+<div bsModal>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="closeModal()">&times;</button>
+    <h4 class="modal-title">{{myTitle}}</h4>
+  </div>
+  <div class="modal-body">
+  
+    
+        <!-- Preview/Edit/Delete controls -->
+      
+          <form>
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-labell">Content :</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="text" readonly id="content" name="content"
+                  [(ngModel)]="myData.content" #content="ngModel">
+              </div>
+            </div>
+          </form>
+      
+        </div>
+
+       <div class="modal-footer justify-content-between">
+  
+       
+       
+            <button type="button" (click)="processRequest(actionTypes.TYPE_VIEW)" class="btn btn-primary" id="">GOTO
+              LINK</button>
+         
+            <button type="button" (click)="processRequest(actionTypes.TYPE_EDIT)" class="btn btn-primary center-block"
+              id="">EDIT</button>
+       
+          
+            <button type="button" (click)="processRequest(actionTypes.TYPE_DELETE)" type="button"
+              class="btn btn-primary" id="" style="padding: 6px 13.57px;">
+              DELETE</button>
+         
+        </div>
+    
+  
+</div>

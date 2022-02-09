@@ -1,0 +1,11 @@
+::ng-deep .dataTables_processing {
+  z-index: 999;
+}
+
+.best_matches_container {
+  height: calc(100vh - 325px);
+  overflow: auto;
+}
+::ng-deep .dataTables_empty {
+  display: none !important;
+}

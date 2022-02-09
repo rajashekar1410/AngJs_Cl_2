@@ -1,0 +1,18 @@
+<br><br>
+<div class="col-md-12">
+<div class="row">
+<div class="col-md-12 text-right" >
+  <button class="btn btn-primary btn-sm" *ngIf="cs.user_session.user_type<=1" (click)="triggerAddUpdSensorAct(logActionTypes.TYPE_LOG_ADDED)">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+</div>
+
+<div class="col-md-12" style="margin-top: 5px;">
+  <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger"
+    class="display main-content table table-bordered"></table>
+  <!-- Print btn -->
+  <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+    <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+  </p>
+</div>
+</div>
+</div>

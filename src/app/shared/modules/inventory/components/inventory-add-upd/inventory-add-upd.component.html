@@ -1,0 +1,106 @@
+<div class="modal-header modal_header" backdrop>
+  <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+  <h4 class="modal-title">{{formTitle}}</h4>
+</div>
+<div class="modal-body">
+
+    <form ngSubmit="processRequest()" [formGroup]="invForm" novalidate>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label ">Inventory Type:</label>
+        <div class="col-sm-6">
+          <select required class="select_dropdown" id="invType" name="invType" [formControl]="invType">
+            <option value="-1">Select</option>
+            <option [value]="item.id" *ngFor="let item of invTypes">{{item.name}}</option>
+          </select>
+          <p class="text-danger" *ngIf="invType.errors?.required  &&  invType.touched">
+            Inventory Type is required
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Part Number:</label>
+        <div class="col-sm-6">
+          <input placeholder="Enter Part Number" required class="form-control" type="text" name="partNumber"
+            [formControl]="partNumber" [readonly]="[inventoryActionTypes.TYPE_I_CONSUMED].includes(editMode)">
+          <p class="text-danger" *ngIf="partNumber.errors?.required  &&  partNumber.touched">Part Number is required
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Description:</label>
+        <div class="col-sm-6">
+          <textarea placeholder="Description" required class="form-control" type="text" name="description"
+            [formControl]="description"
+            [readonly]="[inventoryActionTypes.TYPE_I_CONSUMED].includes(editMode)"></textarea>
+          <p class="text-danger" *ngIf="description.errors?.required  &&  description.touched">Description is required
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Total Qty:</label>
+        <div class="col-sm-6">
+          <input placeholder="Total Qty" required class="form-control" type="number" name="total" [formControl]="total"
+            [readonly]="[inventoryActionTypes.TYPE_I_CONSUMED].includes(editMode)">
+          <p class="text-danger" *ngIf="total.errors?.required  &&  total.touched">Total Qty is required
+          </p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Available:</label>
+        <div class="col-sm-6">
+          <input placeholder="Total Qty" class="form-control" type="number" name="total" [value]="origInvForm.value.total-consumed.value"
+            [readonly]="true">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">UoM:</label>
+        <div class="col-sm-6">
+          <input placeholder="Enter UoM" required class="form-control" type="text" name="uom" [formControl]="uom"
+            [readonly]="[inventoryActionTypes.TYPE_I_CONSUMED].includes(editMode)">
+          <p class="text-danger" *ngIf="uom.errors?.required  &&  uom.touched">UoM is required
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Consumed Qty:</label>
+        <div class="col-sm-6">
+          <input placeholder="Consumed Qty" required class="form-control" type="number" name="consumed"
+            [formControl]="consumed">
+          <p class="text-danger" *ngIf="consumed.errors?.required  &&  consumed.touched">Consumed Qty is required
+          </p>
+          <p class="text-danger" *ngIf="consumed.errors?.exceedsTotal  &&  consumed.touched">Consumed Qty exceeds Total Qty
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Remarks:</label>
+        <div class="col-sm-6">
+          <textarea placeholder="Remarks" required class="form-control" type="text" name="remarks"
+            [formControl]="remarks" [readonly]="[inventoryActionTypes.TYPE_I_CONSUMED].includes(editMode)"></textarea>
+          <p class="text-danger" *ngIf="remarks.errors?.required  &&  remarks.touched">Remarks is required
+          </p>
+        </div>
+      </div>
+
+      <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+      <!-- <pre>
+        {{inventory.errors | json}}
+        {{inventory.valid}}
+        {{inventory.value | json}}
+      </pre> -->
+      <div class="form-group row" style="margin-bottom:0px;">
+        <div class="text-center col-sm-12">
+          <button type="submit" [disabled]="invForm.invalid" (click)="processRequest()" class="btn btn-primary"
+            style="margin-left:10px;padding: 6px 20px;">{{btnTitle}}</button>
+        </div>
+      </div>
+    </form>
+ 
+</div>

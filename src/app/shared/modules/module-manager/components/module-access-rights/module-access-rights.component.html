@@ -1,0 +1,44 @@
+<!--=====User Access Rights===========================================-->
+<div class="modal-header modal_header">
+  <button type="button" class="close" (click)="mdls.closepop()">&times;</button>
+  <h4 class="modal-title">Access Rights</h4>
+</div>
+<div class="modal-body">
+  <div class="box1">
+    <div class="row">
+      <div class="col-md-12">
+        <p>This module is accessible to:</p>
+        <table class="table table-bordered access-rights" style="margin-bottom:0px;">
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="moduleInfo.operator_rights"
+                    (change)="updateRights($event, 'operator_rights')" name="op_access">
+                  <label class="form-check-label" for="inlineCheckbox1">Operator</label>
+                </div>
+
+              </td>
+              <td>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="moduleInfo.maintainer_rights"
+                    (change)="updateRights($event, 'maintainer_rights')" name="mt_access">
+                  <label class="form-check-label" for="inlineCheckbox1">Maintainer</label>
+                </div>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div class="form-group" style="margin-bottom:0px;">
+          <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+          <div class="text-center col-sm-12">
+            <button type="button" (click)="saveChanges()" class="btn btn-primary"
+              style="margin-left:10px;padding: 6px 20px;">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

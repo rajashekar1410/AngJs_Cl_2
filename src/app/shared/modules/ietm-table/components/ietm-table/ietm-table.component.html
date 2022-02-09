@@ -1,0 +1,48 @@
+<div class="col-md-12">
+
+  <ul class="filter-nav row justify-content-end mb-1">
+    <!-- Add button -->
+    <button class="manage-adduser btn float-left" (click)="addHandler()" title="Add Item" *ngIf="enableAddButton">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </button>
+    <!-- Delete -->
+    <li title="Delete Item" *ngIf="enableDelButton">
+      <button style="padding: 3.5px 5px;" class="btn" (click)="deleteHandler()" [disabled]="isRowUnSelected">
+        <i class="fa fa-trash"></i>
+      </button>
+    </li>
+    <!-- Select All/Deselect -->
+    <li *ngIf="enableSelectDeselect" class="btn-group">
+      <button [hidden]="!isRowUnSelected" class="mr-0" style="width:120px;" (click)="rowSelectionHandler(true)">SELECT
+        ALL</button>
+      <button [hidden]="isRowUnSelected" class="mr-0" (click)="rowSelectionHandler(false)"
+        style="width:120px;">DESELECT</button>
+    </li>
+    <!-- Filter -->
+    <li *ngIf="contentFilterEnabled" class="btn-group" dropdown title="Sorting">
+      <button id="contentFilter" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+        aria-controls="contentFilter-basic">
+        <i class="fa fa-filter" aria-hidden="true"></i> {{selectedContentFilter?.title}}
+      </button>
+      <ul id="contentFilter-basic" *dropdownMenu class="dropdown-menu  dropdown-left" role="menu"
+        aria-labelledby="contentFilter">
+        <li class="my-class" role="menuitem" *ngFor="let item of contentFilterData"
+          (click)="filterContentHandler(item)">
+          <a [class.active]="selectedContentFilter.cmd==item.cmd" style="padding:7px 14px;"
+            class="dropdown-item">{{item.title}}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+
+<!-- Table -->
+<table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger"
+  class="display main-content table table-bordered"></table>
+
+<!-- Print -->
+<p class="text-center">
+  <button type="button" style="padding: 6px 12px;" *ngIf="printEnabled" class="btn btn-primary"
+    (click)="printContentHandler()">Print</button>
+</p>

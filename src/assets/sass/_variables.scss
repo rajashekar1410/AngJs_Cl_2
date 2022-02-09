@@ -1,0 +1,911 @@
+$font-style: "Segoe UI Regular";
+$fontsize-p-ietm: 0.9rem;
+.theme-green {
+    --primary-color: #91c84f;
+    --primary-dark-color: #73a933;
+    --secondary-color: #669d25;
+    // loginpage
+    --login-bx-bg: rgba(255, 255, 255, 0.1);
+    --login-bx-title: #fff;
+    --login-icon-color: #fff;
+    // cards style
+    --cardhead-bg-color: #e9fed0;
+    --cardbody-bg-color: #fff;
+    --cardtitle-color: #669d25;
+    // Model styles
+    --modalhead-bg-color: #91c84f;
+    --modalbody-bg-color: #fff;
+    --modaltitle-color: #212529;
+    --modaltext-color: #212529;
+    // Frame content area
+    --frame-cnt-bg-color: #ffffff;
+    --frame-cnt-font-color: #212529;
+    //footer
+    --footer-bg-color: #1a1b1d;
+    --footer-border: tranparent;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: #91c84f;
+    --midle-stirp-bg: #669d25;
+    --bottom-strip-bg: #e9fed0;
+    --light-bg-color: #e9fed0;
+    --border-color-toc: #b2dd7f;
+    --toc-font-color: #212529;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #91c84f;
+    // status bar text color
+    --status-bar-bg: #e9fed0;
+    --status-bar-font-color1: #212529;
+    --status-bar-font-color2: #91c84f;
+    // toolbar buttons
+    --tool-bar-btn-border: #91c84f;
+    --tool-bar-btn: #91c84f;
+    --tool-bar-btn-text: #fff;
+    --tool-bar-btn-hover: #fff;
+    --tool-bar-btn-text-hover: #91c84f;
+    // Module Button
+    --module-btn-bg1: #91c84f;
+    --module-btn-bg2: #73a933;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #91c84f;
+    --annotfeed-btn: #91c84f;
+    --annotfeed-btn-text: #fff;
+    --annotfeed-btn-hover: #fff;
+    --annotfeed-btn-text-hover: #91c84f;
+    // For main menu nav
+    --menu-btn: #fff;
+    --menu-btn-hover: #669d25;
+    --menu-btn-color: #669d25;
+    --menu-btn-color-hover: #fff;
+    // For Dashboard Buttons
+    --dashbord-btn: #fff;
+    --dashbord-btn-hover: #669d25;
+    --dashbord-btn-color: #669d25;
+    --dashbord-btn-colore-hover: #fff;
+    // Title colors
+    --ietm-title-color: #fff;
+    --mdl-title-color-tool: #fff;
+    --mdl-title-color-toc: #73a933;
+    //Table style
+    --tbl-border-color: #ddd;
+    --tbl-font-color: #212529;
+    --tbl-th-font-color: #fff;
+    //pagenation
+    --pgn-bg-color: #fff;
+    --pgn-bg-color-hover: #669d25;
+    --pgn-font-color: #669d25;
+    --pgn-font-color-hover: #fff;
+    --pgn-border-color: #dee2e6;
+    --pgn-bg-disabled: #f5f5f5;
+    // input fields
+    --input-bg-color: #fff;
+    --input-font-color: #495057;
+    --input-border-color: #ced4da;
+    // Login input fields
+    --login-input-bg: rgba(255, 255, 255, 0.1);
+    --login-input-color: #fff;
+    // Annotation comment box
+    --ann-comments-bg: #fbfbfb;
+    --ann-comments-border: #e3e3e3;
+    --ann-comments-head-font-color: #212529;
+    // Model footer border color
+    --model--footer-border: #dee2e6;
+    --model--footer-btn-bg: #91c84f;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #669d25;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #dfe1e5;
+    --gs-icon-color: #fff;
+    --gs-bg-color: #91c84f;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #669d25;
+    --datepkr-bg: #669d25;
+    --datepkr-bg-text: #fff;
+}
+
+.theme-blue {
+    --primary-color: #0a3981;
+    --primary-dark-color: #001f5e;
+    --secondary-color: #0d47a1;
+    // loginpage
+    --login-bx-bg: rgba(255, 255, 255, 0.7);
+    --login-bx-title: #fff;
+    --login-icon-color: #fff;
+    // cards style
+    --cardhead-bg-color: #f2f7fb;
+    --cardbody-bg-color: #fff;
+    --cardtitle-color: #0d47a1;
+    // Model styles
+    --modalhead-bg-color: #0a3981;
+    --modalbody-bg-color: #fff;
+    --modaltitle-color: #fff;
+    --modaltext-color: #212529;
+    // Frame content area
+    --frame-cnt-bg-color: #ffffff;
+    --frame-cnt-font-color: #212529;
+    //footer
+    --footer-bg-color: #f2f7fb;
+    --footer-border: #d8e7f2;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: #0a3981;
+    --midle-stirp-bg: #0d47a1;
+    --bottom-strip-bg: #f2f7fb;
+    --light-bg-color: #f2f7fb;
+    --border-color-toc: #d8e7f2;
+    --toc-font-color: #212529;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #0a3981;
+    // status bar text color
+    --status-bar-bg: #f2f7fb;
+    --status-bar-font-color1: #212529;
+    --status-bar-font-color2: #0a3981;
+    // toolbar buttons
+    --tool-bar-btn-border: #0a3981;
+    --tool-bar-btn: #0a3981;
+    --tool-bar-btn-text: #fff;
+    --tool-bar-btn-hover: #fff;
+    --tool-bar-btn-text-hover: #0a3981;
+    // Module Button
+    --module-btn-bg1: #0d47a1;
+    --module-btn-bg2: #001f5e;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #0a3981;
+    --annotfeed-btn: #0a3981;
+    --annotfeed-btn-text: #fff;
+    --annotfeed-btn-hover: #fff;
+    --annotfeed-btn-text-hover: #0a3981;
+    // For main menu nav
+    --menu-btn: #fff;
+    --menu-btn-hover: #0d47a1;
+    --menu-btn-color: #0d47a1;
+    --menu-btn-color-hover: #fff;
+    // For Dashboard Buttons
+    --dashbord-btn: #fff;
+    --dashbord-btn-hover: #0d47a1;
+    --dashbord-btn-color: #0d47a1;
+    --dashbord-btn-colore-hover: #fff;
+    // Title colors
+    --ietm-title-color: #fff;
+    --mdl-title-color-tool: #fff;
+    --mdl-title-color-toc: #001f5e;
+    //Table style
+    --tbl-border-color: #ddd;
+    --tbl-font-color: #212529;
+    --tbl-th-font-color: #fff;
+    //pagenation
+    --pgn-bg-color: #fff;
+    --pgn-bg-color-hover: #0d47a1;
+    --pgn-font-color: #0d47a1;
+    --pgn-font-color-hover: #fff;
+    --pgn-border-color: #dee2e6;
+    --pgn-bg-disabled: #f5f5f5;
+    // input fields
+    --input-bg-color: #fff;
+    --input-font-color: #495057;
+    --input-border-color: #ced4da;
+    // Login input fields
+    --login-input-bg: #fff;
+    --login-input-color: #495057;
+    // Annotation comment box
+    --ann-comments-bg: #fbfbfb;
+    --ann-comments-border: #e3e3e3;
+    --ann-comments-head-font-color: #212529;
+    // Model footer border color
+    --model--footer-border: #dee2e6;
+    --model--footer-btn-bg: #0a3981;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #0d47a1;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #dfe1e5;
+    --gs-icon-color: #fff;
+    --gs-bg-color: #0a3981;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #0a3981;
+    --datepkr-bg: #0a3981;
+    --datepkr-bg-text: #fff;
+}
+
+.theme-semi-dark {
+    --primary-color: #1c1c28;
+    --primary-dark-color: #08080d;
+    --secondary-color: #28293d;
+    // loginpage
+    --login-bx-bg: rgba(255, 255, 255, 0.7);
+    --login-bx-title: #fff;
+    --login-icon-color: #fff;
+    // cards style
+    --cardhead-bg-color: #f7f7f7;
+    --cardbody-bg-color: #fff;
+    --cardtitle-color: #28293d;
+    // Model styles
+    --modalhead-bg-color: #1c1c28;
+    --modalbody-bg-color: #fff;
+    --modaltitle-color: #fff;
+    --modaltext-color: #212529;
+    // Frame content area
+    --frame-cnt-bg-color: #ffffff;
+    --frame-cnt-font-color: #212529;
+    //footer
+    --footer-bg-color: #f7f7f7;
+    --footer-border: #ddd;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: #1c1c28;
+    --midle-stirp-bg: #28293d;
+    --bottom-strip-bg: #3f405b;
+    --light-bg-color: #f7f7f7;
+    --border-color-toc: #ddd;
+    --toc-font-color: #212529;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #1c1c28;
+    // status bar text color
+    --status-bar-bg: #f7f7f7;
+    --status-bar-font-color1: #212529;
+    --status-bar-font-color2: #1c1c28;
+    // toolbar buttons
+    --tool-bar-btn-border: #1c1c28;
+    --tool-bar-btn: #1c1c28;
+    --tool-bar-btn-text: #fff;
+    --tool-bar-btn-hover: #fff;
+    --tool-bar-btn-text-hover: #1c1c28;
+    // Module Button
+    --module-btn-bg1: #28293d;
+    --module-btn-bg2: #08080d;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #1c1c28;
+    --annotfeed-btn: #1c1c28;
+    --annotfeed-btn-text: #fff;
+    --annotfeed-btn-hover: #fff;
+    --annotfeed-btn-text-hover: #1c1c28;
+    // For main menu nav
+    --menu-btn: #fff;
+    --menu-btn-hover: #28293d;
+    --menu-btn-color: #28293d;
+    --menu-btn-color-hover: #fff;
+    // For Dashboard Buttons
+    --dashbord-btn: #fff;
+    --dashbord-btn-hover: #28293d;
+    --dashbord-btn-color: #28293d;
+    --dashbord-btn-colore-hover: #fff;
+    // Title colors
+    --ietm-title-color: #fff;
+    --mdl-title-color-tool: #fff;
+    --mdl-title-color-toc: #08080d;
+    //Table style
+    --tbl-border-color: #ddd;
+    --tbl-font-color: #212529;
+    --tbl-th-font-color: #fff;
+    //pagenation
+    --pgn-bg-color: #fff;
+    --pgn-bg-color-hover: #28293d;
+    --pgn-font-color: #28293d;
+    --pgn-font-color-hover: #fff;
+    --pgn-border-color: #dee2e6;
+    --pgn-bg-disabled: #f5f5f5;
+    // input fields
+    --input-bg-color: #fff;
+    --input-font-color: #495057;
+    --input-border-color: #ced4da;
+    // Login input fields
+    --login-input-bg: #fff;
+    --login-input-color: #495057;
+    // Annotation comment box
+    --ann-comments-bg: #fbfbfb;
+    --ann-comments-border: #e3e3e3;
+    --ann-comments-head-font-color: #212529;
+    // Model footer border color
+    --model--footer-border: #dee2e6;
+    --model--footer-btn-bg: #1c1c28;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #28293d;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #dfe1e5;
+    --gs-icon-color: #fff;
+    --gs-bg-color: #1c1c28;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #1c1c28;
+    --datepkr-bg: #1c1c28;
+    --datepkr-bg-text: #fff;
+}
+
+.theme-dark {
+    --primary-color: #1c1c28;
+    --primary-dark-color: #08080d;
+    --secondary-color: #28293d;
+    // loginpage
+    --login-bx-bg: rgba(28, 28, 40, 0.9);
+    --login-bx-title: #fff;
+    --login-icon-color: #fff;
+    // cards style
+    --cardhead-bg-color: #1c1c28;
+    --cardbody-bg-color: #28293d;
+    --cardtitle-color: #999aaa;
+    // Model styles
+    --modalhead-bg-color: #1c1c28;
+    --modalbody-bg-color: #28293d;
+    --modaltitle-color: #fff;
+    --modaltext-color: #999aaa;
+    // Frame content area
+    --frame-cnt-bg-color: #393a53;
+    --frame-cnt-font-color: #999aaa;
+    //footer
+    --footer-bg-color: #1c1c28;
+    --footer-border: #28293d;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: #1c1c28;
+    --midle-stirp-bg: #28293d;
+    --bottom-strip-bg: #3f405b;
+    --light-bg-color: #3f405b;
+    --border-color-toc: #28293d;
+    --toc-font-color: #c2c4da;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #1c1c28;
+    // status bar text color
+    --status-bar-bg: #3f405b;
+    --status-bar-font-color1: #999aaa;
+    --status-bar-font-color2: #fff;
+    // toolbar buttons
+    --tool-bar-btn-border: #1c1c28;
+    --tool-bar-btn: #1c1c28;
+    --tool-bar-btn-text: #fff;
+    --tool-bar-btn-hover: #fff;
+    --tool-bar-btn-text-hover: #1c1c28;
+    // Module Button
+    --module-btn-bg1: #28293d;
+    --module-btn-bg2: #08080d;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #1c1c28;
+    --annotfeed-btn: #1c1c28;
+    --annotfeed-btn-text: #fff;
+    --annotfeed-btn-hover: #fff;
+    --annotfeed-btn-text-hover: #1c1c28;
+    // For main menu nav
+    --menu-btn: #28293d;
+    --menu-btn-hover: #fff;
+    --menu-btn-color: #fff;
+    --menu-btn-color-hover: #28293d;
+    // For Dashboard Buttons
+    --dashbord-btn: #28293d;
+    --dashbord-btn-hover: #fff;
+    --dashbord-btn-color: #fff;
+    --dashbord-btn-colore-hover: #28293d;
+    // Title colors
+    --ietm-title-color: #fff;
+    --mdl-title-color-tool: #fff;
+    --mdl-title-color-toc: #fff;
+    //Table style
+    --tbl-border-color: #1c1c28;
+    --tbl-font-color: #999aaa;
+    --tbl-th-font-color: #fff;
+    //pagenation
+    --pgn-bg-color: #1c1c28;
+    --pgn-bg-color-hover: #fff;
+    --pgn-font-color: #999aaa;
+    --pgn-font-color-hover: #08080d;
+    --pgn-border-color: #28293d;
+    --pgn-bg-disabled: #28293d;
+    // input fields
+    --input-bg-color: #28293d;
+    --input-font-color: #999aaa;
+    --input-border-color: #1c1c28;
+    // Login input fields
+    --login-input-bg: #28293d;
+    --login-input-color: #999aaa;
+    // Annotation comment box
+    --ann-comments-bg: #1c1c28;
+    --ann-comments-border: #08080d;
+    --ann-comments-head-font-color: #999aaa;
+    // Modela footer border color
+    --model--footer-border: #1c1c28;
+    --model--footer-btn-bg: #1c1c28;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #08080d;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #28293d;
+    --gs-icon-color: #999aaa;
+    --gs-bg-color: #1c1c28;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #1c1c28;
+    --datepkr-bg: #1c1c28;
+    --datepkr-bg-text: #fff;
+}
+
+.theme-dark-yellow {
+    --primary-color: #fbc902;
+    --primary-dark-color: #08080d;
+    --secondary-color: #ffd427;
+    // loginpage
+    --login-bx-bg: rgba(28, 28, 40, 0.9);
+    --login-bx-title: #000;
+    --login-icon-color: #08080d;
+    // cards style
+    --cardhead-bg-color: #f7f7f7;
+    --cardbody-bg-color: #fff;
+    --cardtitle-color: #ffd427;
+    // Model styles
+    --modalhead-bg-color: #000;
+    --modalbody-bg-color: #fff;
+    --modaltitle-color: #fbc902;
+    --modaltext-color: #212529;
+    // Frame content area
+    --frame-cnt-bg-color: #ffffff;
+    --frame-cnt-font-color: #212529;
+    //footer
+    --footer-bg-color: #f7f7f7;
+    --footer-border: #ddd;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: #fbc902;
+    --midle-stirp-bg: #ffd427;
+    --bottom-strip-bg: #f7f7f7;
+    --light-bg-color: #f7f7f7;
+    --border-color-toc: #ddd;
+    --toc-font-color: #212529;
+    --toc-font-color-hover: #fbc902;
+    --toc-node-bg: #000;
+    // status bar text color
+    --status-bar-bg: #1d1f21;
+    --status-bar-font-color1: #fff;
+    --status-bar-font-color2: #fbc902;
+    // toolbar buttons
+    --tool-bar-btn-border: #060708;
+    --tool-bar-btn: #060708;
+    --tool-bar-btn-text: #fbc902;
+    --tool-bar-btn-hover: #060708;
+    --tool-bar-btn-text-hover: #fff;
+    // Module Button
+    --module-btn-bg1: #42474b;
+    --module-btn-bg2: #060708;
+    --module-btn-text: #fbc902;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #060708;
+    --annotfeed-btn: #060708;
+    --annotfeed-btn-text: #fbc902;
+    --annotfeed-btn-hover: #060708;
+    --annotfeed-btn-text-hover: #fff;
+    // For main menu nav
+    --menu-btn: #000;
+    --menu-btn-hover: #fbc902;
+    --menu-btn-color: #fbc902;
+    --menu-btn-color-hover: #000;
+    // For Dashboard Buttons
+    --dashbord-btn: #fff;
+    --dashbord-btn-hover: #060708;
+    --dashbord-btn-color: #060708;
+    --dashbord-btn-colore-hover: #fbc902;
+    // global buttons
+    //--btn-global:
+    // Title colors
+    --ietm-title-color: #000;
+    --mdl-title-color-tool: #000;
+    --mdl-title-color-toc: #08080d;
+    //Table style
+    --tbl-border-color: #ddd;
+    --tbl-font-color: #212529;
+    --tbl-th-font-color: #060708;
+    //pagenation
+    --pgn-bg-color: #fff;
+    --pgn-bg-color-hover: #060708;
+    --pgn-font-color: #060708;
+    --pgn-font-color-hover: #ffd427;
+    --pgn-border-color: #dee2e6;
+    --pgn-bg-disabled: #f5f5f5;
+    // input fields
+    --input-bg-color: #fff;
+    --input-font-color: #495057;
+    --input-border-color: #ced4da;
+    // Login input fields
+    --login-input-bg: #fff;
+    --login-input-color: #495057;
+    // Annotation comment box
+    --ann-comments-bg: #fbfbfb;
+    --ann-comments-border: #e3e3e3;
+    --ann-comments-head-font-color: #212529;
+    // Model footer border color
+    --model--footer-border: #dee2e6;
+    --model--footer-btn-bg: #060708;
+    --model--footer-btn-text: #ffd427;
+    --model--footer-btn-bg-hover: #ffd427;
+    --model--footer-btn-text-hover: #060708;
+    //global serch bar border
+    --gs-border-color: #dfe1e5;
+    --gs-icon-color: #fff;
+    --gs-bg-color: #fbc902;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #060708;
+    --datepkr-bg: #060708;
+    --datepkr-bg-text: #fbc902;
+}
+
+.theme-light {
+    --primary-color: #e4eaf2;
+    --primary-dark-color: #08080d;
+    --secondary-color: #edf2f9;
+    // loginpage
+    --login-bx-bg: rgba(255, 255, 255, 0.7);
+    --login-bx-title: #fff;
+    --login-icon-color: #464e5a;
+    // cards style
+    --cardhead-bg-color: #7e8fa7;
+    --cardbody-bg-color: #fff;
+    --cardtitle-color: #fff;
+    // Model styles
+    --modalhead-bg-color: #7e8fa7;
+    --modalbody-bg-color: #fff;
+    --modaltitle-color: #fff;
+    --modaltext-color: #212529;
+    // Frame content area
+    --frame-cnt-bg-color: #ffffff;
+    --frame-cnt-font-color: #212529;
+    //footer
+    --footer-bg-color: transparent;
+    --footer-border: transparent;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: linear-gradient( 0deg, rgba(213, 219, 228, 1) 0%, rgba(237, 242, 249, 1) 100%);
+    --midle-stirp-bg: linear-gradient( 0deg, rgba(213, 219, 228, 1) 0%, rgba(237, 242, 249, 1) 100%);
+    --bottom-strip-bg: #edf2f9;
+    --light-bg-color: transparent;
+    --border-color-toc: #edf2f9;
+    --toc-font-color: #212529;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #7e8fa7;
+    // status bar text color
+    --status-bar-bg: #7e8fa7;
+    --status-bar-font-color1: #fff;
+    --status-bar-font-color2: #c2d4ee;
+    // toolbar buttons
+    --tool-bar-btn-border: #c7d0de;
+    --tool-bar-btn: #d5dbe4;
+    --tool-bar-btn-text: #464e5a;
+    --tool-bar-btn-hover: #7e8fa7;
+    --tool-bar-btn-text-hover: #fff;
+    // Module Button
+    --module-btn-bg1: #7e8fa7;
+    --module-btn-bg2: #4d617c;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #c7d0de;
+    --annotfeed-btn: #d5dbe4;
+    --annotfeed-btn-text: #464e5a;
+    --annotfeed-btn-hover: #7e8fa7;
+    --annotfeed-btn-text-hover: #fff;
+    // For main menu nav
+    --menu-btn: #fff;
+    --menu-btn-hover: #7e8fa7;
+    --menu-btn-color: #7e8fa7;
+    --menu-btn-color-hover: #fff;
+    // For Dashboard Buttons
+    --dashbord-btn: #fff;
+    --dashbord-btn-hover: #7e8fa7;
+    --dashbord-btn-color: #464e5a;
+    --dashbord-btn-colore-hover: #fff;
+    // Title colors
+    --ietm-title-color: #464e5a;
+    --mdl-title-color-tool: #464e5a;
+    --mdl-title-color-toc: #464e5a;
+    //Table style
+    --tbl-border-color: #ddd;
+    --tbl-font-color: #212529;
+    --tbl-th-font-color: #060708;
+    //pagenation
+    --pgn-bg-color: #fff;
+    --pgn-bg-color-hover: #7e8fa7;
+    --pgn-font-color: #060708;
+    --pgn-font-color-hover: #fff;
+    --pgn-border-color: #dee2e6;
+    --pgn-bg-disabled: #f5f5f5;
+    // input fields
+    --input-bg-color: #fff;
+    --input-font-color: #495057;
+    --input-border-color: #ced4da;
+    // Login input fields
+    --login-input-bg: #fff;
+    --login-input-color: #495057;
+    // Annotation comment box
+    --ann-comments-bg: #fbfbfb;
+    --ann-comments-border: #e3e3e3;
+    --ann-comments-head-font-color: #212529;
+    // Model footer border color
+    --model--footer-border: #dee2e6;
+    --model--footer-btn-bg: #7e8fa7;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #566273;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #dfe1e5;
+    --gs-icon-color: #fff;
+    --gs-bg-color: #7e8fa7;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    // fram extra style light version
+    --fram-bx-shadow: 0 7px 14px 0 rgba(65, 69, 88, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    --border-rdius: 5px;
+    --body-bg-color: #edf2f9;
+    --dropdown-hover-bg: #7e8fa7;
+    --datepkr-bg: #7e8fa7;
+    --datepkr-bg-text: #fff;
+}
+
+.theme-navy {
+    --primary-color: #3a3838;
+    --primary-dark-color: #08080d;
+    --secondary-color: #3a3838;
+    // loginpage
+    --login-bx-bg: rgba(28, 28, 40, 0.2);
+    --login-bx-title: #fff;
+    --login-icon-color: #fff;
+    // cards style
+    --cardhead-bg-color: #3b3f3f;
+    --cardbody-bg-color: #161616;
+    --cardtitle-color: #999aaa;
+    // Model styles
+    --modalhead-bg-color: #3a3e3e;
+    --modalbody-bg-color: #181818;
+    --modaltitle-color: #fff;
+    --modaltext-color: #999aaa;
+    // Frame content area
+    --frame-cnt-bg-color: #1c2329;
+    --frame-cnt-font-color: #999aaa;
+    //footer
+    --footer-bg-color: #1c1c28;
+    --footer-border: #28293d;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: linear-gradient(0deg, #787878 0%, #1f1f1f 100%) repeat scroll 0% 0% transparent !important;
+    --midle-stirp-bg: #585656;
+    --bottom-strip-bg: #4c4b4b;
+    --light-bg-color: #1c2329;
+    --border-color-toc: #28293d;
+    --toc-font-color: #c2c4da;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #181718;
+    // status bar text color
+    --status-bar-bg: #383535;
+    --status-bar-font-color1: #55ff00;
+    --status-bar-font-color2: #ffff00;
+    // toolbar buttons
+    --tool-bar-btn-border: #000;
+    --tool-bar-btn: #3a3838;
+    --tool-bar-btn-text: #fff;
+    --tool-bar-btn-hover: #868686;
+    --tool-bar-btn-text-hover: #18f803;
+    // Module Button
+    --module-btn-bg1: #28293d;
+    --module-btn-bg2: #08080d;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #1c1c28;
+    --annotfeed-btn: #3d3d3d;
+    --annotfeed-btn-text: #fff;
+    --annotfeed-btn-hover: #868686;
+    --annotfeed-btn-text-hover: #18f803;
+    // For main menu nav
+    --menu-btn: ##3d3d3d;
+    --menu-btn-hover: #33672f;
+    --menu-btn-color: #fff;
+    --menu-btn-color-hover: #18f803;
+    // For Dashboard Buttons
+    --dashbord-btn: #383535;
+    --dashbord-btn-hover: #804000;
+    --dashbord-btn-color: #18f803;
+    --dashbord-btn-colore-hover: #18f803;
+    // Title colors
+    --ietm-title-color: #fff;
+    --mdl-title-color-tool: #fff;
+    --mdl-title-color-toc: #fff;
+    //Table style
+    --tbl-border-color: #18f803;
+    --tbl-font-color: #999aaa;
+    --tbl-th-font-color: #18f803;
+    //pagenation
+    --pgn-bg-color: #1c1c28;
+    --pgn-bg-color-hover: #804000;
+    --pgn-font-color: #fff;
+    --pgn-font-color-hover: #18f803;
+    --pgn-border-color: #28293d;
+    --pgn-bg-disabled: #28293d;
+    // input fields
+    --input-bg-color: #000;
+    --input-font-color: #18f803;
+    --input-border-color: #1c1c28;
+    // Login input fields
+    --login-input-bg: #000;
+    --login-input-color: #18f803;
+    // Annotation comment box
+    --ann-comments-bg: #1c1c28;
+    --ann-comments-border: #08080d;
+    --ann-comments-head-font-color: #999aaa;
+    // Modela footer border color
+    --model--footer-border: #1c1c28;
+    --model--footer-btn-bg: #1c1c28;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #08080d;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #28293d;
+    --gs-icon-color: #999aaa;
+    --gs-bg-color: #1c1c28;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #1c1c28;
+    --datepkr-bg: #1c1c28;
+    --datepkr-bg-text: #fff;
+}
+
+.theme-purple {
+    --primary-color: #6d1b7b;
+    --primary-dark-color: #62136f;
+    --secondary-color: #9c27b0;
+    // loginpage
+    --login-bx-bg: rgba(255, 255, 255, 0.7);
+    --login-bx-title: #fff;
+    --login-icon-color: #fff;
+    // cards style
+    --cardhead-bg-color: #fcf2fe;
+    --cardbody-bg-color: #fff;
+    --cardtitle-color: #9c27b0;
+    // Model styles
+    --modalhead-bg-color: #6d1b7b;
+    --modalbody-bg-color: #fff;
+    --modaltitle-color: #fff;
+    --modaltext-color: #212529;
+    // Frame content area
+    --frame-cnt-bg-color: #ffffff;
+    --frame-cnt-font-color: #212529;
+    //footer
+    --footer-bg-color: #fcf2fe;
+    --footer-border: #e69ff2;
+    // for menu items and toc BG and top strpis bg color
+    --top-stirp-bg: #6d1b7b;
+    --midle-stirp-bg: #9c27b0;
+    --bottom-strip-bg: #fcf2fe;
+    --light-bg-color: #fcf2fe;
+    --border-color-toc: #e69ff2;
+    --toc-font-color: #212529;
+    --toc-font-color-hover: #fff;
+    --toc-node-bg: #6d1b7b;
+    // status bar text color
+    --status-bar-bg: #fcf2fe;
+    --status-bar-font-color1: #212529;
+    --status-bar-font-color2: #6d1b7b;
+    // toolbar buttons
+    --tool-bar-btn-border: #6d1b7b;
+    --tool-bar-btn: #6d1b7b;
+    --tool-bar-btn-text: #fff;
+    --tool-bar-btn-hover: #fff;
+    --tool-bar-btn-text-hover: #6d1b7b;
+    // Module Button
+    --module-btn-bg1: #9c27b0;
+    --module-btn-bg2: #62136f;
+    --module-btn-text: #fff;
+    // annotation feedback buttons
+    --annotfeed-btn-border: #6d1b7b;
+    --annotfeed-btn: #6d1b7b;
+    --annotfeed-btn-text: #fff;
+    --annotfeed-btn-hover: #fff;
+    --annotfeed-btn-text-hover: #6d1b7b;
+    // For main menu nav
+    --menu-btn: #fff;
+    --menu-btn-hover: #9c27b0;
+    --menu-btn-color: #9c27b0;
+    --menu-btn-color-hover: #fff;
+    // For Dashboard Buttons
+    --dashbord-btn: #fff;
+    --dashbord-btn-hover: #9c27b0;
+    --dashbord-btn-color: #9c27b0;
+    --dashbord-btn-colore-hover: #fff;
+    // Title colors
+    --ietm-title-color: #fff;
+    --mdl-title-color-tool: #fff;
+    --mdl-title-color-toc: #62136f;
+    //Table style
+    --tbl-border-color: #ddd;
+    --tbl-font-color: #212529;
+    --tbl-th-font-color: #fff;
+    //pagenation
+    --pgn-bg-color: #fff;
+    --pgn-bg-color-hover: #9c27b0;
+    --pgn-font-color: #9c27b0;
+    --pgn-font-color-hover: #fff;
+    --pgn-border-color: #dee2e6;
+    --pgn-bg-disabled: #f5f5f5;
+    // input fields
+    --input-bg-color: #fff;
+    --input-font-color: #495057;
+    --input-border-color: #ced4da;
+    // Login input fields
+    --login-input-bg: #fff;
+    --login-input-color: #495057;
+    // Annotation comment box
+    --ann-comments-bg: #fbfbfb;
+    --ann-comments-border: #e3e3e3;
+    --ann-comments-head-font-color: #212529;
+    // Model footer border color
+    --model--footer-border: #dee2e6;
+    --model--footer-btn-bg: #6d1b7b;
+    --model--footer-btn-text: #fff;
+    --model--footer-btn-bg-hover: #9c27b0;
+    --model--footer-btn-text-hover: #fff;
+    //global serch bar border
+    --gs-border-color: #dfe1e5;
+    --gs-icon-color: #fff;
+    --gs-bg-color: #6d1b7b;
+    // Hyper Link and Content Hotspots======
+    --page-hyper-link: #0645AD;
+    --video-hotspot: #f6834b;
+    --image-hotspot: #f9638d;
+    --word-hotspot: #c213e8;
+    // mark local search selectoin bg color
+    --mark-color: yellow;
+    //colors for content
+    --color-white: #fff;
+    --color-black: #000;
+    --dropdown-hover-bg: #6d1b7b;
+    --datepkr-bg: #6d1b7b;
+    --datepkr-bg-text: #fff;
+}

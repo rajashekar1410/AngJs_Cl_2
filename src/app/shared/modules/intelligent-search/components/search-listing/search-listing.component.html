@@ -1,0 +1,20 @@
+<div class="main1_warper">
+  <div class="manage-user-module">
+    <div class="container-fluid">
+    <div class="row">
+    
+      <div class="col-md-12 mt-2" >
+        
+          <button id="add-item-btn" type="button" class="btn btn-primary btn-sm" (click)="triggerAddUpdSearchItem(false)">
+            Add <i aria-hidden="true" class="fa fa-plus-circle"></i></button>
+        </div>
+        <div class="col-md-12 mt-1" >
+        <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger"
+          class="display main-content table table-bordered">
+         
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

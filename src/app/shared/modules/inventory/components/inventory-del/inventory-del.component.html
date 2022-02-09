@@ -1,0 +1,24 @@
+<div #deletemember backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+    <h4 class="modal-title">
+      <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Item</h4>
+  </div>
+  <div class="modal-body">
+   
+     
+          <p>This will delete the Inventory item `{{invInfo.description}}` permanently.
+            Would you like to proceed?
+          </p>
+      
+        </div>
+      <div class="modal-footer justify-content-center">
+      
+          <button type="button" class="btn btn-primary"  (click)="processRequest()">YES</button>
+       
+       
+          <button type="button" (click)="modalRef.hide()" class="btn btn-primary"  style="padding: 6px 13px;">NO</button>
+       
+      </div>
+   
+</div>

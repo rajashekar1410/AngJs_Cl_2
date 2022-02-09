@@ -1,0 +1,137 @@
+.modal-title {
+  text-align: center;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.modal {
+  text-align: center;
+  padding: 0 !important;
+
+  .modal-dialog {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // overflow: auto;
+    @media (max-width: 768px) {
+      min-height: calc(100vh - 20px);
+    }
+    .modal-content {
+      -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      background: var(--modalbody-bg-color);
+      color: var(--modaltext-color);
+      border: none;
+      .modal_header {
+        background-color: var(--modalhead-bg-color);
+        color: var(--modaltitle-color);
+        text-align: center;
+        border-radius: 4px 4px 0 1px;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+        background-repeat: repeat-x;
+        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+        padding: 5px 2px;
+        &:hover {
+          cursor: move;
+        }
+        .close {
+          margin-top: -1px;
+          margin-right: 1px;
+          color: #000;
+          opacity: 1;
+          position: absolute;
+          right: 2px;
+          top: 3px;
+          outline: none;
+          border: none;
+          padding: 3px 8px;
+          transition: 0.2s linear all;
+          &:hover {
+            color: red;
+            opacity: 1;
+          }
+        }
+        .fa-exclamation-triangle {
+          color: #e7c900;
+          padding-right: 5px;
+        }
+      }
+      .modal-body {
+        p {
+          margin-bottom: 0;
+        }
+      }
+      .modal-footer {
+        padding: 0.25rem;
+        border-top: 1px solid var(--model--footer-border);
+      }
+      button.btn-primary {
+        background: var(--model--footer-btn-bg);
+        transition: 0.2s linear all;
+        color: var(--model--footer-btn-text);
+        &:hover {
+          background: var(--model--footer-btn-bg-hover);
+          color: var(--model--footer-btn-text-hover);
+        }
+      }
+    }
+  }
+}
+
+#overlay {
+  width: calc(100vw - 319px);
+  position: fixed;
+  top: 121px;
+  left: 291px;
+  right: 0;
+  bottom: 0;
+  background-color: #f6f6f6;
+  /* overflow-y: hidden; */
+  /* cursor: pointer; */
+  margin: 10px;
+  height: calc(100vh - 150px);
+  border-radius: 3px;
+  box-shadow: 0px 0px 9px #000;
+  clear: both;
+  z-index: 1039;
+  .modal_header {
+    color: var(--color-white);
+    text-align: center;
+    border-radius: 4px 4px 0 1px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    background-color: var(--secondary-color);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    padding: 5px 2px;
+  }
+}
+.overlay-full {
+  top: 0px !important;
+  left: 0px !important;
+  height: calc(100vh - 30px) !important;
+  overflow: hidden;
+  width: calc(100vw - 20px) !important;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  #overlay {
+    width: calc(100vw - 2px);
+    top: 130px;
+    left: -9px;
+    height: calc(100vh - 140px);
+    .modal-title {
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+}

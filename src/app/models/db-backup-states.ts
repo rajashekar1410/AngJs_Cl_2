@@ -1,0 +1,5 @@
+export enum DBBackupStates {
+  STATE_FETCH_HISTORY = 0,
+  STATE_BACKUP_NOW = 1,
+  STATE_RESTORE_NOW = 2
+}

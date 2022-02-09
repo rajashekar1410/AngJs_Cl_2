@@ -1,0 +1,239 @@
+<div class="main1_warper">
+  <div class="manage-user-module">
+    <div class="container">
+      <div class="row">
+
+
+        <div class="col-md-12  float-right mt-1">
+          <button class="manage-adduser" (click)="addform(addmember)" data-toggle="modal" id="snbtn1"
+            data-target="#draggable" data-backdrop="false">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i> Add User</button>
+        </div>
+
+
+        <div class="col-md-12 mt-2">
+          <app-ietm-table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" [contentFilterEnabled]="false"
+            [printEnabled]="true"></app-ietm-table>
+
+
+          <!-- Print btn -->
+          <!-- <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+          <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+        </p> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--=====Add user popup===========================================-->
+<ng-template #addmember let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.modalRef.hide()">&times;</button>
+    <h4 class="modal-title">{{form_title}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="box1">
+      <form class="form-horizontal" (ngSubmit)="manageformsub(userForm)" #userForm="ngForm" novalidate>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label">ID No:</label>
+          <div class="col-sm-6">
+            <input required class="form-control" type="text" name="employee_id" id="employee_id"
+              [(ngModel)]="formdata.tdata.employee_id" #employee_id="ngModel">
+            <p class="text-danger" *ngIf="employee_id.errors?.required  &&  userForm.submitted">Employee Id is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label">Username:</label>
+          <div class="col-sm-6">
+            <input required class="form-control" type="text" name="user_name" id="user_name"
+              [(ngModel)]="formdata.tdata.user_name" #user_name="ngModel">
+            <p class="text-danger" *ngIf="user_name.errors?.required  &&  userForm.submitted">User Name is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="formdata.tdata.id ==''">
+          <label class="col-sm-5 col-form-label">Password:</label>
+          <div class="col-sm-6">
+            <input required class="form-control" type="password" name="user_password" id="user_password"
+              [(ngModel)]="formdata.tdata.user_password" #user_password="ngModel">
+            <p class="text-danger" *ngIf="user_password.errors?.required  &&  userForm.submitted">Password is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label ">Role:</label>
+          <div class="col-sm-6">
+            <select required class="select_dropdown" id="user_type" name="user_type"
+              [(ngModel)]="formdata.tdata.user_type" #user_type="ngModel">
+              <option value="">Select</option>
+              <option value="2">Operator</option>
+              <option value="3">Maintainer</option>
+            </select>
+            <p class="text-danger" *ngIf="user_type.errors?.required  &&  userForm.submitted">
+              Select User-Type is required
+            </p>
+          </div>
+        </div>
+        <p align="center" style="color: #ff0000;">{{formvalidation}}</p>
+        <div class="form-group row" style="margin-bottom:0px;">
+          <div class="text-center col-sm-12">
+            <button type="submit" [disabled]="!userForm.valid || !userForm.dirty" class="btn btn-primary" id="adUser"
+              style="margin-left:10px;padding: 6px 20px;">{{form_btntitle}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!--=====Delete popup===========================================-->
+<ng-template #deletemember let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.closepop()">&times;</button>
+    <h4 class="modal-title">
+      <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Member
+    </h4>
+  </div>
+  <div class="modal-body">
+
+
+    <p>This will delete the user `{{userdeletion_object['user_name']}}` permanently.
+      Would you like to proceed?
+    </p>
+  </div>
+
+
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-primary" id="" (click)="deleteuser()">YES</button>
+
+
+    <button type="button" (click)="mdls.closepop()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</button>
+
+  </div>
+
+
+</ng-template>
+<!--=====Reset Password===========================================-->
+<!--<ng-template #resetpwd let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.closepop()">&times;</button>
+    <h4 class="modal-title">
+      <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Reset Password</h4>
+  </div>
+  <div class="modal-body">
+    <div class="box1">
+      <form class="form-horizontal">
+        <div class="form-group row">
+          <label style="text-align:center;" class="col-md-12 col-form-label">This will reset the password permanently.
+            Would you like to proceed?
+          </label>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-2">
+          <button type="button" class="btn btn-primary" id="" (click)="resetuserpwd()">YES</button>
+        </div>
+        <div class="col-md-2">
+          <button type="button" (click)="mdls.closepop()" class="btn btn-primary" id=""
+            style="padding: 6px 13px;">NO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>-->
+
+<ng-template #forgotpwdmdl let-modal backdrop>
+
+  <div class="modal-header modal_header">
+    <h4 class="modal-title">Reset Password for {{userdeletion_object['user_name']}}</h4>
+    <button type="button" class="close" data-dismiss="modal" (click)="mdls.modalRef.hide()">&times;</button>
+  </div>
+  <div class="modal-body box_padding">
+    <div class="box1">
+      <form class="form-horizontal" action="#">
+        <div class="form-group row">
+          <label class="col-sm-6 col-form-label text-left">New Password
+          </label>
+          <div class="col-sm-6">
+            <input class="form-control" type="password" id="ResetP1" name="ResetP1" [(ngModel)]="resetpwds.newpwd">
+          </div>
+        </div>
+        <div>
+          <div class="form-group row">
+            <label class="col-sm-6 col-form-label  text-left">Re-enter New Password
+            </label>
+            <div class="col-sm-6">
+              <input class="form-control" type="password" id="ResetP2" name="ResetP2" [(ngModel)]="resetpwds.retypepwd">
+            </div>
+          </div>
+        </div>
+        <p align="center" style="color: #ff0000;">{{resetpwd_validation}}</p>
+        <div class="form-group row" style="margin-bottom:0px;">
+          <div class="col-sm-12 text-center">
+            <button class="btn btn-primary" type="button" (click)="updatepwd()"
+              [disabled]="resetpwds.newpwd =='' || resetpwds.retypepwd ==''" id="btn1"
+              style="margin-left:20px;">SUBMIT</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</ng-template>
+
+<!--=====User Access Rights===========================================-->
+<ng-template #accessrights let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.closepop()">&times;</button>
+    <h4 class="modal-title">Access Rights</h4>
+  </div>
+  <div class="modal-body">
+    <div class="box1">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-bordered access-rights" style="margin-bottom:0px;">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label><input data-val="1" value="1" type="checkbox" class="checkBoxClass" name="core_access"
+                        [(ngModel)]="access_rights[0]" />IETM Core</label>
+                  </div>
+                </td>
+                <td>
+                  <div class="checkbox">
+                    <label><input data-val="1" value="1" type="checkbox" class="checkBoxClass" name="manual_access"
+                        [(ngModel)]="access_rights[1]" />Manuals</label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="checkbox">
+                    <label><input data-val="1" value="1" type="checkbox" class="checkBoxClass" name="drawings_access"
+                        [(ngModel)]="access_rights[2]" />Drawings</label>
+                  </div>
+                </td>
+                <td>
+                  <div class="checkbox">
+                    <label> <input data-val="1" value="1" type="checkbox" class="checkBoxClass" name="glosary_access"
+                        [(ngModel)]="access_rights[3]" />Glossary</label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="form-group row" style="margin-bottom:0px;">
+            <p align="center" style="color: #ff0000;">{{formvalidation}}</p>
+            <div class="text-center col-sm-12">
+              <button type="button" (click)="update_accessrights()" class="btn btn-primary"
+                style="margin-left:10px;padding: 6px 20px;">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

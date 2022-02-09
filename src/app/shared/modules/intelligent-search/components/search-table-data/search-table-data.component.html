@@ -1,0 +1,86 @@
+<!-- Filter -->
+<!-- <li class="col-sm-3"><b>Module Filter:</b></li> -->
+
+<div class="col-md-12 mt-4">
+  <div class="card card-primary w-100">
+    <div class="card-header p-0">
+      <div class="row">
+        <div class="col-md-7 col-7  my-auto">
+          <h5 class="mb-0 text-right">Results</h5>
+        </div>
+        <div class="col-md-5 col-5">
+
+
+
+          <div title="Filter by Module" class="btn-group module_menu float-right" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="gs-filter-btn btn btn-primary btn-sm m-1"
+              aria-controls="dropdown-basic">
+              Filter: <span class="fa fa-filter"></span>&nbsp;<span>{{selectedModule?.name}}</span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu gs-filter-dropdown dropdown-left" role="menu"
+              aria-labelledby="button-basic">
+              <li class="menuitem" [class.active]="selectedModule == null">
+                <a class="dropdown-item" (click)="selectedModule=null;triggerSearch()">All</a>
+              </li>
+              <li class="menuitem" [class.active]="selectedModule?.id == i.id" *ngFor="let i of cs.moduledata">
+                <a class="dropdown-item" (click)="selectedModule=i;triggerSearch()">{{i.name}}</a>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body  best_matches_container p-0">
+      <!-- Table -->
+      <table id="searchlist_table" datatable [dtOptions]="searchdtOptions"
+        style="width:100%;margin-top: -1px !important;" class="table table-striped table-bordered main-content">
+        <thead>
+          <tr>
+            <th style="width:10%">Sr. No.</th>
+            <th>Results</th>
+            <th>Module Name</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="contentList.length != 0">
+          <tr *ngFor="let listdata of contentList;let j=index">
+            <td style="width:10%">{{searchlistid+j+1}}</td>
+            <td>
+              <!-- Annotation result -->
+              <span *ngIf="listdata.contentType == dataFilterTypes.TYPE_ANNOTATION">
+                <span style="color: #0d47a1;cursor: pointer;" (click)="handleIETMAnnotationClick(listdata)">
+                  {{listdata.title}}
+                </span>
+                <span><br><b>Description: </b>{{listdata.description}}</span>
+              </span>
+              <!-- IETM Content result -->
+              <span style="color:#0d47a1;cursor: pointer;" (click)="opensearch(listdata)"
+                *ngIf="listdata.contentType != dataFilterTypes.TYPE_ANNOTATION && listdata.contentType != dataFilterTypes.TYPE_INVENTORY ">
+                <span>{{listdata.title}}</span><br>
+              </span>
+              <!-- Inventory result -->
+              <span *ngIf="listdata.contentType == dataFilterTypes.TYPE_INVENTORY ">
+                <span><b>Part No: </b>{{listdata.part_no}}</span>
+                <span><br><b>Description: </b>{{listdata.description}}</span>
+              </span>
+            </td>
+            <!-- Module Name -->
+            <td>
+              <span *ngIf="listdata.contentType == dataFilterTypes.TYPE_INVENTORY">Inventory</span>
+              <span *ngIf="listdata.contentType != dataFilterTypes.TYPE_INVENTORY">{{listdata.module_name}}</span>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="contentList.length ==0 && isS.userQuery.length>0">
+          <tr>
+            <td class="text-center" colspan="3">No results found</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+</div>

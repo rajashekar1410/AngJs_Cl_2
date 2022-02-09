@@ -1,0 +1,78 @@
+<br><br>
+<div class="manage-user-module">
+ 
+    <div class="container-fluid" >
+    <div class="row justify-content-between" >
+      <!-- Add button -->
+      <div class="col-md-10 col-10">
+        <button type="button" class="btn btn-primary btn-sm invbtns" [disabled]="cs.user_session.user_type != 1"
+          (click)="triggerAddUpdInv(inventoryActionTypes.TYPE_I_ADD)">
+          <i class="fa fa-plus"></i>
+          Add 
+        </button>
+        <!-- Overall History -->
+        <button type="button" class="btn btn-primary  btn-sm invbtns" style="margin-left: 5px;"
+          (click)="triggerInvReports(null, inventoryReportTypes.TYPE_OVERALL_HISTORY)">
+          <i class="fa fa-book"></i>
+          Overall History
+        </button>
+        <!-- Consumption History -->
+        <button type="button" class="btn btn-primary  btn-sm invbtns" style="margin-left:5px;"
+          (click)="triggerInvReports(null, inventoryReportTypes.TYPE_CONSUMPTION_REPORT)">
+          <i class="fa fa-list"></i>
+          Consumption History
+        </button>
+        <!-- Current Orders -->
+        <button type="button" class="btn btn-primary  btn-sm invbtns" style="margin-left: 5px;"
+          (click)="triggerInvReports(null, inventoryReportTypes.TYPE_CURRENT_ORDERS)">
+          <i class="fa fa-calendar"></i>
+          Open Orders
+        </button>
+        <!-- Received Orders -->
+        <button type="button" class="btn btn-primary  btn-sm invbtns" style="margin-left: 5px;"
+          (click)="triggerInvReports(null, inventoryReportTypes.TYPE_RECEIVED_ORDERS)">
+          <i class="fa fa-calendar-check-o"></i>
+          Received Orders
+        </button>
+        <!-- Cancelled Orders -->
+        <button type="button" class="btn btn-primary  btn-sm invbtns" style="margin-left: 5px;"
+          (click)="triggerInvReports(null, inventoryReportTypes.TYPE_CANCELLED_ORDERS)">
+          <i class="fa fa-calendar-times-o"></i>
+          Cancelled Orders
+        </button>
+      </div>
+      <!-- Filter -->
+      <div class="col-md-2 col-2">
+       
+          <div title="Sorting" dropdown class="btn-group module_menu float-right">
+            <button id="button-basic" dropdownToggle type="button" class="gs-filter-btn btn btn-primary dropdown-toggle  btn-sm invbtns"
+              aria-controls="dropdown-basic" >
+              <span class="fa fa-filter"></span> {{selectedInvType.name}}
+            </button>
+            <ul id="dropdown-basic " *dropdownMenu class="dropdown-menu dropdown-left gs-filter-dropdown" role="menu"
+              aria-labelledby="button-basic">
+              <li class="menuitem" *ngFor="let i of invTypesArray">
+                <a class="dropdown-item" [class.active]="selectedInvType.id == i.id"
+                  (click)="changeInvType(i.id)">{{i.name}}</a>
+              </li>
+            </ul>
+          </div>
+     
+      </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-12 mt-1">
+      <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger" 
+        class="display main-content table table-bordered">
+       
+      </table>
+      <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+        <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+      </p>
+    </div>
+    </div>
+    </div>
+  <!-- Print btn -->
+ 
+</div>

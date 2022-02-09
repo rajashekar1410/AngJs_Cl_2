@@ -1,0 +1,258 @@
+<nav class="bottom_header container-fluid">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-6">
+      <ul class="nav navbar-left">
+        <li>
+          <button (click)="navigateHome()" class="btn" title="Home" [disabled]="disabled_buttons==0">
+            <i class="lni lni-home"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" (click)="backClicked()" [disabled]="disabled_buttons==0" data-toggle="tooltip"
+            data-placement="top" title="History Navigation, Back">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+          </button>
+        </li>
+        <li>
+          <button class="btn" (click)="forwardClicked()" [disabled]="disabled_buttons==0"
+            title="History Navigation, Forward">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </li>
+        <li class="d-inline-block module_menu btn-group" dropdown [isDisabled]="disabled_buttons==0">
+          <button title="Modules" id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+            aria-controls="dropdown-basic">
+            <i class="fa fa-desktop" aria-hidden="true"></i>
+            <b class="caret"></b>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" *ngFor="let namedt of  cs.moduledata" (click)="openmdl(namedt.id)">
+              <a class="dropdown-item" [class.active]="cs.selmodule_id==namedt.id">{{namedt.name}}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="d-inline-block module_menu btn-group" dropdown>
+          <button title="Help" id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+            aria-controls="dropdown-basic">
+            <!-- <i class="fa fa-question-circle" aria-hidden="true"></i> -->
+            <i class="lni lni-question-circle"></i>
+            <b class="caret"></b>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem" (click)="openabout()">
+              <a class="dropdown-item">About IETM</a>
+            </li>
+            <li role="menuitem" (click)="openhelp(0)" *ngIf="cs.user_session.user_type==0">
+              <a class="dropdown-item">How to Use IETM?</a>
+            </li>
+            <li role="menuitem" (click)="openhelp(1)" *ngIf="cs.user_session.user_type==1">
+              <a class="dropdown-item">How to Use IETM?</a>
+            </li>
+            <li role="menuitem" (click)="openhelp(2)" *ngIf="[2,3].includes(cs.user_session.user_type)">
+              <a class="dropdown-item">How to Use IETM?</a>
+            </li>
+            <li role="menuitem" (click)="openVersionHistory()">
+              <a class="dropdown-item">Version & Revision History</a>
+            </li>
+            <!-- <li role="menuitem" dropdown triggers="mouseover" placement="right">
+              <a dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">How to Use IETM?
+                <span class="caret"></span>
+              </a>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem" (click)="openhelp(1)">
+                  <a class="dropdown-item">Document</a>
+                </li>
+                <li role="menuitem" (click)="openhelp(2)">
+                  <a class="dropdown-item">Video</a>
+                </li>
+              </ul>
+            </li>-->
+          </ul>
+        </li>
+        <!--<li ngbDropdown class="d-inline-block">
+            <button class="btn" id="dropdownBasic1" ngbDropdownToggle [disabled]="disabled_buttons==0">
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item" [routerLink]="['/pages']">How to Use IETM?</button>
+              <button class="dropdown-item" [routerLink]="['/pages']">About IETM</button>
+            </div>
+          </li>-->
+      </ul>
+    </div>
+
+    <div class="col-lg-4 col-md-4  col-sm-4 col-6 order-sm-2  order-lg-3">
+      <ul class="nav float-right ml-md-3">
+        <!-- Logout button -->
+        <li>
+          <button class="btn" (click)="openLogoutModal()" title="Logout">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Search Bar==================================================================== -->
+      <ul class="nav float-right " [hidden]="disabled_pactions==0">
+        <li id="font-slider-button-holder" class="d-inline-block  d-none d-sm-block btn-group" dropdown
+          [insideClick]="true" (onShown)="initFontSlider()" (onHidden)="destroyFontSlider()">
+          <button title="Zoom" id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+            aria-controls="dropdown-basic">
+            <i class="lni lni-text-format"></i>
+            <b class="caret"></b>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li [hidden]="!fontSliderInstance" role="menuitem">
+              <a class="no-hover">
+                <!-- minus sign -->
+                <i class="lni lni-minus font-slider-icon " (click)="updateFontSize(cs.contentFontSize-1)"
+                  aria-hidden="true"></i>
+                <!-- slider element -->
+                <input id="font-slider-input" type="text" />
+                <!-- plus sign -->
+                <i class="lni lni-plus font-slider-icon " (click)="updateFontSize(cs.contentFontSize+1)"
+                  aria-hidden="true"></i>
+              </a>
+            </li>
+            <li [hidden]="fontSliderInstance">loading...</li>
+          </ul>
+        </li>
+        <li title="Full Screen" class="d-none d-sm-block">
+          <button class="btn" id="fullscreen-trigger">
+            <i class="lni lni-full-screen"></i>
+          </button>
+        </li>
+        <li title="Print" *ngIf="cs.user_session.user_type==1" class="d-none d-sm-block">
+          <button class="btn" (click)="printdata()">
+            <i class="lni lni-printer"></i>
+          </button>
+        </li>
+        <li [title]="cs.isbookmarked==1 ? 'Remove Bookmark' : 'Bookmark this Page'">
+          <button class="btn" [className]="cs.isbookmarked==1  ? 'btn active' : 'btn'" (click)="addbookmark()">
+            <i class="lni lni-bookmark"></i>
+          </button>
+        </li>
+        <!--<li  title="Annotation">
+
+          <button class="btn" [disabled]="disabled_pactions==0" (click)="viewannotations()">
+            <i class="fa fa-comments " aria-hidden="true"></i>
+            <span class="badge" *ngIf="cs.annots_count>0">{{cs.annots_count}}</span>
+          </button>
+        </li>-->
+        <li>
+          <button class="btn" (click)="openGlobalSearchPage()" [disabled]="disabled_pactions==0">
+            <i class="lni lni-search"></i>
+          </button>
+          <!--<p-autoComplete [disabled]="disabled_pactions==0" name="autocmp" (onSelect)="doSelect($event.id)" [(ngModel)]="text" [suggestions]="results"
+            (completeMethod)="search($event)" placeholder="Search by Page">
+            <ng-template let-value pTemplate="searchdata">
+              <div class="ui-helper-clearfix">
+                <a style="text-decoration:none">
+                  <span style="font-weight:500">{{value.title}}</span>
+                  <br>
+                </a>
+              </div>
+            </ng-template>
+          </p-autoComplete>-->
+        </li>
+
+
+      </ul>
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 my-auto">
+      <p class="mudule_title">
+        <b>{{cs.page_header}}</b>
+      </p>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>
+<div bsModal #aboutietm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="aboutietm.hide()">&times;</button>
+        <h4 class="modal-title">About IETM</h4>
+      </div>
+      <div class="modal-body" style="padding: 0px;">
+        <section class="about_ietm">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-3 col-sm-4">
+                <div class="left_content">
+                  <div class="top_area">
+                    <!-- <div class="brom">
+                                            <p align="center">
+                                                <img width="170" height="100"
+                                                    src="assets/{{cs.appimages}}/about-user.jpg"
+                                                    class="img-responsive" />
+                                            </p>
+                                        </div>-->
+                    <div class="ietm_sys" style="margin: 10px 0;">
+                      <p>
+                        <img src="assets/{{cs.appimages}}/codeandpixels.png" class="img-responsive" />
+                      </p>
+                      <small class="mb-1">Code and Pixels Interactive Technologies PVT. LTD.</small>
+                      <p><i class="lni lni-phone"></i> <span>098495 27706</span></p>
+                      <p><i class="lni lni-world"></i> <span>www.codeandpixels.net</span></p>
+                      <p><i class="lni lni-envelope"></i> <span>sales@codeandpixels.net</span></p>
+                    </div>
+                    <div class="productInfo">
+                      <table class="table" style="color:black">
+                        <tr>
+                          <td><b>Version No:</b></td>
+                          <td>{{productVersion}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Build Date:</b></td>
+                          <td>{{productBuildDate}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Product Build:</b></td>
+                          <td>{{productBuildVersion}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <!-- <div class="lt">
+                                            <p align="center">
+                                                <img width="170" height="100"
+                                                    src="assets/{{cs.appimages}}/about-client.jpg"
+                                                    class="img-responsive" />
+                                            </p>
+                                        </div>-->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-9 col-sm-8 aboutright">
+                <p>Technical manuals (e.g. maintenance, user, training, operations, etc) published in electronic format
+                  are becoming more and more popular than paper based manuals for their interactivity, convenience and
+                  ease of use.</p>
+                <p>For example, the maintenance and operation manuals of a warship, which used to occupy 300 -350 sq.
+                  feet of prime area with thousands of pages of technical literature.</p>
+                <p>It was very difficult to refer some operating process or trouble shooting from thousands of
+                  hardcopies. Each time, maintainers had to refer multiple books to get information related to issues.
+                </p>
+                <p>To address these issues, IETMs were introduced in ships initially. IETM is the replacement of
+                  paperwork / hard copies</p>
+                <p>IETMs are now replaced by their electronic versions occupying very little space and can be viewed on
+                  tablets from any part of the ship. These electronic technical manuals are termed as Interactive
+                  Electronic Technical Manuals
+                  (IETM) or Interactive Electronic Technical Publications (IETP).</p>
+                <p>Interactive Electronic Technical Manuals (IETMs) or Interactive Electronic Technical Publications
+                  (IETPs) are technical manuals (such as maintenance, training, user or operations manuals) usually
+                  authored in XML or HTML
+                  -5.
+                </p>
+                <p>IETMs are a portable, electronic "library" which contain thousands of pages of documentation and
+                  images and allows end users to trace technical documentation in a more efficient manner, and the
+                  digital nature provides a
+                  more agile and accurate method of updating technical documentation.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

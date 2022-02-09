@@ -1,0 +1,138 @@
+/*
+	STYLE SHEET FOR JQUERY LISTNAV PLUGIN V 3.0.0, 11/22/2017
+	For more information, visit http://esteinborn.github.com/jquery-listnav
+*/
+.listNav,
+.ln-letters {
+  overflow: hidden;
+}
+
+.listNavHide {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.letterCountShow {
+  display: block;
+  background:#003f72;
+  color:#fff !important;
+  border-radius:50px;
+}
+
+.listNavShow {
+	list-style-type: none;
+	margin-left: -40px;
+	margin-right: 38px;
+}
+.ln-init-hidden {
+	list-style-type: none;
+	background: #d5ffca;
+	margin-left: -40px;
+	margin-right: 51px;
+	text-align: center;
+	padding: 2px 5px;
+	border: 1px solid #60ca44;
+	color: #239305;
+	margin-top: 21px;
+}
+.ln-no-match  {
+	list-style-type: none;
+background:#fcc1d1;
+margin-left: -40px;
+	margin-right: 51px;
+	text-align:center;
+	padding:2px 5px;
+	border:1px solid #f68181;
+	color:#ce2121;
+	margin-top: 21px;
+}
+.mrg-tp-glow{margin-top: 21px;position:relative;display: block !important;}
+.listNavShow .tot_box {
+	/* background: #000; */
+	display: flex;
+}
+.listNavShow .box1:nth-of-type(odd) {
+   background:#e9edf4;
+   width:49%;
+   float:left;
+   padding:5px 10px;
+   border:1px solid #d0d8e8;
+   
+}
+.listNavShow .box1:nth-of-type(even) {
+   background:#000;
+   width:49%;
+   float:left;
+   padding:5px 10px;
+   border:1px solid #d0d8e8;
+   
+}
+.listNavShow .box2 {
+   background:#e9edf4;
+   width:49%;
+   float:left;
+    padding:5px 10px;
+	border:1px solid #d0d8e8;
+}
+.ln-letters a {
+  border: 1px solid silver;
+  border-right: none;
+  display: block;
+  float: left;
+  font-size: .9em;
+  padding: 2px 6px;
+  text-decoration: none;
+}
+.glos-head {
+	position: absolute;
+	width: 95.6%;
+	top: 21px;
+	
+	
+}
+header .header-b1{float:left;width:46.5%;padding:2px 10px;background:#003f72;font-weight:bold;color:#fff;border-right:1px solid #d0d8e8;}
+header .header-b2{float:left;width:46%;padding:2px 10px;background:#003f72;font-weight:bold;color:#fff;}
+.ln-letters .ln-last {
+  border-right: 1px solid silver;
+}
+
+.ln-letters a:hover,
+.ln-letters .ln-selected {
+  background-color: #eaeaea;
+}
+
+.ln-letters .ln-disabled {
+  color: #ccc;
+}
+
+.ln-letter-count {
+  color: #336699;
+  font-size: .8em;
+  left: 0;
+  line-height: 1.35;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 20px;
+}
+.glossary-search {
+	margin-bottom: 20px;
+	float:right;
+	margin-right:50px;
+}
+.glos-search{border:1px solid #003f72;border-radius:0px 3px 3px 0px; padding: 1px 5px;}
+.glos-find {
+	background: #003f72;
+	display: inline-table;
+	padding: 2px 7px;
+	margin-right: -4px;
+	color:#fff;
+	border-radius:3px 0 0px 3px;
+}
+/*# sourceMappingURL=listnav.css.map */

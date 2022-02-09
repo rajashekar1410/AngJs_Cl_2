@@ -1,0 +1,74 @@
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus {
+  outline: none;
+  outline-offset: -2px;
+}
+
+.btn-primary {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: var(--model--footer-btn-bg);
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: var(--model--footer-btn-text);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  background-color: var(--model--footer-btn-bg-hover);
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+  border-color: var(--model--footer-btn-bg-hover);
+  color: var(--model--footer-btn-text-hover);
+}
+
+.btn-primary.disabled,
+.btn-primary[disabled],
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  color: #fff;
+  background-color: var(--model--footer-btn-bg);
+  border-color: var(--model--footer-btn-bg);
+}
+
+.related-content .btn-default:active:hover,
+.btn-default.active:hover,
+.open > .dropdown-toggle.btn-default:hover,
+.btn-default:active:focus,
+.btn-default.active:focus,
+.open > .dropdown-toggle.btn-default:focus,
+.btn-default:active.focus,
+.btn-default.active.focus,
+.open > .dropdown-toggle.btn-default.focus,
+.related-content .btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  background-color: var(--model--footer-btn-bg-hover);
+  color: var(--model--footer-btn-text);
+  border-color: var(--model--footer-btn-bg-hover);
+}
+
+.manage-user-module .manage-adduser:hover {
+  background: var(--model--footer-btn-bg-hover);
+  color: var(--model--footer-btn-text-hover);
+}
+.dropdown-left {
+  right: 0 !important;
+  left: auto !important;
+}

@@ -1,0 +1,505 @@
+<div class="full-screenmode" [style.font-size.px]="cs.contentFontSize" id="full-screenmode">
+  <!-- Note: hide page-warper on Manuals/Drawings categories -->
+  <div class="page-warper" style="overflow:hidden"
+    *ngIf="pagecontent.page_category<=3 ||  pagecontent.page_category==100"
+    [hidden]="[2,3].includes(pagecontent.page_category)">
+    <!--<(textSelect)="renderRectangles( $event )"-->
+    <div id="iframeContainer">
+    </div>
+    <div>
+      <div #pc id="page_content" [innerHtml]="pagedisplaydata | highlight:cs.searchTerm | safeHtml" class="anotblock">
+      </div>
+    </div>
+
+    <!-- Dynamic hotspot (word explainer) -->
+    <!-- edit option available to admin/superadmin -->
+    <wem-word-explainer-modal [wmEmitter]="wmEmitter" [editMode]="this.cs.user_session.user_type <=1">
+    </wem-word-explainer-modal>
+
+    <!-- Hyperlink -->
+    <!-- <app-hyperlink [hypEmitter]="hypEmitter"></app-hyperlink> -->
+    <!-- <app-hyperlink-preview [hypPrEmitter]="hypPrEmitter"></app-hyperlink-preview> -->
+
+    <button type="button" #deletbkmbtn (click)="openmdl(deletbkm)" style="display:none">Remove Bookmark</button>
+    <button type="button" #bookmarkbtn (click)="openmdl(addmember)" style="display:none">Open Bookmark</button>
+    <button type="button" #antbtn (click)="openmdl(addannotation)" style="display:none">Open Annotation</button>
+    <button type="button" #viewant (click)="annotslist.show();cs.popdragabale()" style="display:none">View
+      Annotations</button>
+    <button type="button" #viewantdt (click)="annotsview.show();cs.popdragabale()" style="display:none">View
+      Annotation</button>
+    <button type="button" #printtriger (click)="printcnrm.show();cs.popdragabale()" style="display:none">Print
+      Confirmation</button>
+    <button type="button" #printprev (click)="printpreview.show();cs.popdragabale()" style="display:none">Print
+      Preview</button>
+    <!--<button printSectionId="page_content" ngxPrint #xyz123 style="display:none">print</button>-->
+
+  </div>
+
+  <ng-template [ngIf]="print_preview==0">
+    <div class="related-content" *ngIf="related_content.length>0">
+      <div class="dropdown d-inline-block" dropdown placement="top right" [dropup]="true">
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle"
+          aria-controls="dropdown-basic">
+          Related Content
+          <span class="caret caret-down"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu"
+          aria-labelledby="button-basic">
+          <li style="border-top:1px solid #e5e5e5" role="menuitem" *ngFor="let eachrel of related_content"
+            (click)="opnerelated_con(eachrel, eachrel['content_name'])">
+            <a class="dropdown-item" style="padding:7px 14px;"
+              title="{{eachrel['content_name']}}">{{eachrel['content_name']}}</a>
+          </li>
+          <!--<li role="menuitem" (click)="opnerelated_con('cable_schedule')" style="border-top:1px solid #e5e5e5">
+          <a class="dropdown-item" style="padding:7px 14px;">Cable Schedule</a>
+        </li>
+        <li role="menuitem" (click)="opnerelated_con('wiring_diagram')" style="border-top:1px solid #e5e5e5">
+          <a class="dropdown-item" style="padding:7px 14px;">Wiring Diagram</a>
+        </li>
+        <li role="menuitem" (click)="opnerelated_con('animation')" style="border-top:1px solid #e5e5e5;">
+          <a class="dropdown-item" style="padding:7px 14px;">Animation</a>
+        </li>
+        <li role="menuitem" (click)="opnerelated_con('destruction_instructions')" style="border-top:1px solid #e5e5e5">
+          <a class="dropdown-item" style="padding:7px 14px;">Destruction Instructions</a>
+        </li>-->
+        </ul>
+      </div>
+      <!-- <div ngbDropdown class="dropdown d-inline-block" placement="top-right">
+        <button class="btn btn-outline-primary dropdown-toggle" id="relcontdrop" ngbDropdownToggle>Related Content</button>
+        <div ngbDropdownMenu aria-labelledby="relcontdrop" class="relconttop">
+          <button class="dropdown-item" (click)="opnerelated_con('bom')">BOM</button>
+          <button class="dropdown-item" (click)="opnerelated_con('cable_schedule')">Cable Schedule</button>
+          <button class="dropdown-item" (click)="opnerelated_con('wiring_diagram')">Wiring Diagram</button>
+          <button class="dropdown-item" (click)="opnerelated_con('animation')">Animation</button>
+          <button class="dropdown-item" (click)="opnerelated_con('destruction_instructions')">Destruction Instructions</button>
+        </div>
+      </div>-->
+    </div>
+  </ng-template>
+</div>
+
+
+<div id="overlay" class="modal-content" *ngIf="showoverlay" [ngClass]="{'overlay-full': relatedcontent_fullmode==1}">
+  <div class="modal-header modal_header">
+    <ul class="related-pannel">
+      <li>
+        <button class="close_related" title="Open Page"
+          (click)="cs.navigateToPage(prepared_relatedcontent['page_id']);relatedcontent_fullmode=0;showoverlay=0">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </button>
+      </li>
+      <li>
+        <button class="close_related" title="Minimize" *ngIf="relatedcontent_fullmode==1"
+          (click)="relatedcontent_fullmode=0">
+          <i class="fa fa-window-minimize" aria-hidden="true"></i>
+        </button>
+      </li>
+      <li>
+        <button class="close_related" title="Maximize" *ngIf="relatedcontent_fullmode==0"
+          (click)="relatedcontent_fullmode=1">
+          <i class="fa fa-window-maximize" aria-hidden="true"></i>
+        </button>
+      </li>
+      <li>
+        <button class="close_related" title="Close" id="x" (click)="closeoverlay();relatedcontent_fullmode=0">
+          <i class="fa fa-close" aria-hidden="true"></i>
+        </button>
+      </li>
+    </ul>
+    <h4 class="modal-title">
+      <ng-template [ngIf]="opened_relcon_name !=''"> </ng-template>
+      {{opened_relcon_name}}
+    </h4>
+  </div>
+  <div class="related_body"
+    [ngStyle]="prepared_relatedcontent['content_type']=='2' && {'overflow-y': 'hidden','overflow-x': 'hidden'}">
+    <!-- <h4>{{prepared_relatedcontent.title}}</h4> -->
+    <div *ngIf="prepared_relatedcontent['content_type']==2" style="height:inherit">
+      <!-- <ul class="nav">
+        <ng-template [ngIf]="prepared_relatedcontent['innerlink'] =='0'">
+          <li>
+            <a (click)="cs.uppdatepdfoptions('showall')">
+              <i class="fa fa-files-o"></i> Show All
+            </a>
+          </li>
+          <li>
+            <input class="manuals_pagecoount" type="text" style="text-align:right;min-width:16px;width:35px"
+              name="pdfcontrol" name="pdfcontrol" [(ngModel)]="cs.pdfoptions.page"
+              (keyup)="cs.uppdatepdfpage($event.target.value)" placeholder="pageNumber">
+            <span style="margin: 5px;">of {{cs.pdfoptions.totalpages}}</span>
+          </li>
+          <li>
+            <button class="btn" [ngClass]="{'disabledset' : cs.pdfoptions.page==1}"
+              (click)="cs.uppdatepdfoptions('pageminus')">
+              <i class="fa fa-arrow-left" title="Previous"></i>
+            </button>
+          </li>
+          <li>
+            <button class="btn" [ngClass]="{'disabledset' : cs.pdfoptions.page==cs.pdfoptions.totalpages}"
+              (click)="cs.uppdatepdfoptions('pageplus')">
+              <i class="fa fa-arrow-right" title="Next"></i>
+            </button>
+          </li>
+        </ng-template>
+        <li>
+          <button class="btn" (click)="cs.uppdatepdfoptions('zoomplus')">
+            <i class="fa fa-minus-circle" title="Zoom-out"></i>
+          </button>
+        </li>
+        <li [ngClass]="{'disabledset' : cs.pdfoptions.zoom<=0.5}">
+          <button class="btn" (click)="cs.uppdatepdfoptions('zoomminus')">
+            <i class="fa fa-plus-circle" title="Zoom-in"></i>
+          </button>
+        </li>
+        <li>
+          <input class="manuals_pagecoount" type="text"
+            style="text-align:right;min-width:16px;width:200px;margin:0 10px;background:#fff" name="pdfcontrol"
+            name="pdfcontrol" [(ngModel)]="cs.pdfoptions.search_value" (keyup)="searchpdf($event.target.value)"
+            placeholder="Find by Text">
+        </li>
+      </ul> -->
+      <ng2-pdfjs-viewer [pdfSrc]="prepared_relatedcontent['data']" [openFile]="false" [viewBookmark]="false"
+        [download]="false"
+        [page]="prepared_relatedcontent['innerlink'] =='0' ? 1 : prepared_relatedcontent['innerlink']" [print]="false"
+        #relContentViewerAutoLoad>
+      </ng2-pdfjs-viewer>
+      <!-- CNP: hidden since this module causes "Loading chunk failed errors" in FF 45 and below -->
+      <!-- <pdf-viewer *ngIf="prepared_relatedcontent['innerlink'] !='0'" [autoresize]="true" [stick-to-page]="true"
+        [render-text]="true" [src]="prepared_relatedcontent['data']" [zoom]="cs.pdfoptions.zoom"
+        [(page)]="prepared_relatedcontent['innerlink']" [rotation]="cs.pdfoptions.rotation" [original-size]="false"
+        [show-all]="false" style="display:block;overflow-x:auto" (after-load-complete)="cs.loadedpdf($event)">
+      </pdf-viewer>
+      <pdf-viewer *ngIf="prepared_relatedcontent['innerlink'] =='0'" [autoresize]="true" [stick-to-page]="true"
+        [render-text]="true" [src]="prepared_relatedcontent['data']" [zoom]="cs.pdfoptions.zoom"
+        [rotation]="cs.pdfoptions.rotation" [original-size]="false" [show-all]="true"
+        style="display:block;overflow-x:auto" (after-load-complete)="cs.loadedpdf($event)"></pdf-viewer> -->
+    </div>
+    <div
+      *ngIf="prepared_relatedcontent['content_type']==1 || (prepared_relatedcontent['content_type']==3 && prepared_relatedcontent['type']==3 )"
+      [innerHtml]="prepared_relatedcontent['data']  | safeHtml"> </div>
+
+    <div *ngIf="prepared_relatedcontent['content_type']==3 && prepared_relatedcontent['type']==2">
+      <video width="400" id="singleVideo" preload="auto" controls autoplay controlsList="nodownload">
+        <source src="{{cs.imageurl}}/explainer/videos/{{prepared_relatedcontent['data']}}" type="video/ogg">
+      </video>
+    </div>
+    <div id="explainerimg" class="text=center"
+      *ngIf="prepared_relatedcontent['content_type']==3 && prepared_relatedcontent['type']==1">
+      <img class="relatedimage img-responsive"
+        src="{{cs.imageurl}}/explainer/images/{{prepared_relatedcontent['data']}}">
+    </div>
+  </div>
+</div>
+<div *ngIf="loadpdf" class="pdfViewer-container">
+  <!---<ngx-extended-pdf-viewer    [src]="pdfSrc" ></ngx-extended-pdf-viewer>-->
+  <!--<pdf-viewer [stick-to-page]="true" [render-text]="true" [src]="pdfSrc" [zoom]="cs.pdfoptions.zoom" [(page)]="cs.pdfoptions.page"
+    [rotation]="cs.pdfoptions.rotation" [original-size]="cs.pdfoptions.originalsize" [show-all]="cs.pdfoptions.showall"
+    style="display:block;overflow-x:auto;" (after-load-complete)="cs.loadedpdf($event)"></pdf-viewer>-->
+  <!--<webview plugins id="foo" [attr.src]="sanatizelink(pdfSrc)" style="display:inline-flex; width:640px; height:480px"></webview>
+    <iframe width="100%" height="300" [src]="pdfSrc  | safeurl"></iframe>-->
+  <!-- <ng2-pdfjs-viewer [pdfSrc]="pdfSrc" print="false" documentProperties="false" viewBookmark="false" download="false" openFile="false"></ng2-pdfjs-viewer>-->
+  <ng2-pdfjs-viewer [pdfSrc]="pdfSrc" [openFile]="false" [viewBookmark]="false" [download]="false" [print]="false"
+    #manualpdfViewerAutoLoad>
+  </ng2-pdfjs-viewer>
+</div>
+<div *ngIf="pagecontent.page_category==3" style="height:calc(100vh - 158px);overflow-y: auto;"
+  class="container pdfwrapper">
+  <!-- <app-image-viewer [images]="drawingsrc"
+  [idContainer]="'idOnHTML'"
+  [loadOnInit]="true" [download]="false" [showPDFOnlyOption]="false" [rotate]="false"></app-image-viewer>-->
+  <a data-magnify="drawings" *ngIf="drawingsList.length == 0"><img alt="" src="{{drawingsrc}}" class="img-fluid" /> </a>
+
+  <!-- array of drawings -->
+
+
+  <div class="row" *ngIf="drawingsList.length > 0">
+
+    <div class="grid-container">
+      <div *ngFor="let item of drawingsList">
+        <img class='grid-item grid-item-1' [alt]="item.title" loading="lazy" [src]="item.src">
+        <p>{{item.title}}</p>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+  <!-- end -->
+</div>
+
+<!-- Videos category -->
+<div class="col-sm-8 mx-auto my-auto video-container" *ngIf="pagecontent.page_category==4">
+  <div class="col-sm-12 video-bx">
+    <h5>{{pagecontent.title}}</h5>
+    <div class="embed-responsive embed-responsive-16by9">
+
+      <video id="videos-pc-item" class="embed-responsive-item" controls autoplay controlsList="nodownload"
+        playsinline="true" disablePictureInPicture
+        [src]="this.cs.apiUrl + 'staticassets/videos/' + pagecontent.file_upload"></video>
+    </div>
+  </div>
+</div>
+<!-- Videos category end----------------->
+<ng-template #addmember let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.modalRef.hide()">&times;</button>
+    <h4 class="modal-title">Add Bookmark</h4>
+  </div>
+  <div class="modal-body">
+
+    <form (ngSubmit)="managebookmarks(bookmarkForm)" #bookmarkForm="ngForm" novalidate>
+      <div class="form-group row row">
+        <label class="col-sm-5 col-form-label">Bookmark Name:</label>
+        <div class="col-sm-7">
+          <input required class="form-control" type="text" name="bookmark_name" id="bookmark_name"
+            [(ngModel)]="bkmtdata.bookmark_name" #bookmark_name="ngModel">
+          <p class="text-danger" *ngIf="bookmark_name.errors?.required  &&  bookmarkForm.submitted">Bookmark Name is
+            required</p>
+        </div>
+      </div>
+      <div class="form-group row" style="margin-bottom:0px;">
+        <div class="col-sm-12 text-center">
+          <button type="submit" class="btn btn-primary" style="margin-left:20px;"
+            [disabled]="!bookmarkForm.dirty || !bookmarkForm.valid">SAVE</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</ng-template>
+<ng-template #addannotation let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.modalRef.hide()">&times;</button>
+    <h4 class="modal-title">{{ant_form_title}}</h4>
+  </div>
+  <div class="modal-body">
+
+    <form class="form-horizontal" *ngIf="showantform" (ngSubmit)="manageannotations(anniForm)" #anniForm="ngForm"
+      novalidate>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label">Annotated Text : </label>
+        <div class="col-sm-8">
+          <input required disabled="true" class="form-control" name="title" id="title" type="text"
+            [(ngModel)]="annotdata.title" #title="ngModel">
+          <p class="text-danger" *ngIf="title.errors?.required  &&  anniForm.submitted">Annotated Text is required</p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label">Description :
+        </label>
+        <div class="col-sm-8">
+          <textarea required class="form-control" name="description" rows="2" id="description"
+            [(ngModel)]="annotdata.description" #description="ngModel"></textarea>
+          <p class="text-danger" *ngIf="description.errors?.required  &&  anniForm.submitted">Description is required
+          </p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 control-label ">Annotation Type:</label>
+        <div class="col-sm-8">
+          <select required class="select_dropdown" id="annotation_type" name="annotation_type"
+            [(ngModel)]="annotdata.annotation_type" #annotation_type="ngModel">
+            <option *ngFor="let anni of cs.annotation_type | keys" [value]="anni.key">{{anni.value}}</option>
+          </select>
+          <p class="text-danger" *ngIf="annotation_type.errors?.required  &&  anniForm.submitted">Select Annotation
+            Type is required</p>
+        </div>
+      </div>
+
+      <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+      <div class="justify-content-center" align="center">
+        <button type="submit" class="btn btn-primary save-btn" [disabled]="!anniForm.valid || !anniForm.dirty"
+          style="margin-left:5px;background:#003f72;">{{ant_btn_title}}</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+<ng-template #deletbkm let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.closepop()">&times;</button>
+    <h4 class="modal-title">
+      <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Bookmark
+    </h4>
+  </div>
+  <div class="modal-body">
+
+
+    <p>This will delete the bookmark permanently.
+      Would you like to proceed?
+    </p>
+  </div>
+
+  <div class="modal-footer justify-content-center">
+
+    <button type="button" class="btn btn-primary" id="" (click)="deletebkm()">YES</button>
+
+    <button type="button" (click)="mdls.closepop()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</button>
+
+  </div>
+
+</ng-template>
+<div bsModal #annotsview="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="font-family: bookman;">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="annotsview.hide()">&times;</button>
+        <h4 class="modal-title">View Annotation</h4>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-horizontal" novalidate>
+          <div class="form-group row">
+            <label class="col-sm-12">Annotated Text :
+              <span style="font-weight:normal">{{selected_annotation['title']}}</span>
+            </label>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-12">Description :
+              <span style="font-weight:normal">{{selected_annotation['description']}}</span>
+            </label>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-6">Annotation Type:
+              <span style="font-weight:normal">{{cs.annotation_type[selected_annotation['annotation_type']]}}</span>
+            </label>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-6">Created On:
+              <span style="font-weight:normal">{{selected_annotation['creation_date'] | date:'dd MMM yyyy h:mm
+                aaa'}}</span>
+            </label>
+            <label class="col-sm-6">Created By:
+              <span style="font-weight:normal">{{selected_annotation['user_name'] }}</span>
+            </label>
+          </div>
+          <div class="modal-footer justify-content-center" style="margin-bottom:0px;"
+            *ngIf="selected_annotation['created_by']+''==cs.user_session.id || cs.user_session.user_type+'' <='1' ">
+
+            <button type="button" title="Delete Annotation" class="btn btn-primary delete-btn mr-1"
+              (click)="annotdel.show()">DELETE</button>
+
+            <button type="button" title="Edit Annotation" class="btn btn-primary  save-btn" id="adUser"
+              (click)="editannotation(selected_annotation.id)">EDIT</button>
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- word explainer preview -->
+<wem-word-explainer-preview [wmpEmitter]="wmpEmitter"></wem-word-explainer-preview>
+
+<div bsModal #glossarymdl="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="glossarymdl.hide()">&times;</button>
+        <h4 class="modal-title">{{selgossarydata.golssary_name}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="panel1-body">
+          <div class="box">
+            {{selgossarydata.description}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #annotdel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="annotdel.hide()">&times;</button>
+        <h4 class="modal-title">
+          <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Annotation
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="box1">
+          <form class="form-horizontal">
+            <div class="form-group row">
+              <label style="text-align:center;" class="col-md-12 control-label">This will delete the selected
+                Annotation permanently. Would you like to proceed?
+              </label>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-md-offset-4 col-md-2">
+              <a class="btn btn-primary" id="" (click)="annotdel.hide();deleteannot(selected_annotation.id)">YES</a>
+            </div>
+            <div class="col-md-2">
+              <a (click)="annotdel.hide()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #printpreview="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name2">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="printpreview.hide()">&times;</button>
+        <h4 class="modal-title">Print Preview</h4>
+      </div>
+      <div class="modal-body">
+        <div style="width: 100%; height: 700px">
+          <ng2-pdfjs-viewer [openFile]="false" [viewBookmark]="false" [errorMessage]="'Unable to display content.'"
+            [download]="false" #pdfViewerAutoLoad>
+          </ng2-pdfjs-viewer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #printcnrm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name10">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="printcnrm.hide()">&times;</button>
+        <h4 class="modal-title">
+          <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Print Job
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="box1">
+          <form class="form-horizontal">
+            <div class="form-group row">
+              <label style="text-align:center;" class="col-md-12 control-label">Print job will be logged in print
+                history. Do you want to proceed to print?
+              </label>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-md-offset-4 col-md-2">
+              <button type="button" class="btn btn-primary" id="" (click)="printcnrm.hide();triggerpdf()">YES</button>
+            </div>
+            <div class="col-md-2">
+              <button type="button" (click)="printcnrm.hide()" class="btn btn-primary" id=""
+                style="padding: 6px 13px;">NO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- delete word explainer confirmation modal -->
+<wem-word-explainer-del [wmdEmitter]="wmdEmitter"></wem-word-explainer-del>

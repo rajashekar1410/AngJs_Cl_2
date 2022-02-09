@@ -1,0 +1,195 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "etmweb": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.js",
+              "mergeRules": {
+                "externals": "replace"
+              }
+            },
+            "aot": true,
+            "outputPath": "dist/etmweb",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/favicon.png",
+              "src/favicon.icns",
+              "src/favicon.256x256.png",
+              "src/favicon.512x512.png"
+            ],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap-slider/dist/css/bootstrap-slider.min.css",
+              "./node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+              "./node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css",
+              "./src/assets/vendors/datatables/dataTables.alphabetSearch.css",
+              "./src/assets/css/bs-datepicker.css",
+              "./src/assets/vendors/prettycheck/pretty-checkbox.css",
+              "./src/assets/css/LineIcons.css",
+              "./src/assets/vendors/imgviewer-new/viewer.css",
+              "./node_modules/@circlon/angular-tree-component/css/angular-tree-component.css",
+              "./node_modules/jquery-ui-dist/jquery-ui.min.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./src/style.scss",
+              "./src/assets/css/snackbar.css",
+              "./node_modules/tippy.js/dist/tippy.css",
+              "./node_modules/tippy.js/themes/light.css",
+              "./node_modules/tippy.js/animations/scale.css",
+              "./src/assets/vendors/txtAnnotator/share-this.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/jquery-ui-dist/jquery-ui.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
+              "./node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
+              "./node_modules/datatables.net-select/js/dataTables.select.min.js",
+              "./node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js",
+              "./node_modules/bootstrap-slider/dist/bootstrap-slider.min.js",
+              "./node_modules/moment/min/moment.min.js",
+              "./node_modules/ui-contextmenu/jquery.ui-contextmenu.min.js",
+              "src/assets/js/tabnavi.js",
+              "src/assets/vendors/txtAnnotator/rangy-core.js",
+              "src/assets/vendors/txtAnnotator/rangy-cssclassapplier.js",
+              "src/assets/vendors/txtAnnotator/share-this.js",
+              "src/assets/vendors/glossary/search/jquery.hideseek.min.js",
+              "src/assets/vendors/glossary/search/initializers.js",
+              "src/assets/vendors/glossary/jquery-listnav.js",
+              "src/assets/vendors/hotspot/js/jquery.maphilight.js",
+              "src/assets/vendors/imageMapResizer/imageMapResizer.min.js",
+              "node_modules/clipboard/dist/clipboard.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "file-saver",
+              "bootstrap-slider"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "10mb",
+                  "maximumError": "15mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "etmweb:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "etmweb:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "etmweb:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "etmweb-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "etmweb:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "etmweb:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "etmweb"
+}

@@ -1,0 +1,27 @@
+<div bsModal #wmdModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header modal_header">
+          <button type="button" class="close" (click)="hideModal()">&times;</button>
+          <h4 class="modal-title">
+            <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>{{wmdTitle}}</h4>
+        </div>
+        <div class="modal-body">
+         
+            
+                <p>{{wmdMsg}}</p>
+             
+              </div>
+            <div class="modal-footer justify-content-center">
+             
+                <a class="btn btn-primary" id=""
+                  (click)="btnYes()">YES</a>
+            
+                <a (click)="btnNo()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</a>
+            
+            </div>
+         
+      </div>
+    </div>
+  </div>

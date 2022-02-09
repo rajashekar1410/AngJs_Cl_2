@@ -1,0 +1,53 @@
+<div class="main1_warper">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-8 col-sm-10 mx-auto mt-5">
+        <!-- change password ============================ -->
+
+        <!-- Security Quations=========================================== -->
+        <div class="card card-primary">
+          <div class="card-header text-center">Security Questions & Answers</div>
+          <div class="card-body">
+            <form (ngSubmit)="updateSecQuestions(change2Form)" #change2Form="ngForm" novalidate>
+              <div class="form-group row">
+                <div class="col-sm-8 col">
+                  <input #qustion1="ngModel" required class="form-control" type="text" value="" id="qustion1"
+                    name="qustion1" [(ngModel)]="forgotpassword_data[0][0]"
+                    placeholder="Please enter your own Question 1">
+                  <p class="text-danger" *ngIf="qustion1.errors?.required  &&  change2Form.submitted">Question is
+                    required</p>
+                </div>
+                <div class="col-sm-4 col">
+                  <input #ans1="ngModel" required class="form-control" type="text" value="" id="ans1" name="ans1"
+                    [(ngModel)]="forgotpassword_data[0][1]" placeholder="Your Answer 1">
+                  <p class="text-danger" *ngIf="ans1.errors?.required  &&  change2Form.submitted">Answer is required</p>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-8 col">
+                  <input #qustion2="ngModel" required class="form-control" type="text" value="" id="qustion2"
+                    name="qustion2" [(ngModel)]="forgotpassword_data[1][0]"
+                    placeholder="Please enter your own Question 2">
+                  <p class="text-danger" *ngIf="qustion2.errors?.required  &&  change2Form.submitted">Question is
+                    required</p>
+                </div>
+                <div class="col-sm-4 col">
+                  <input #ans2="ngModel" required class="form-control" type="text" value="" id="ans2" name="ans2"
+                    [(ngModel)]="forgotpassword_data[1][1]" placeholder="Your Answer 2">
+                  <p class="text-danger" *ngIf="ans2.errors?.required  &&  change2Form.submitted">Answer is required</p>
+                </div>
+              </div>
+              <div class="form-group row" style="margin-bottom:0px;">
+                <p align="center" style="color: #ff0000;">{{forgotpassword_validation}}</p>
+                <div class="col-sm-12 text-center">
+                  <button [disabled]="!change2Form.valid || !change2Form.dirty" class="btn btn-primary save-btn"
+                    id="forgotsubmit">SUBMIT</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

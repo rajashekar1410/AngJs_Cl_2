@@ -1,0 +1,54 @@
+.glossary,
+.glossary:hover,
+.glossary:active {
+  color: blue;
+  cursor: pointer;
+  text-align: center;
+}
+
+.glos-log-icon {
+  margin-left: 5px;
+  color: #ff5a00;
+  cursor: pointer;
+}
+
+.glossary-edtit-btn {
+  font-size: 11px !important;
+  padding: 0px 4px !important;
+}
+div.alphabet a {
+  color: var(--pgn-font-color) !important;
+  border: 1px solid var(--pgn-border-color);
+}
+div.alphabet a.active,
+div.alphabet a.active.empty {
+  background: var(--pgn-bg-color);
+  border: 1px solid var(--pgn-border-color);
+  border-radius: 2px;
+  color: var(--pgn-font-color) !important;
+}
+
+div.alphabet li.active a {
+  background: var(--pgn-bg-color-hover);
+  border: 1px solid var(--pgn-border-color);
+  border-radius: 2px;
+  transition: 0.2s linear all;
+  color: var(--pgn-font-color-hover) !important;
+}
+
+div.alphabet a:hover {
+  background: var(--pgn-bg-color-hover);
+  color: var(--pgn-font-color-hover) !important;
+}
+div.alphabet {
+  margin: 0;
+  padding: 10px 0px;
+}
+.sampledwon {
+  transition: all linear 0.2s;
+  color: #a6a6a4;
+}
+.sampledwon:hover {
+  color: var(--model--footer-btn-bg-hover);
+  text-decoration: none;
+}

@@ -1,0 +1,62 @@
+<div class="{{storedTheme}}">
+
+  <app-l-r-modal></app-l-r-modal>
+  <app-print-data></app-print-data>
+
+
+  <!--  //Theme Switcher////////////-->
+  <div class="switcher-container" [hidden]="!this.cs.user_session">
+
+    <div class="switcher-icon" title="Change Theme"><i class="lni lni-paint-roller"></i></div>
+
+    <div class="switcher-frame">
+      <div class="theme-options">
+
+        <div [id]="theme.class" (click)="setTheme(theme.class, true)" *ngFor="let theme of themesist"
+          [ngClass]="(storedTheme === theme.class) ? 'active' : '' " [title]="theme.label"></div>
+        <!-- 
+  <div id="theme-semi-dark" (click) = "setTheme('theme-semi-dark')"
+  [ngClass]="(storedTheme === 'theme-semi-dark') ? 'active' : '' " title="Semi Dark" ></div>
+
+  <div id="theme-blue" (click) = "setTheme('theme-blue')"
+  [ngClass]="(storedTheme === 'theme-blue') ? 'active' : '' " title="Blue" ></div>
+
+  <div id="theme-green" (click) = "setTheme('theme-green')"
+  [ngClass]="(storedTheme === 'theme-green') ? 'active' : '' " title="Green"></div> -->
+      </div>
+    </div>
+  </div>
+  <!--  //Theme Switcher////////////-->
+
+
+  <div class="top_header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-2">
+          <div class="site-branding">
+
+            <a [routerLink]="['/home/dashboard']" class="ietm_logo">
+              <!-- <img class="img-fluid d-none d-sm-block" src="assets/{{cs.appimages}}/user.png"> -->
+              <img class="img-fluid d-none d-sm-block" [src]="logoUrl">
+              <img class="img-fluid d-block d-sm-none" [src]="logoMobUrl">
+
+            </a>
+
+
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-10 my-auto">
+
+          <p class="head_text"><b>{{cs.title_header}}</b></p>
+
+        </div>
+        <div class="col-lg-3 col-md-3  col-sm-3  my-auto  d-none d-sm-block">
+
+          <p class="head_text_ietm"><b>IETM</b></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

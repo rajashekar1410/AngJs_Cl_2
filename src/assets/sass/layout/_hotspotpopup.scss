@@ -1,0 +1,46 @@
+.indicator {
+  background-color: fade(gold, 10%);
+  position: absolute;
+  z-index: 2;
+  .indicator__cta {
+    top: -20px;
+    left: 50%;
+    position: absolute;
+    .indicator__cta-link {
+      background-color: var(--secondary-color);
+      border-radius: 5px 5px 5px 5px;
+      bottom: 0px;
+      color: var(--color-white) !important;
+      cursor: pointer;
+      left: 0px;
+      padding: 11px 22px 10px 22px;
+      position: absolute;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      a {
+        color: #94b4e4;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        transition: 0.2s all linear;
+        &:hover {
+          color: var(--color-white);
+        }
+      }
+      div:nth-child(2) {
+        border-top: 1px dotted #94b4e4;
+      }
+      &::after {
+        bottom: -11px;
+        font-size: 15px;
+        left: 50%;
+        line-height: 15px;
+        content: "▼";
+        color: var(--secondary-color);
+        position: absolute;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+
+.tvs-annotate-element {
+	transition: width 0.5s ease-in-out;
+	/*-webkit-transition: width 0.5s ease-in-out; */
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.tvs-annotate-element table {
+	width: 100%;
+	height: 100%;
+	border-spacing: 0;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+.tvs-annotate-element table td {
+	padding: 0;
+	height: 100%;
+	border: none;
+	position: relative;
+}
+
+.tvs-annotate-element table td img {
+	transform-origin: 0 0;
+	-webkit-transform-origin: 0 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border: none;
+	margin: 0;
+	padding: 0;
+	max-width: initial;
+	max-height: initial;
+}

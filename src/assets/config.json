@@ -1,0 +1,8 @@
+{
+    "serverURL": "http://localhost:1818",
+    "ietmTitle": "SWITCH v1.0",
+    "copyRights": "Copyright © 2021 ideaForge All Rights Reserved.",
+    "themeName": "theme-green",
+    "enableUserIdleLogout": false,
+    "enableUserMultiLoginDetection": false
+}

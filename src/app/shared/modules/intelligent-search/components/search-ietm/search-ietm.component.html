@@ -1,0 +1,161 @@
+<div class="page-warper " style="height: calc(100vh - 88px);">
+  <div class="flex-container ">
+    <div class="gsrow ">
+      <div class="flex-item ">
+        <div class="gs">
+
+          <div class="input-group">
+            <div class="input-group-btn gs-icon-left">
+              <i class="lni lni-search gs-icon"></i>
+            </div>
+
+            <input class="form-control global_search" #inputQuery autocomplete="off" placeholder="Search here ..."
+              type="text" name="userQueryInput" [value]="isS.userQuery">
+
+
+            <div class="input-group-btn" style="font-size: initial;">
+
+              <div id="btn-clear-input" class="btn-group" *ngIf="isS.userQuery.length > 0" (click)="clearInput()">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+              </div>
+
+              <div class="btn-group" dropdown>
+
+                <button id="button-filter" dropdownToggle type="button" class="gs-filter-btn"
+                  aria-controls="dropdown-basic">
+                  <span class="lni  lni-sort-amount-dsc gs-filter-icon"></span> {{isS.dataFilter.text}}
+                </button>
+
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu gs-filter-dropdown dropdown-left" role="menu"
+                  aria-labelledby="button-basic">
+                  <li class="menuitem" *ngFor="let i of filterTypeArray">
+                    <a class="dropdown-item" [class.active]="isS.dataFilter.id == i.id"
+                      (click)="changeFilterType(i)">{{i.text}}</a>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+
+
+        </div>
+
+        <!-- chips -->
+        <div class="col-md-12 mt-10" id="chips-container" *ngIf="chipDataItems.length > 0">
+          <div class="col-md-12">
+
+            <!-- keyword suggestions -->
+            <label class="chip-label" *ngIf="isInSearchMode">Suggestions:</label>
+            <!-- recent search items -->
+            <label class="chip-label" *ngIf="!isInSearchMode">Recent Searches:</label>
+
+          </div>
+          <div class="col-md-12">
+
+            <span class="chip" *ngFor="let item of chipDataItems" (click)="handleChipClick(item)">{{item.text}}</span>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+
+          <hr style="margin: 5px;">
+
+          <label class="switch pull-right">
+            <input type="checkbox" [checked]="showTabularData" (change)="showTabularData=!showTabularData">
+            <span class="slider round"></span>
+          </label>
+
+          <label class="pull-right seemore" *ngIf="!showTabularData">Best Match</label>
+          <label class="pull-right seemore" *ngIf="showTabularData">Search </label>
+
+          <!-- Best matches -->
+          <div class="col-md-12 mt-4" *ngIf="(bestMatchItems.length > 0 && !showTabularData) else noDataTemplate">
+
+
+            <div class="card card-primary w-100">
+              <div class="card-header p-0">
+                <div class="row">
+                  <div class="col-md-12  my-auto">
+                    <h5 class="text-center">Best Match</h5>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+            <div class="card-body  best_matches_container p-0">
+              <span *ngFor="let item of bestMatchItems">
+
+                <!-- IETM Core / Manuals / Drawings -->
+                <div
+                  *ngIf="[filterTypeIds.TYPE_IETM, filterTypeIds.TYPE_MANUALS, filterTypeIds.TYPE_DRAWINGS].includes(item.contentType)">
+                  <ul class="rs_list">
+                    <li *ngFor="let ce of item.childItems">
+                      <p>
+                        <a (click)="handleIETMContentClick(ce)">{{ce.title}}</a>
+                        &nbsp;(<b>Source:</b>
+                        {{ ce.pc_title }})
+                      </p>
+
+                    </li>
+                  </ul>
+
+                </div>
+
+                <!-- Annotations -->
+                <div *ngIf="item.contentType == filterTypeIds.TYPE_ANNOTATION">
+                  <ul class="rs_list">
+                    <li *ngFor="let ce of item.childItems">
+                      <p>
+                        <a (click)="handleIETMAnnotationClick(ce)">{{ce.title}}</a>
+                        &nbsp;(<b>Source:</b>
+                        Annotations)
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </span>
+
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+
+        <!-- tabular -->
+        <div class="col-md-12" [style.visibility]="showTabularData ? 'visible': 'hidden'">
+
+          <is-search-table-data></is-search-table-data>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- for best matches content -->
+  <ng-template #noDataTemplate>
+    <div id="no-data-container" class="col-md-10 col-md-push-2">
+
+      <div id="no-data-msg" class="col-md-4 col-md-push-4"
+        *ngIf="isS.userQuery.length > 0 && bestMatchItems.length == 0 && !isProcessing && !showTabularData">
+        No results found
+      </div>
+
+      <div id="processing-msg" class="col-md-4 col-md-push-4" *ngIf="isProcessing && !showTabularData">
+        Processing...
+      </div>
+    </div>
+  </ng-template>
+</div>

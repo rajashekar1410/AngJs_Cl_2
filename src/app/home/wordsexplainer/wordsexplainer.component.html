@@ -1,0 +1,41 @@
+<div class="main1_warper" >
+<div class="manage-user-module" >
+  <div class="container" >
+  <div class="row" >
+
+    <!-- Action buttons hidden as these actions lead to undefined behaviors -->
+    <!-- <div class="col-md-12 mt-3" *ngIf="cs.user_session.user_type<=1" >
+      <button class="manage-adduser " (click)="logaddform()" title="Add Expaliner">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      </button>
+      <button title="Delete Selected Explainers" style="float:left" [disabled]='ls.enableseldelete==0'
+        class="manage-adduser btn" (click)="showDelCnfm()">
+        <i class="fa fa-trash-o"></i>
+      </button>
+      <button  *ngIf="ls.selectedAll==0" (click)="ls.selectalltogle(true,1);ls.enableseldelete=1"
+        class="manage-adduser btn">SELECT ALL</button>
+      <button *ngIf="ls.selectedAll==1" (click)="ls.selectalltogle(false,0);ls.enableseldelete=0"
+        class="manage-adduser btn">DESELECT</button>
+    </div> -->
+ 
+    <div class="col-md-12 col-sm-12 mt-2">
+      <div class="inventory">
+        <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger"
+          class="table table-striped table-bordered main-content">
+        </table>
+        <!-- Print btn -->
+        <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+          <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- word-explainer modal -->
+  <wem-word-explainer-modal [wmEmitter]="wmEmitter"></wem-word-explainer-modal>
+
+  <!-- word-explainer-del Modal -->
+  <wem-word-explainer-del [wmdEmitter]="wmdEmitter"></wem-word-explainer-del>

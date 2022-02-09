@@ -1,0 +1,31 @@
+.font-slider-icon {
+  padding: 4px;
+}
+.slider.slider-horizontal {
+  margin: auto 5px;
+}
+#font-slider-button-holder {
+  .dropdown-menu {
+    min-width: 17rem;
+    left: auto !important;
+    right: 0 !important;
+    z-index: 1039;
+  }
+}
+.slider-handle {
+  background-color: var(--primary-color);
+  background-image: none;
+}
+/* hide background for font-size slider on hover */
+.no-hover:hover {
+  background-color: transparent !important;
+}
+
+/* font-size scroller icon CSS */
+.font-slider-icon {
+  font-size: 10px;
+  color: var(--primary-color);
+}
+.font-slider-icon:hover {
+  transform: scale(1.3);
+}

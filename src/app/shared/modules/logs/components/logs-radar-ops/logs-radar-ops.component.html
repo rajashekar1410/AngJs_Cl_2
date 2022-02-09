@@ -1,0 +1,61 @@
+<div class="modal-header modal_header" backdrop>
+  <button type="button" class="close" (click)="modalRef?.hide()">&times;</button>
+  <h4 class="modal-title">{{formTitle}}</h4>
+</div>
+<div class="modal-body">
+    <form  (ngSubmit)="processRequest()" [formGroup]="logsForm" novalidate>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Switching ON Transmission:</label>
+        <div class="col-sm-7">
+          <dp-date-picker [formControl]="swOnDateTime" [config]="swOnConfig" mode="daytime" theme="dp-material"></dp-date-picker>
+          <p class="text-danger" *ngIf="swOnDateTime.errors?.required  &&  swOnDateTime.touched">This field is
+            required
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Switching OFF Transmission:</label>
+        <div class="col-sm-7">
+          <dp-date-picker [formControl]="swOffDateTime" [config]="swOffConfig" mode="daytime" theme="dp-material"></dp-date-picker>
+          <p class="text-danger" *ngIf="swOffDateTime.errors?.required  &&  swOffDateTime.touched">This field is
+            required
+          </p>
+          <p class="text-danger" *ngIf="swOffDateTime.errors?.exceedsOnTime  &&  swOffDateTime.touched">Invalid Date or Time provided
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">
+          <p style="margin-bottom: 0;">Total Time of Operation:</p>
+          <span>(in hours)</span>
+        </label>
+        <div class="col-sm-7">
+          <input required class="form-control" readonly type="number" name="totalOpTime" [formControl]="totalOpTime">
+          <p class="text-danger" *ngIf="totalOpTime.errors?.required  &&  totalOpTime.touched">Total Time of Operation
+            is required
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Remarks:</label>
+        <div class="col-sm-7">
+          <textarea required class="form-control" type="text" name="remarks" [formControl]="remarks"></textarea>
+          <p class="text-danger" *ngIf="remarks.errors?.required  &&  remarks.touched">Remarks is required
+          </p>
+        </div>
+      </div>
+
+      <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+      <div class="form-group row" style="margin-bottom:0px;">
+        <div class="text-center col-sm-12">
+          <button type="submit" [disabled]="!logsForm.valid" class="btn btn-primary" id="adUser"
+            style="margin-left:10px;padding: 6px 20px;">{{btnTitle}}</button>
+        </div>
+      </div>
+    </form>
+ 
+</div>

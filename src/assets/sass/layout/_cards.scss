@@ -1,0 +1,13 @@
+.card-primary {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border: none;
+  border-radius: 3px;
+  .card-header {
+    color: var(--cardtitle-color);
+    border-bottom: 2px solid var(--secondary-color);
+    background: var(--cardhead-bg-color);
+  }
+  .card-body {
+    background: var(--cardbody-bg-color);
+  }
+}

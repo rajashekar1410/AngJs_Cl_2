@@ -1,0 +1,59 @@
+<div class="main1_warper">
+  <div class="manage-user-module">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-12 mt-2">
+
+          <!-- Date filter -->
+          <div class="d-flex justify-content-between">
+            <div class="form-inline">
+              <label for="fromDateInput" class="mr-sm-2">From Date:</label>
+              <input id="fromDateInput" type="text" class="form-control mb-2 mr-sm-2" bsDatepicker
+                [(ngModel)]="fromDate" autocomplete="off"
+                [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false, containerClass: cs.default_theme }">
+
+              <label for="toDateInput" class="mr-sm-2">To Date:</label>
+              <input id="toDateInput" type="text" class="form-control mb-2 mr-sm-2" bsDatepicker [minDate]="fromDate"
+                [(ngModel)]="toDate" autocomplete="off"
+                [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false, containerClass: cs.default_theme }">
+              <button class="btn btn-primary mb-2" (click)="reloadTable()"><i class="lni lni-checkmark"></i></button>
+            </div>
+
+            <div class="btn-group module_menu" dropdown>
+
+              <button title="Sorting" id="button-basic" dropdownToggle type="button"
+                class="gs-filter-btn btn btn-primary btn-sm " aria-controls="dropdown-basic">
+                <span class="fa fa-filter"></span> {{selectedTrackingType.text}}
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-left gs-filter-dropdown" role="menu"
+                aria-labelledby="button-basic">
+                <li class="menuitem" *ngFor="let i of trackingTypeArray">
+                  <a class="dropdown-item" [class.active]="selectedTrackingType.id == i.id"
+                    (click)="changeActivityType(i.id)">{{i.text}}</a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+
+          <hr class="my-1">
+        </div>
+
+        <div class="col-md-12 mt-2">
+          <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger"
+            class="display main-content table table-bordered"></table>
+
+
+          <!-- Print btn -->
+          <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+            <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

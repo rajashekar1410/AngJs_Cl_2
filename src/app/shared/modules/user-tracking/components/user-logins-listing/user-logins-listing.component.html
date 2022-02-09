@@ -1,0 +1,17 @@
+<div class="main1_warper">
+  <div class="manage-user-module">
+    <div class="container">
+      <br>
+      <div class="clearfix"></div>
+
+      <div class="clearfix"></div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%"
+          class="display main-content table table-bordered"></table>
+          <!-- Print btn -->
+        <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+          <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+      </div>
+    </div>
+  </div>
+</div>

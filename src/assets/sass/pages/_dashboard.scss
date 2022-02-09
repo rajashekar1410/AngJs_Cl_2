@@ -1,0 +1,107 @@
+.user_status_bar {
+  background: var(--status-bar-bg);
+  border-bottom: 1px solid var(--border-color-toc);
+  border-top: none;
+  padding: 3px;
+  p {
+    color: var(--status-bar-font-color1);
+    margin-bottom: 0;
+    font-size: $fontsize-p-ietm;
+    span {
+      color: var(--status-bar-font-color2);
+      text-transform: uppercase;
+    }
+  }
+}
+
+.dashboard_list {
+  li {
+    list-style-type: none;
+    margin-bottom: 10px;
+    a {
+      text-decoration: none;
+      display: block;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      color: var(--dashbord-btn-color) !important;
+      background-color: var(--dashbord-btn);
+      box-shadow: 0 0 4px #999;
+      outline: none;
+      border-left: 4px solid var(--dashbord-btn-hover);
+      -webkit-transform: perspective(1px) translateZ(0);
+      transform: perspective(1px) translateZ(0);
+      position: relative;
+      -webkit-transition-property: color;
+      transition-property: color;
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      padding: 10px;
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--dashbord-btn-hover);
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+        -webkit-transition-property: transform;
+        transition-property: transform;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-timing-function: ease-out;
+        transition-timing-function: ease-out;
+      }
+      &:hover {
+        color: var(--dashbord-btn-colore-hover) !important;
+        &::before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+        }
+      }
+      &:focus {
+        color: var(--color-white);
+        &::before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+        }
+      }
+      &:active {
+        color: var(--color-white);
+        &::before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+        }
+      }
+
+      .right_icon {
+        float: left;
+        margin-right: 10px;
+        margin-top: -5px;
+
+        i {
+          font-size: 28px;
+          width: 30px;
+        }
+      }
+    }
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+  .user_status_bar {
+    p {
+      text-align: left !important;
+    }
+  }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+}

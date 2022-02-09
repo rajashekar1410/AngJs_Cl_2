@@ -1,0 +1,184 @@
+<!--<div class="nav_header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="nav_title_right ">
+          <p class="text-right h5 nav_text" style="color:#003f72;" *ngIf="logdata.version_no!=0 ">
+            <b>Product Version Information :
+              <span class="version_span" style="font-family: 'bookman';">IETM <span *ngIf="cs.aboutietm_content==1">P-15B</span>-V.{{logdata.version_no}}</span>
+            </b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+<div class="login_warper" [ngStyle]="{'background-image':'url(assets/'+cs.appimages+'/loginbg.jpg)'}">
+  <div class="container-fluid">
+    <!-- Login Block=============================================================== -->
+    <div class="col-lg-3 col-md-6 col-sm-4 pull-right">
+      <div class="login_block_left " *ngIf="cs.serverip !=''">
+        <div class="card cus-bg">
+          <div class="card-header">
+            <h6>Login</h6>
+          </div>
+          <div class="card-body" style="padding-bottom: 5px;">
+            <form autocomplete="off" id="loginform" role="form" (keyup.enter)="loginuser()">
+
+              <div class="input-group input-group-sm  mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="lni lni-user"></i></span>
+                </div>
+
+                <input type="text" [(ngModel)]="login.uname" class="form-control" name="user_name" id="user_name"
+                  value="" placeholder="Enter username">
+              </div>
+
+              <div class="input-group input-group-sm  mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"> <i class="lni lni-key"></i></span>
+                </div>
+
+                <input type="{{showpassword==0?'password':'text'}}" [(ngModel)]="login.upwd" class="form-control"
+                  name="user_pass" id="user_pass" placeholder="Enter password">
+                <div class="">
+                  <a *ngIf="showpassword==0" class="show-password-icon eye_icon" title="Show Password"
+                    (click)="showpassword=1">
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </a>
+                  <a *ngIf="showpassword==1" class="show-password-icon eye_icon" title="Hide Password"
+                    (click)="showpassword=0">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+
+
+
+              <p align="center" style="color: #ff0000;">{{formvalidation}}</p>
+              <div class="form-group row">
+                <div class="col-sm-12 controls text-center">
+                  <button type="button" (click)="loginuser()" [disabled]="login.uname =='' || login.upwd ==''"
+                    class="btn btn-primary btn-sm" id="snbtn">SUBMIT</button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+          <div class="card-footer">
+
+            <div class="col-md-12 forgot_pwd">
+
+              <a *ngIf="formvalidation_status.toString()=='2'" (click)="openforgotpwd(forgotpwdmdl)" style="color:#fff">
+                Forgot Password?</a>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <footer>
+    <div class="footer_main text-center">
+
+
+      <div class="footer-left mx-auto" style="white-space: initial;">
+        <p><b>{{cs.title_footer}}</b></p>
+        <!-- <p>
+
+          All rights reserved. No part of this document may be reproduced, distributed or transmitted in any form or by
+          any means including photocopying, recording or other electronic or mechanical methods without the prior
+          written permission of the publisher.
+        </p> -->
+      </div>
+    </div>
+  </footer>
+
+</div>
+<ng-template #forgotpwdmdl let-modal backdrop>
+  <ng-template [ngIf]="resetpop==1">
+    <div class="modal-header modal_header">
+      <h4 class="modal-title">Reset Password</h4>
+      <button type="button" class="close" data-dismiss="modal" (click)="mdls.modalRef.hide()">&times;</button>
+    </div>
+    <div class="modal-body box_padding">
+      <div class="box1">
+        <form class="form-horizontal" action="#">
+          <div class="form-group row">
+            <label class="col-sm-6 col-form-label text-left">New Password
+            </label>
+            <div class="col-sm-6">
+              <input class="form-control" type="password" id="ResetP1" name="ResetP1" [(ngModel)]="resetpwds.newpwd">
+            </div>
+          </div>
+          <div>
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label  text-left">Re-enter New Password
+              </label>
+              <div class="col-sm-6">
+                <input class="form-control" type="password" id="ResetP2" name="ResetP2"
+                  [(ngModel)]="resetpwds.retypepwd">
+              </div>
+            </div>
+          </div>
+          <p align="center" style="color: #ff0000;">{{resetpwd_validation}}</p>
+          <div class="form-group row" style="margin-bottom:0px;">
+            <div class="col-sm-12 text-center">
+              <button class="btn btn-primary" type="button" (click)="updatepwd()"
+                [disabled]="resetpwds.newpwd =='' || resetpwds.retypepwd ==''" id="btn1"
+                style="margin-left:20px;">SUBMIT</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="resetpop==0">
+    <div class="modal-header modal_header">
+      <h4 class="modal-title">Security Questions </h4>
+      <button type="button" class="close" data-dismiss="modal" (click)="mdls.modalRef.hide()">&times;</button>
+    </div>
+    <div class="modal-body box_padding">
+
+      <form action="#" *ngIf="forgotpassword_data[0][0] !=''">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{forgotpassword_data[0][0]}}
+          </label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" value="" id="FirstQ" name="FirstQ"
+              [(ngModel)]="forgotpwd_answers[0]">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{forgotpassword_data[1][0]}}
+          </label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" value="" id="SecondQ" name="SecondQ"
+              [(ngModel)]="forgotpwd_answers[1]">
+          </div>
+        </div>
+        <p align="center" style="color: #ff0000;">{{forgotpassword_validation}}</p>
+        <div class="form-group row" style="margin-bottom:0px;">
+          <div class="col-sm-12 text-center">
+            <button class="btn btn-primary" type="button" (click)="validate_forgotpwform()"
+              [disabled]="forgotpwd_answers[0] =='' || forgotpwd_answers[1] ==''" disabled id="btn1"
+              style="margin-left:20px;">SUBMIT</button>
+          </div>
+        </div>
+      </form>
+      <form class="form-horizontal" *ngIf="forgotpassword_data[0][0] ==''">
+        <div class="form-group row">
+          <label style="text-align:center;" class="col-md-12 col-form-label">You have not Updated Security Questions
+            in Change Password section, Contact Previous Administrator /OEM.
+          </label>
+        </div>
+      </form>
+
+    </div>
+  </ng-template>
+</ng-template>

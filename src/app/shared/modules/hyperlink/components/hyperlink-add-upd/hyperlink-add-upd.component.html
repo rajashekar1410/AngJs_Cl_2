@@ -1,0 +1,38 @@
+<div bsModal>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="modalRef?.hide()">&times;</button>
+    <h4 class="modal-title">{{myTitle}}</h4>
+  </div>
+  <div class="modal-body">
+   
+      <form  (ngSubmit)="processRequest(changeLog)" #changeLog="ngForm" novalidate>
+       
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Content :</label>
+            <div class="col-sm-7">
+              <input class="form-control" type="text" [readonly]="editMode" id="content" name="content" [(ngModel)]="myData.content">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Page No :</label>
+            <div class="col-sm-7">
+              <input class="form-control" type="number" required id="page_no" name="page_no"
+                [(ngModel)]="myData.to_page" #page_no="ngModel">
+              <p class="text-danger" *ngIf="page_no.errors?.required  &&  changeLog.submitted">Page No is Required</p>
+            </div>
+          </div>
+          <div class="col-md-12 text-center">
+            <div class="form-group row" style="margin-bottom:0px">
+              <p align="center" style="color: #ff0000;">{{myValidation}}</p>
+              <div class="col-sm-12 text-center">
+                <button type="submit" [disabled]="!changeLog.valid" class="btn btn-primary" id="adUser"
+                  style="margin-left:20px">{{buttonText}}</button>
+              </div>
+            </div>
+          </div>
+       
+
+      </form>
+  
+  </div>
+</div>

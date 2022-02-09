@@ -1,0 +1,189 @@
+<div class="main1_warper">
+<div class="container manage-user-module">
+  <div class="row "  [hidden]="cs.user_session.user_type>0" >
+    <div class="col-md-12 col-md-offset-0" style="margin-top: 20px">
+      <div class="col-md-4 pull-right">
+        <button class="manage-adduser" (click)="logaddform()"data-backdrop="false">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Log</button>
+      </div>
+    </div>
+    <hr style="margin-top: 15px;margin-bottom: 15px">
+  </div>
+  <div class="row">
+    <div class="container">
+      <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-0 mt-5">
+      
+        <table id="tbllistid" datatable [dtOptions]="dtOptions"   style="width:100%" class="display main-content table table-bordered">
+         
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-body box_padding">
+  <div bsModal #logadd="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header modal_header">
+          <button type="button" class="close" (click)="logadd.hide()">&times;</button>
+          <h4 class="modal-title">{{log_form_title}}</h4>
+        </div>
+        <div class="modal-body">
+       
+            <form (ngSubmit)="managelogform(changeLog)" #changeLog="ngForm" novalidate>
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Change No.:</label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" required id="change_no" name="change_no" [(ngModel)]="changelogform.change_no"
+                        #change_no="ngModel">
+                      <p class="text-danger" *ngIf="change_no.errors?.required  &&  changeLog.submitted">Change No is
+                        Required</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Date:
+                    </label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" placeholder="YYYY-MM-DD" required id="log_date" name="log_date"
+                        [(ngModel)]="changelogform.log_date" #log_date="ngModel" [disabled]="true" #dp="bsDatepicker"
+                        bsDatepicker [bsValue]="changelogform.log_date" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: cs.default_theme }">
+                      <p class="text-danger" *ngIf="log_date.errors?.required  &&  log_date['submitted']">Date is Required</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Frame No.: </label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" required id="frame_no" name="frame_no" [(ngModel)]="changelogform.frame_no"
+                        #frame_no="ngModel">
+                      <p class="text-danger" *ngIf="frame_no.errors?.required  &&  changeLog.submitted">Frame No is
+                        Required</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">New Version No. after changes: </label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" required id="version_no" name="version_no" [(ngModel)]="changelogform.version_no"
+                        #version_no="ngModel">
+                      <p class="text-danger" *ngIf="version_no.errors?.required  &&  changeLog.submitted">New Version
+                        No is Required</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Remarks: </label>
+                    <div class="col-sm-6">
+                      <textarea class="form-control" required id="remarks" name="remarks" [(ngModel)]="changelogform.remarks"
+                        #remarks="ngModel">
+                      </textarea>
+                      <p class="text-danger" *ngIf="remarks.errors?.required  &&  changeLog.submitted">Remarks is
+                        Required</p>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Reference Description: </label>
+                    <div class="col-sm-6">
+                      <textarea class="form-control" required id="refrence_desc" name="refrence_desc" [(ngModel)]="changelogform.refrence_desc"
+                        #refrence_desc="ngModel">
+                        <p class="text-danger" *ngIf="refrence_desc.errors?.required  &&  changeLog.submitted">Reference Description is Required</p>
+            </textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-6 col-form-label">Reference document: </label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="file" id="refrence_doc" name="refrence_doc" [(ngModel)]="fileUpload"
+                      (change)="onFileSelected($event)">
+                      <p class="row" style="margin-top: 10px;" *ngIf="!fileUpload && changelogform.refrence_doc.length > 0">
+                        <span class="col-sm-10">
+                          {{changelogform.refrence_doc}}
+                        </span>
+                        <span class="col-sm-2">
+                          <button class="btn btn-danger btn-sm text-danger" (click)="onFileReset()"
+                           title="Remove document">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 text-center">
+                  <div class="form-group row" style="margin-bottom:0px">
+                    <p align="center" style="color: #ff0000;">{{log_validation}}</p>
+                    <div class="col-sm-12 text-center">
+                      <button type="submit" [disabled]="!changeLog.valid || !changeLog.dirty" class="btn btn-primary"
+                        id="adUser" style="margin-left:20px">{{log_form_btntitle}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal-body box_padding">
+  <div bsModal #logdelete="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header modal_header">
+          <button type="button" class="close" (click)="logdelete.hide()">&times;</button>
+          <h4 class="modal-title">Reference Document</h4>
+        </div>
+        <div class="modal-body" style="min-height:350px;overflow:hidden">
+          <!-- <div>
+            <ul class="nav">
+              <li>
+                <a (click)="cs.uppdatepdfoptions('showall')">
+                  <i class="fa fa-files-o"></i> Show All
+                </a>
+              </li>
+              <li>
+                <button class="btn" [ngClass]="{'disabledset' : cs.pdfoptions.page==1}" (click)="cs.uppdatepdfoptions('pageminus')">
+                  <i class="fa fa-arrow-left" title="Previous"></i>
+                </button>
+              </li>
+              <li>
+                <button class="btn" [ngClass]="{'disabledset' : cs.pdfoptions.page==cs.pdfoptions.totalpages}" (click)="cs.uppdatepdfoptions('pageplus')">
+                  <i class="fa fa-arrow-right" title="Next"></i>
+                </button>
+              </li>
+              <li>
+                <button class="btn" (click)="cs.uppdatepdfoptions('zoomplus')">
+                  <i class="fa fa-minus-circle" title="Zoom-out"></i>
+                </button>
+              </li>
+              <li [ngClass]="{'disabledset' : cs.pdfoptions.zoom<=0.5}">
+                <button class="btn" (click)="cs.uppdatepdfoptions('zoomminus')">
+                  <i class="fa fa-plus-circle" title="Zoom-in"></i>
+                </button>
+              </li>
+              <!--<li>
+                <input class="manuals_pagecoount" type="text" style="text-align:right;min-width:16px;width:200px;margin:0 10px;background:#fff"
+                  name="pdfcontrol" name="pdfcontrol" [(ngModel)]="cs.pdfoptions.search_value"
+                  placeholder="Find by Text">
+              </li>->
+            </ul>
+          </div> -->
+          <div class="clearfix"></div>
+          <div id="changelog-pdf-viewer-wrapper" class="box1">
+            <ng2-pdfjs-viewer #pdfViewer [openFile]="false" [viewBookmark]="false" [download]="false" [print]="false">
+            </ng2-pdfjs-viewer>
+            <!-- CNP: hidden since this module causes "Loading chunk failed errors" in FF 45 and below -->
+            <!-- <pdf-viewer [stick-to-page]="true" [render-text]="true" [src]="pdfSrc" [zoom]="cs.pdfoptions.zoom" [(page)]="cs.pdfoptions.page"
+              [rotation]="cs.pdfoptions.rotation" [original-size]="cs.pdfoptions.originalsize" [show-all]="cs.pdfoptions.showall"
+              style="display:block;overflow-x:auto;" (after-load-complete)="cs.loadedpdf($event)"></pdf-viewer> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

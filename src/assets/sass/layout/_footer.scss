@@ -1,0 +1,49 @@
+.footer_main {
+  background: var(--footer-bg-color);
+  color: #444;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 1035;
+  border-top: 1px solid var(--footer-border);
+  padding: 1px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  .footer-right {
+    border-left: 1px solid var(--footer-border);
+    padding: 0px 5px;
+  }
+}
+
+.footer_main p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.footer_main p i {
+  font-size: 12px;
+}
+
+/* hide last `>` icon for breadcrumb */
+
+.footer_main p a:last-child i {
+  display: none;
+}
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .footer_main {
+    display: none;
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+}

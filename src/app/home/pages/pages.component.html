@@ -1,0 +1,287 @@
+<div class="tocbackdrop" *ngIf="isInRearrangeMode"></div>
+<!--<router-outlet></router-outlet>-->
+
+<section class="ietm-core-menu ">
+  <div class="container-fluid">
+    <div class="menu-ietm row">
+      <div class="col-lg-6 col-md-6 col-sm-6 px-xs-0 pr-0">
+        <ul class="nav navbar-left">
+          <li *ngFor="let pc of cs.page_categories;let jx=index">
+            <a [ngClass]="{'active': cs.sel_catid==pc.id}" *ngIf="cs.isPageCategoryAccessible(pc)"
+              style="cursor:pointer" (click)="loadcat(pc.id)">{{pc.name}}</a>
+          </li>
+          <!-- Bookmarks -->
+          <!-- <li>
+            <a [ngClass]="{'active': router.url.toString().endsWith('managebookmarks')}" style="cursor:pointer"
+              routerLink="/home/managebookmarks">Bookmarks</a>
+          </li> -->
+        </ul>
+      </div>
+
+
+      <!--<div class="col-lg-6" *ngIf="cs.sel_catid==2">
+      <ul class="nav pull-right">
+  	 <li>
+          <button (click)="cs.uppdatepdfoptions('showall')">
+            <i class="fa fa-files-o"></i> Show All
+          </button>
+        </li>
+        <li>
+<button>
+          <input class="" type="text" style="text-align:right;min-width:16px;height:25px;width:15px;background:none;border:none;" name="pdfcontrol"
+            name="pdfcontrol" [(ngModel)]="cs.pdfoptions.page" (keyup)="cs.uppdatepdfpage($event.target.value)"
+            placeholder="pageNumber">
+          <span style="margin: 5px;">of {{cs.pdfoptions.totalpages}}</span>
+</button>
+        </li>
+        <li>
+          <button class="btn" [ngClass]="{'disabledset' : cs.pdfoptions.page==1}" (click)="cs.uppdatepdfoptions('pageminus')">
+            <i class="fa fa-arrow-left" title="Previous"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" [ngClass]="{'disabledset' : cs.pdfoptions.page==cs.pdfoptions.totalpages}" (click)="cs.uppdatepdfoptions('pageplus')">
+            <i class="fa fa-arrow-right" title="Next"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" (click)="cs.uppdatepdfoptions('zoomplus')">
+            <i class="fa fa-minus-circle" title="Zoom-out"></i>
+          </button>
+        </li>
+        <li [ngClass]="{'disabledset' : cs.pdfoptions.zoom<=0.5}">
+          <button class="btn" (click)="cs.uppdatepdfoptions('zoomminus')">
+            <i class="fa fa-plus-circle" title="Zoom-in"></i>
+          </button>
+        </li>
+        <li>
+          <input class="manuals_pagecoount" type="text" style="text-align:right;min-width:16px;width:220px;margin:0 0px;background:#fff;display:block;height:34px;"
+            name="pdfcontrol" name="pdfcontrol" [(ngModel)]="cs.pdfoptions.search_value" (keyup)="applysearch($event.target.value)"
+            placeholder="Find by Text">
+        </li>
+      </ul>
+    </div>-->
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="cs.sel_catid==1">
+        <ul class="nav notefeed">
+          <li> <button title="Notes" class="btn" (click)="openannots(1)">
+              <i class="lni lni-notepad"></i>
+              <span class="badge badge-light">{{cs.note_anots_count}}</span>
+            </button>
+          </li>
+          <li>
+            <button title="Feedback to Administrator" class="btn" (click)="openannots(2)">
+              <i class="lni lni-comments"></i>
+              <span class="badge badge-light">{{cs.feedback_anots_count}}</span>
+            </button>
+          </li>
+          <li>
+            <form class="navbar-form navbar-search" role="search">
+              <div class="input-group">
+                <input class="form-control" type="text" style="border-radius:3px;margin-top: 1px;" name="localsearch"
+                  id="localsearch" [(ngModel)]="cs.searchTerm" placeholder="Find by Text">
+              </div>
+            </form>
+          </li>
+        </ul>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+<!--<div class="col-md-4">
+  <button class="manage-adduser" (click)="addform(addinventory)"  data-toggle="modal" id="snbtn1" data-target="#draggable" data-backdrop="false">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add inventory</button>
+</div>-->
+<section [class.colpsnav]="minimise_invsidenav==2" [class.open]="minimise_sidenav==1"
+  [class.menucollps]="minimise_sidenav==0">
+  <!-- hide TOC entirely for Inventory -->
+  <div id="left-panel" class="left-side sticky-left-side left-panel bh">
+    <div class="left-side-inner">
+      <!-- Module name -->
+      <div class="module_title_tree" *ngIf="cs.sel_catid == 1">
+        {{cs.selmodule_name}}
+      </div>
+
+      <div class="tree" *ngIf="cs.sel_catid <=4">
+        <tree-root [options]="options" [nodes]="page_tree" #treenode (activate)="loadpagedata($event)"
+          (focus)="displayactions($event)">
+          <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+            <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+              <tree-node-expander [node]="node"></tree-node-expander>
+              <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive"
+                [class.node-content-wrapper-focused]="node.isFocused" (click)="node.mouseAction('click', $event)"
+                (dblclick)="node.mouseAction('dblClick', $event)"
+                (contextmenu)="node.mouseAction('contextMenu', $event)" (treeDrop)="node.onDrop($event)"
+                [treeAllowDrop]="node.allowDrop" [treeDrag]="node" [treeDragEnabled]="node.allowDrag()">
+                <tree-node-content [node]="node" [index]="index" [title]="node.data.name">
+                </tree-node-content>
+              </div>
+              <ng-template [ngIf]="cs.user_session.user_type <=1">
+                <!-- [hidden]="node.data.permited==0 || (node.level >='3' && appcmp.globalcategory ==5)"-->
+                <!--[routerLink]="['/pages',{ id:node.data.id,type:'add',category:appcmp.globalcategory,pagetitle:pagetitle}]"-->
+                <!--[routerLink]="['/pages',{ id:node.data.id,type:'edit',category:appcmp.globalcategory,pagetitle:pagetitle}]"-->
+                <span class="ac tion-icons" style="margin-left:10px"
+                  *ngIf="cs.user_session.user_type ==0 && !isInRearrangeMode && cs.sel_catid<=4">
+                  <!-- Add Page -->
+                  <a class="text-success" title="Add New Page" *ngIf="node.data.id==activemenuid"
+                    (click)="getpagemgr('add',node.data.id,node.data.name)">
+                    <i class="lni lni-add-files"></i>
+                  </a>
+                  <!-- Edit Page -->
+                  <a class="text-warning" title="Edit Page" *ngIf="node.data.id==activemenuid"
+                    (click)="getpagemgr('edit',node.data.id,node.data.name)">
+                    <i class="lni lni-pencil-alt"></i>
+                  </a>
+                  <!-- Delete Page -->
+                  <a class="text-danger" title="Delete Page" *ngIf="node.data.id==activemenuid">
+                    <i class="lni lni-trash" (click)="deletechild(node)"></i>
+                  </a>
+                </span>
+              </ng-template>
+            </div>
+          </ng-template>
+        </tree-root>
+      </div>
+    </div>
+    <ng-template [ngIf]="cs.sel_catid==5">
+      <div class="left-side-inner">
+        <ul class="basic-vertical-menu">
+          <li>
+            <a [class.activever]="glosary_type==1" (click)="updateglosary(1)">Abbreviations</a>
+          </li>
+          <li>
+            <a [class.activever]="glosary_type==2" (click)="updateglosary(2)">Definitions</a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+    <!-- Logs TOC items -->
+    <ng-template [ngIf]="cs.sel_catid==7">
+      <div class="left-side-inner">
+        <ul class="basic-vertical-menu">
+          <li>
+            <a [class.activever]="cs.selectedLogId==1" (click)="updateLogsType(logsTypes.TYPE_LOGS_RADAR_OPS)">Radar
+              Operational Log</a>
+          </li>
+          <li>
+            <a [class.activever]="cs.selectedLogId==2" (click)="updateLogsType(logsTypes.TYPE_LOG_SENSOR_ACT)">Sensor
+              Activity Log</a>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+    <!-- TOC items controls -->
+    <ng-container>
+      <a title="Discard Changes" class="toggle-btn" *ngIf="cs.user_session.user_type ==0 && isInRearrangeMode"
+        style="right: 30px !important;" (click)="discardTOCArrangeChanges()">
+        <i class="lni lni-cross-circle"></i>
+      </a>
+      <a title="Save Index" class="toggle-btn" *ngIf="cs.user_session.user_type ==0 && isInRearrangeMode"
+        style="right: 0px !important;" (click)="saveTOCArrangeChanges()">
+        <i class="lni lni-save"></i>
+      </a>
+      <a title="Rearrange Index" class="toggle-btn"
+        *ngIf="cs.user_session.user_type ==0 && !isInRearrangeMode && cs.sel_catid<=4" style="right: 55px !important;"
+        (click)="setTOCInRearrangeMode()">
+        <i class="lni lni-sort-alpha-asc"></i>
+      </a>
+      <a title="Add Main Page" class="toggle-btn"
+        *ngIf="cs.user_session.user_type ==0 && !isInRearrangeMode && cs.sel_catid<=4" style="right: 30px !important;"
+        (click)="getpagemgr('add',0,'')">
+        <i class="lni lni-add-files"></i>
+      </a>
+      <a id="toggle-btn" class="toggle-btn" *ngIf="!isInRearrangeMode">
+        <i title="Close Menu" class="fa fa-arrow-left" *ngIf="minimise_sidenav==0"
+          (click)="minimise_sidenav=1;updatetblsize()"></i>
+        <i title="Open Menu" class="fa fa-arrow-right" *ngIf="minimise_sidenav==1"
+          (click)="minimise_sidenav=0;updatetblsize()"></i>
+        <div class="index-show" (click)="minimise_sidenav=0;updatetblsize()">index</div>
+      </a>
+    </ng-container>
+    <a title="Discard Changes" class="toggle-btn" *ngIf="cs.user_session.user_type ==0 && isInRearrangeMode"
+      style="right: 30px !important;" (click)="discardTOCArrangeChanges()">
+      <i class="lni lni-cross-circle"></i>
+    </a>
+    <a title="Save Index" class="toggle-btn" *ngIf="cs.user_session.user_type ==0 && isInRearrangeMode"
+      style="right: 0px !important;" (click)="saveTOCArrangeChanges()">
+      <i class="lni lni-save"></i>
+    </a>
+    <a title="Rearrange Index" class="toggle-btn"
+      *ngIf="cs.user_session.user_type ==0 && !isInRearrangeMode && cs.sel_catid<=4" style="right: 55px !important;"
+      (click)="setTOCInRearrangeMode()">
+      <i class="lni lni-sort-alpha-asc"></i>
+    </a>
+    <a title="Add Main Page" class="toggle-btn"
+      *ngIf="cs.user_session.user_type ==0 && !isInRearrangeMode && cs.sel_catid<=4" style="right: 30px !important;"
+      (click)="getpagemgr('add',0,'')">
+      <i class="lni lni-add-files"></i>
+    </a>
+    <!-- Hide TOC expand button on Inventory -->
+    <a id="toggle-btn" class="toggle-btn" *ngIf="!isInRearrangeMode && cs.sel_catid != 6">
+      <i title="Close Menu" class="fa fa-arrow-left" *ngIf="minimise_sidenav==0"
+        (click)="minimise_sidenav=1;updatetblsize()"></i>
+      <i title="Open Menu" class="fa fa-arrow-right" *ngIf="minimise_sidenav==1"
+        (click)="minimise_sidenav=0;updatetblsize()"></i>
+      <div class="index-show" (click)="minimise_sidenav=0;updatetblsize()">index</div>
+    </a>
+  </div>
+
+
+  <div class="main-content1">
+    <router-outlet></router-outlet>
+    <ng-template [ngIf]="cs.sel_catid<=4">
+      <div id="prev-next-container">
+        <ng-container *ngIf="print_preview==0">
+          <button (click)="navtoprev()" [disabled]="prevBtnDisabled" title="Previous Topic"
+            class="btn btn-primary inPrint" style=" margin: 5px 10px;">
+            Prev
+          </button>
+          <a *ngIf="cs.user_session.user_type <=1" class="inPrint2">Frame NO:
+            {{this.cs.selpage_id}}</a>
+          <button (click)="navtonext()" title="Next Topic" class="btn btn-primary inPrint1" [disabled]="nextBtnDisabled"
+            style=" margin: 5px 10px;">
+            Next
+          </button>
+        </ng-container>
+        <!--  <ng-template [ngIf]="print_preview>0">
+          <button (click)="goBack()" title="OK Close" class="btn btn-primary inPrint" style="z-index: 500;color:#fff;">
+            <i class="fa fa-arrow-left"></i> OK
+          </button>
+        </ng-template>-->
+      </div>
+    </ng-template>
+  </div>
+</section>
+<footer *ngIf="cs.sel_catid<=4">
+  <div class="footer_main" *ngIf="cs.page_breadcrumb.length>0 ">
+    <div class="footer-left">
+      <p>
+        <!--<a  class="disable-txtlink">{{cs.page_mcbreadcrumb}} <i class="fa fa-caret-right"></i> </a>-->
+        <a class="disable-txtlink"><b>{{cs.page_mcbreadcrumb['module_name']}}</b>
+          <i style="margin: 0px 3px;" class="lni lni-chevron-right"></i>
+        </a>
+        <a class="disable-txtlink"><b>{{cs.page_mcbreadcrumb['page_category']}}</b>
+          <i style="margin: 0px 3px;" class="lni lni-chevron-right"></i>
+        </a>
+        <ng-template ngFor let-pbcm [ngForOf]="cs.page_breadcrumb" let-i="index">
+
+          <a class="txtlink" (click)="openpage(pbcm.id)"><b>{{pbcm.title}}</b>
+            <i style="margin: 0px 3px;" class="lni lni-chevron-right"></i>
+          </a>
+        </ng-template>
+      </p>
+    </div>
+    <div class="footer-right">
+      <p><b>{{cs.title_footer}}</b></p>
+    </div>
+  </div>
+</footer>
+<!--<footer>
+  <div class="footer_main">
+    <p>
+      <a href="#">BFCS Mk-II</a>
+      <i class="fa fa-caret-right"></i> IETM Core
+      <i class="fa fa-caret-right"></i> System Information</p>
+  </div>
+</footer>-->

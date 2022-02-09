@@ -1,0 +1,296 @@
+<div class="modal-header modal_header" *ngIf="cs.view_annotationid !=0">
+  <h4 class="modal-title pull-left">Annotations <button type="button" class="close pull-right" aria-label="Close"
+      (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button></h4>
+</div>
+
+<div class="main1_warper">
+  <div class="container annotations-lisi">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 mx-auto" style="margin-top: 30px;">
+        <div class="card card-primary">
+          <!-- <div class="card-header">
+            <div class="row">
+              <div class="col-md-6">
+              </div>
+              <div class="col-md-6">
+                <ul class="filter-nav float-right mb-0">
+              <li title="Add Annotation">
+                  <button class="delete btn" (click)="addanot(editmember)">
+                    <i class="fa fa-plus-circle"></i>
+                  </button>
+                </li>
+               <li title="Delete Annotation">
+                    <button style="padding: 3.5px 5px;" class="btn" (click)="annotsdel.show()"   [disabled]='ls.enableseldelete==0'>
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </li>
+                <li>
+                  <button  *ngIf="ls.selectedAll==0" (click)="ls.selectalltogleannots(true,1);ls.enableseldelete=1" style="margin-right:0px;  width:120px;">SELECT ALL</button>
+                  <button  *ngIf="ls.selectedAll==1" (click)="ls.selectalltogle(false,0);ls.enableseldelete=0" style="margin-right:0px; width:120px;">DESELECT</button>
+                </li> ->
+                <li title="Sorting" class="btn-group" dropdown style="vertical-align: inherit;">
+                  <button id="antsfilter" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="antsfilter-basic">
+                    <i class="fa fa-filter" aria-hidden="true"></i> {{annotation_types[dtfilters['annotation_type']]}}
+                  </button>
+                  <ul id="antsfilter-basic" *dropdownMenu class="dropdown-menu  dropdown-left" role="menu" aria-labelledby="antsfilter">
+                    <li    [ngClass]="{'my-class': dtfilters['annotation_type']=='0'}"  (click)="getdtllistings(0)" role="menuitem">
+                      <a style="padding:7px 14px;" class="dropdown-item">ALL</a>
+                    </li>
+                    <li  [ngClass]="{'my-class': dtfilters['annotation_type']=='1'}"  style="border-top:1px solid #e5e5e5;" (click)="getdtllistings(1)" role="menuitem">
+                      <a style="padding:7px 14px;" class="dropdown-item">Notes</a>
+                    </li>
+                    <li   [ngClass]="{'my-class': dtfilters['annotation_type']=='2'}"  style="border-top:1px solid #e5e5e5" (click)="getdtllistings(2)" role="menuitem">
+                      <a style="padding:7px 14px;" class="dropdown-item">Feedback to Administrator</a>
+                    </li>
+                  </ul>
+                </li>
+              <li title="Delete Annotation">
+                    <button class="btn btn-sm">
+                      <i class="fa fa-trash-o"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="btn btn-sm">SELECT ALL</button>
+                  </li>
+              </ul>
+              </div>
+            </div>
+          </div> -->
+          <div class="card-body">
+            <div class="table-responsive ">
+              <div class="col-md-12 col-sm-12 ">
+                <app-ietm-table [dtOptions]="dtOptions" [dtFilters]="dtfilters" [dtTrigger]="dtTrigger"
+                  [contentFilterEnabled]="updatePageHeader" [contentFilterData]="dtContentFilterData"
+                  [contentFilterFunction]="dtContentFilterFunction" [printEnabled]="cs.user_session.user_type==1"
+                  [printTableSelector]="'.annotations-lisi .table'" [deleteTableName]="'annotations'"
+                  
+                  (eventEmitter)="onTableEvent($event)" [enableSelectDeselect]="false" [enableDelButton]="cs.user_session.user_type!=0">
+                </app-ietm-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #comments let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+    <h4 class="modal-title">Comments</h4>
+  </div>
+  <div class="modal-body main-cmts-container">
+    <div class="box1">
+      <div class="row justify-content-between">
+
+        <div class="col-sm-9 text-left">
+
+          <h5 class="mb-0 text-primary">{{selected_annotation['title']}} </h5>
+
+
+
+        </div>
+        <div class="col-sm-3">
+          <button type="button" [hidden]="show_comments==1" class="btn btn-success float-right btn-sm"
+            (click)="add_comment()"><i class="fa fa-plus" aria-hidden="true"> </i></button>
+        </div>
+        <div class="col-sm-12 text-left my-2">
+          <p> {{selected_annotation['description']}}</p>
+
+        </div>
+        <div class="col-sm-6 text-left">
+          <small><b>Created By:</b> {{selected_annotation['user_name']}}</small>
+        </div>
+        <div class="col-sm-6 text-left">
+          <small style="margin-left:10px"><b>Created On:</b> {{selected_annotation['creation_date'] | amDateFormat:'MMM
+            Do YYYY, hh:mm a'}}</small>
+        </div>
+
+
+
+      </div>
+      <hr>
+      <div class="col-sm-12 text-left cmts-container">
+        <ul class="media-list p-0" *ngIf="show_comments==0">
+          <li class="media" *ngFor="let comment of annotation_comments;let j=index">
+            <div class="media-body">
+              <div class="well well-lg">
+
+                <ul class="media-date text-uppercase list-inline d-flex justify-content-between">
+                  <li class="media-heading text-uppercase"> <b>{{comment.user_name}}</b></li>
+                  <li class="dd"><small>{{comment.creation_date | amDateFormat:'MMM Do YYYY, hh:mm a'}}</small></li>
+                </ul>
+                <hr class="mt-1 mb-1">
+                <p class="media-comment mb-2">
+                  {{comment.comments}}
+                </p>
+                <a class="btn btn-warning btn-sm btn-circle text-uppercase" id="edit"
+                  *ngIf="cs.user_session.id==comment.created_by" (click)="edit_comment(comment.id,comments,j)"><i
+                    class="fa fa-pencil"></i> Edit</a>
+                <a style="margin:0 10px" class="btn btn-danger btn-sm btn-circle text-uppercase" id="reply"
+                  *ngIf="(cs.user_session.user_type <=1 || cs.user_session.id==comment.created_by)"
+                  (click)="open_commentsdelconf(comment.id,deletcomments,j)"><span
+                    class="glyphicon glyphicon-share-alt"></span> Delete</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <form *ngIf="show_comments==1" class="form-horizontal col-sm-12" (ngSubmit)="managecomments(commentsForm)"
+          #commentsForm="ngForm" novalidate>
+          <div class="form-group row  mb-1">
+            <label class="col-sm-12 col-form-label text-left">Add Comment :</label>
+            <div class="col-sm-12">
+              <textarea maxlength="250" required class="form-control" name="description" rows="2" id="description"
+                [(ngModel)]="comments_tdata.comments" #description="ngModel"></textarea>
+              <p><small class="pull-right">{{comments_tdata.comments.length}}/250</small></p>
+              <p class="text-danger" *ngIf="description.errors?.required  &&  commentsForm.submitted">Comment is
+                required</p>
+            </div>
+          </div>
+          <p align="center" style="color: #ff0000;">{{comments_formvalidation}}</p>
+          <div class="form-group row" style="margin-bottom:0px;">
+            <div class="text-left col-sm-12">
+              <button type="submit" class="btn btn-success btn-sm  save-btn" id="adUser"
+                [disabled]="!commentsForm.valid || !commentsForm.dirty">{{comments_btntitle}}</button>
+              <button type="button" class="btn btn-danger btn-sm save-btn" id="adUser" style="margin-left:10px;"
+                (click)="show_comments=0">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #editmember let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="mdls.modalRef.hide()">&times;</button>
+    <h4 class="modal-title">{{form_title}}</h4>
+  </div>
+  <div class="modal-body ">
+    <div class="box1">
+      <form class="form-horizontal" (ngSubmit)="manageannotations(anniForm)" #anniForm="ngForm" novalidate>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Title: </label>
+          <div class="col-sm-8">
+            <input required class="form-control" [disabled]="tdata.id!=''" name="title" id="title" type="text"
+              [(ngModel)]="tdata.title" #titleq="ngModel">
+            <p class="text-danger" *ngIf="titleq.errors?.required  &&  anniForm.submitted">Annotated Text is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Description :</label>
+          <div class="col-sm-8">
+            <textarea required class="form-control" name="description" rows="2" id="description"
+              [(ngModel)]="tdata.description" #description="ngModel"></textarea>
+            <p class="text-danger" *ngIf="description.errors?.required  &&  anniForm.submitted">description is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Annotation Type:</label>
+          <div class="col-sm-8">
+            <select [disabled]="true" required class="form-control" id="annotation_type" name="annotation_type"
+              [(ngModel)]="tdata.annotation_type" #annotation_type="ngModel">
+              <option *ngFor="let anni of cs.annotation_type | keys" [value]="anni.key">{{anni.value}}</option>
+            </select>
+            <p class="text-danger" *ngIf="annotation_type.errors?.required  &&  anniForm.submitted">Select Annotation
+              Type is required</p>
+          </div>
+        </div>
+        <p align="center" style="color: #ff0000;">{{formvalidation}}</p>
+        <div class="form-group row" style="margin-bottom:0px;">
+          <div class="text-center col-sm-12">
+            <button type="submit" class="btn btn-primary  save-btn" id="adUser"
+              [disabled]="!anniForm.valid || !anniForm.dirty" style="margin-left:20px;">{{form_btntitle}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<ng-template #deletannots let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="closeconfirm();tddelete=0">&times;</button>
+    <h4 class="modal-title">
+      <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Annotation(s)
+    </h4>
+  </div>
+  <div class="modal-body">
+
+
+    <p>This will delete the selected annotation(s) permanently. Would you like to proceed?
+    </p>
+
+  </div>
+  <div class="modal-footer justify-content-center">
+
+    <button type="button" class="btn btn-primary" id="" (click)="_triggerAnnotationDelete()">YES</button>
+
+
+    <button type="button" (click)="closeconfirm();tddelete=0" class="btn btn-primary" id=""
+      style="padding: 6px 13px;">NO</button>
+
+  </div>
+
+</ng-template>
+
+<ng-template #deletcomments let-modal backdrop>
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="closecomment();tddelete=0">&times;</button>
+    <h4 class="modal-title">
+      <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Comment
+    </h4>
+  </div>
+  <div class="modal-body">
+
+
+    <p>This will delete the Comment permanently. Would you like to proceed?
+    </p>
+  </div>
+
+  <div class="modal-footer justify-content-center">
+
+    <button type="button" class="btn btn-primary" id="" (click)="deletecomment(tddelete)">YES</button>
+
+    <button type="button" (click)="closecomment();tddelete=0" class="btn btn-primary" id=""
+      style="padding: 6px 13px;">NO</button>
+
+  </div>
+
+</ng-template>
+<div bsModal #annotsdel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="annotsdel.hide()">&times;</button>
+        <h4 class="modal-title">
+          <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Annotation(s)
+        </h4>
+      </div>
+      <div class="modal-body">
+
+
+        <p>This will delete the selected annotation(s) permanently. Would you like to proceed?
+        </p>
+
+      </div>
+      <div class="modal-footer justify-content-center">
+
+        <a class="btn btn-primary" id="" (click)="annotsdel.hide();ls.multiplerecdeletion('id','annotations')">YES</a>
+
+        <a (click)="annotsdel.hide()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--  </kendo-pdf-export>-->
+<!-- <button type="button" #appprinttriger (click)="appprintpreview.show();cs.popdragabale()" style="display:none">Print
+  Confirmation</button> -->

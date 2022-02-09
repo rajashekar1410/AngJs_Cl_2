@@ -1,0 +1,38 @@
+<div bsModal #explainermdl="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="closeWE(true)">&times;</button>
+        <h4 class="modal-title">{{myData.content_title}}</h4>
+      </div>
+      <div class="modal-body">
+      
+        
+            <div *ngIf="myData.content_type==2" class="embed-responsive embed-responsive-16by9">
+              <video width="400" id="singleVideo" class="embed-responsive-item" preload="auto" controls autoplay controlsList="nodownload">
+                <source *ngIf="myData.content.length > 0 && myData.content_path_type == 0" src="{{cs.imageurl}}/explainer/videos/{{myData.content}}" type="video/mp4">
+                <source *ngIf="myData.content.length > 0 && myData.content_path_type == 1" src="{{cs.serverip}}/{{myData.content}}" type="video/mp4">
+              </video>
+            </div>
+            <div id="explainerimg" class="text=center" *ngIf="myData.content_type==1">
+              <p align="center"><img class="img-responsive" *ngIf="myData.content.length > 0 && myData.content_path_type == 0" src="{{cs.imageurl}}/explainer/images/{{myData.content}}"></p>
+              <p align="center"><img class="img-responsive" *ngIf="myData.content.length > 0 && myData.content_path_type == 1" src="{{cs.serverip}}/{{myData.content}}"></p>
+            </div>
+            <div *ngIf="myData.content_type==3" [innerHtml]="myData.content"></div>
+            <!-- Edit/Delete controls -->
+
+          </div>
+            
+            <div class="modal-footer justify-content-center" *ngIf="cs.user_session.user_type <=1">
+              
+                    <button type="button" (click)="editWE()" class="btn btn-primary btn-sm" id="">EDIT HOTSPOT</button>
+               
+                    <button type="button" (click)="delWE()" type="button" class="btn btn-primary btn-sm" >
+                      DELETE HOTSPOT</button>
+              
+        
+       
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="main1_warper">
+  <div class="manage-user-module">
+    <div class="container">
+    <div class="row">
+     
+
+      <div class="col-md-12  pull-right mt-3">
+        <button class="manage-adduser" (click)="triggerAddUpdModule(false)" data-toggle="modal" id="snbtn1"
+          data-target="#draggable" data-backdrop="false">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Module</button>
+      </div>
+
+     
+      <div class="col-md-12 mt-2" >
+        <!-- <table id="tbllistid" datatable [dtOptions]="dtOptions" style="width:100%" [dtTrigger]="dtTrigger"
+          class="display main-content table table-bordered"> 
+        </table> -->
+          <app-ietm-table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" [dtFilters]="dtFilters" [printEnabled]="true"></app-ietm-table>
+        <!-- Print btn -->
+        <!-- <p style="text-align: center" *ngIf="cs.user_session.user_type<2">
+          <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+        </p> -->
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="modal-body box_padding">
+  <div bsModal #logadd="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header modal_header">
+          <button type="button" class="close" (click)="logadd.hide()">&times;</button>
+          <h4 class="modal-title">{{myTitle}}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box1">
+            <form (ngSubmit)="manageformsub(changeLog)" #changeLog="ngForm" novalidate>
+
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Content Type: </label>
+                <div class="col-sm-8">
+                  <select [disabled]="myData.id !=''" required class="form-control" id="content_type"
+                    name="content_type" [(ngModel)]="myData.content_type" #content_type="ngModel">
+                    <option *ngFor="let expl of cs.explainers | keys" [value]="expl.key">{{expl.value}}</option>
+                  </select>
+                  <p class="text-danger" *ngIf="content_type.errors?.required  &&  changeLog.submitted">Select Content
+                    Typeis required</p>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Content Title :</label>
+                <div class="col-sm-8">
+                  <input class="form-control" type="text" required id="content_title" name="content_title"
+                    [(ngModel)]="myData.content_title" #content_title="ngModel">
+                  <!-- <p class="text-danger" *ngIf="content_title.errors?.required  &&  changeLog.submitted">Content Title
+                      is Required</p> -->
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="myData.content_type==3">
+                <label class="col-sm-12 col-form-label" style="text-align:left">Content: </label>
+                <div class="col-sm-12">
+                  <ckeditor [(ngModel)]="myData.content" name="description" #myckeditor [config]="cs.CKEditorConfig"
+                    debounce="500" rows="2"> </ckeditor>
+                </div>
+              </div>
+              <!-- Determine content path type -->
+              <div class="form-group row"  *ngIf="myData.content_type != 3">
+                <label class="col-sm-4 col-form-label">Choose Content:</label>
+                <div class="col-sm-8 d-flex">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [(ngModel)]="myData.content_path_type"
+                      (change)="changeContentPath(0)" name="inlineRadioOptions" id="inlineRadio1" [value]="0">
+                    <label class="form-check-label" for="inlineRadio1">From File</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" (change)="changeContentPath(1)"
+                      name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="myData.content_path_type" [value]="1">
+                    <label class="form-check-label" for="inlineRadio2">From Path</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="myData.content_type!=3">
+                <label class="col-sm-4 col-form-label"> Content:</label>
+                <div class="col-sm-8" *ngIf="myData.content_path_type == 0">
+                  <input type="file" class="form-control" [accept]="myData.content_type == 1 ? 'image/*' : 'video/*'"
+                    (change)="fileChangeEvent($event)" name="file_upload">
+
+
+                  <!-- 
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" [accept]="myData.content_type == 1 ? 'image/*' : 'video/*'"
+                        (change)="fileChangeEvent($event)" name="file_upload">
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...Max 40 MB</label>
+                      
+                      </div> -->
+
+
+
+
+                  <div *ngIf="myData.content_type== 2">
+                    <video width="400" id="singleVideo" preload="auto" controls autoplay controlsList="nodownload">
+                      <source *ngIf="myData.content.length > 0"
+                        src="{{cs.imageurl}}/explainer/videos/{{myData.content}}" type="video/mp4">
+                    </video>
+                  </div>
+                  <div id="explainerimg" class="text=center" *ngIf="myData.content_type==1">
+                    <img class="img-responsive" *ngIf="myData.content.length > 0" width="200"
+                      src="{{cs.imageurl}}/explainer/images/{{myData.content}}">
+                  </div>
+                </div>
+                <div class="col-sm-8" *ngIf="myData.content_path_type == 1">
+                  <input type="text" name="content_from_path" class="form-control" [(ngModel)]="myData.content">
+                </div>
+              </div>
+              <div class="col-md-12 text-center">
+                <div class="form-group row" style="margin-bottom:0px">
+                  <p align="center" style="color: #ff0000;">{{myValidation}}</p>
+                  <div class="col-sm-12 text-center">
+                    <button type="submit" [disabled]="!changeLog.valid" class="btn btn-primary" id="adUser"
+                      style="margin-left:20px">{{buttonText}}</button>
+                  </div>
+                </div>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

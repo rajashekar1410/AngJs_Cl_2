@@ -1,0 +1,31 @@
+<div class="modal-header modal_header" backdrop>
+  <button type="button" class="close" (click)="modalRef?.hide()">&times;</button>
+  <h4 class="modal-title">{{formTitle}}</h4>
+</div>
+<div class="modal-body">
+  <div class="box1">
+    <form class="form-horizontal" (ngSubmit)="processRequest()" #inventory="ngForm" [formGroup]="invTypeForm" novalidate>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Inventory Type:</label>
+        <div class="col-sm-6">
+          <input placeholder="Enter Inventory Type" required class="form-control" type="text" name="invtype"
+            [formControl]="invtype">
+          <p class="text-danger" *ngIf="invtype.errors?.required  &&  invtype.touched">Inventory Type is required
+          </p>
+          <p class="text-danger" *ngIf="invtype.errors?.duplicateName  &&  invtype.touched">Inventory Type already exists
+          </p>
+        </div>
+
+      </div>
+
+      <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+      <div class="form-group" style="margin-bottom:0px;">
+        <div class="text-center col-sm-12">
+          <button type="submit" [disabled]="invTypeForm.invalid" class="btn btn-primary" id="adUser"
+            style="margin-left:10px;padding: 6px 20px;">{{btnTitle}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

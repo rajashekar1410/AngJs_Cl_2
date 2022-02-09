@@ -1,0 +1,160 @@
+<div class="inventory-warper" style="margin-top:35px">
+  <div class="row" style="margin: 0px;">
+  <div class="col-md-4" *ngIf="cs.user_session.user_type<=1" style="margin-bottom:10px">
+    <button class="manage-adduser pull-left" (click)="logaddform()" title="Add Expaliner">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </button>
+    <button title="Delete Selected Explainers" style="float:left" [disabled]='ls.enableseldelete==0' class="manage-adduser btn"
+      (click)="explainerdel.show()">
+      <i class="fa fa-trash-o"></i>
+    </button>
+    <button style="float:left" *ngIf="ls.selectedAll==0" (click)="ls.selectalltogle(true,1);ls.enableseldelete=1" class="manage-adduser btn">SELECT ALL</button>
+    <button style="float:left" *ngIf="ls.selectedAll==1" (click)="ls.selectalltogle(false,0);ls.enableseldelete=0" class="manage-adduser btn">DESELECT</button>
+    <br>
+  </div>
+</div>
+
+
+  <div class="row" style="margin: 0px;">
+  <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-0 ">
+    <div class="inventory">
+      <table id="tbllistid" datatable [dtOptions]="dtOptions"  style="width:100%" class="table table-striped table-bordered main-content">
+        <thead>
+          <tr>
+            <th style="width:10%">Sr. No.</th>
+            <th>Content ID</th>
+            <th>Content Type</th>
+            <th>Content Title</th>
+
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="ls.listing_data.length != 0">
+          <tr *ngFor="let listdata of ls.listing_data;let j=index">
+            <td style="width:10%">{{tbl_start+j+1}}
+              <div class="pretty p-svg p-curve">
+                <input type="checkbox" class="checkBoxClass" name="mdbkm{{j}}" [(ngModel)]="listdata['selected']" (change)="ls.deleteenablecheck()"
+                />
+                <div class="state p-success">
+                  <svg class="svg svg-icon" viewBox="0 0 20 20">
+                    <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
+                      style="stroke: white;fill:white;"></path>
+                  </svg>
+                  <label></label>
+                </div>
+              </div>
+            </td>
+            <td>{{listdata.id}} </td>
+            <td>{{cs.explainers[listdata.content_type]}}</td>
+            <td>{{listdata.content_title}} </td>
+
+            <td align="center">
+              <button style="margin:0 5px" (click)="editlog(listdata.id)" class="btn btn-warning" title="Edit Log">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  <div class="modal-body box_padding">
+    <div bsModal #logadd="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header modal_header">
+            <button type="button" class="close" (click)="logadd.hide()">&times;</button>
+            <h4 class="modal-title">{{log_form_title}}</h4>
+          </div>
+          <div class="modal-body">
+            <div class="box1">
+              <form class="form-horizontal" (ngSubmit)="manageformsub(changeLog)" #changeLog="ngForm" novalidate>
+                <div class="row">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Content Type: </label>
+                    <div class="col-sm-8">
+                      <select [disabled]="changelogform.id !=''" required class="form-control" id="content_type" name="content_type" [(ngModel)]="changelogform.content_type"
+                        #content_type="ngModel">
+                        <option *ngFor="let expl of cs.explainers | keys" [value]="expl.key">{{expl.value}}</option>
+                      </select>
+                      <p class="text-danger" *ngIf="content_type.errors?.required  &&  changeLog.submitted">Select Content Typeis required</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Content Title :</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="text" required id="content_title" name="content_title" [(ngModel)]="changelogform.content_title"
+                        #content_title="ngModel">
+                      <p class="text-danger" *ngIf="content_title.errors?.required  &&  changeLog.submitted">Content Title is Required</p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12" *ngIf="changelogform.content_type==3">
+                    <label class="col-sm-12 control-label" style="text-align:left">Content: </label>
+                    <div class="col-sm-12">
+                      <ckeditor [(ngModel)]="changelogform.content" name="description" #myckeditor [config]="cs.CKEditorConfig" debounce="500"
+                        rows="2"> </ckeditor>
+                    </div>
+                  </div>
+                  <div class="form-group" *ngIf="changelogform.content_type!=3">
+                    <label class="col-sm-4 control-label"> Content FIle</label>
+                    <div class="col-sm-8">
+                      <input type="file"  class="form-control" (change)="fileChangeEvent($event)" [(ngModel)]="fileupload" name="file_upload" >Max 40 MB
+                      <div *ngIf="changelogform.content_type=='2 '">
+                        <video width="400" id="singleVideo" preload="auto" controls autoplay controlsList="nodownload">
+                          <source src="{{cs.imageurl}}/explainer/videos/{{changelogform.content}}" type="video/mp4">
+                        </video>
+                      </div>
+                      <div id="explainerimg" class="text=center" *ngIf="changelogform.content_type=='1'">
+                        <img class="img-responsive" width="200" src="{{cs.imageurl}}/explainer/images/{{changelogform.content}}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <div class="form-group" style="margin-bottom:0px">
+                      <p align="center" style="color: #ff0000;">{{log_validation}}</p>
+                      <div class="col-sm-12 text-center">
+                        <button type="submit" [disabled]="!changeLog.valid" class="btn btn-primary" id="adUser" style="margin-left:20px">{{log_form_btntitle}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div bsModal #explainerdel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header modal_header">
+          <button type="button" class="close" (click)="explainerdel.hide()">&times;</button>
+          <h4 class="modal-title">
+            <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Explainer(s)</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box1">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label style="text-align:center;" class="col-md-12 control-label">This will delete the selected Explainers(s) permanently. Would you like to proceed?
+                </label>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-offset-4 col-md-2">
+                <a class="btn btn-primary" id="" (click)="explainerdel.hide();ls.multiplerecdeletion('id','wordsexplainer')">YES</a>
+              </div>
+              <div class="col-md-2">
+                <a (click)="explainerdel.hide()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

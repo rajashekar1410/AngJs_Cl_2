@@ -1,0 +1,61 @@
+
+
+<div class="modal-header modal_header" backdrop>
+  <button type="button" class="close" (click)="modalRef?.hide()">&times;</button>
+  <h4 class="modal-title">{{pageTitle}}</h4>
+</div>
+<div class="modal-body">
+  <div class="box1">
+   
+    <div class="row justify-content-between mb-2" *ngIf="invInfo">
+      <div class="col">
+        <p>
+          <b>Part Number:&nbsp;</b>
+          <span>{{invInfo['part_no']}}</span>
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          <b>Total Quantity:&nbsp;</b>
+          <span>{{invInfo['total']}}</span>
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          <b>Consumed Quantity:&nbsp;</b>
+          <span>{{invInfo['consumed']}}</span>
+        </p>
+      </div>
+      <div class="col">
+        <p>
+          <b>Available:&nbsp;</b>
+          <span>{{invInfo['available']}}</span>
+        </p>
+      </div>
+    </div>
+  
+    <!-- Date filter -->
+    <div class="row justify-content-center">
+      <div class="form-inline">
+        <label for="fromDateInput" class="mr-sm-2">From Date:</label>
+        <input id="fromDateInput" type="text" placeholder="Datepicker" class="form-control mb-2 mr-sm-2" bsDatepicker [(ngModel)]="fromDate"
+        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', showWeekNumbers: false, containerClass: cs.default_theme }">
+     
+        <label for="toDateInput" class="mr-sm-2">To Date:</label>
+        <input id="toDateInput" type="text" placeholder="Daterangepicker" class="form-control mb-2 mr-sm-2" bsDatepicker [minDate]="fromDate"
+          [(ngModel)]="toDate" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', showWeekNumbers: false, containerClass: cs.default_theme }">
+          <!-- submit button -->
+          <button class="btn btn-primary mb-2"  (click)="triggerDateSearch()">Submit</button>
+      </div>
+    </div>
+    <!-- Table -->
+    <table id="searchlist_table" datatable [dtOptions]="searchdtOptions" [dtTrigger]="dtTrigger" style="width:100%"
+      class="table table-striped table-bordered main-content">
+     
+    </table>
+    <!-- Print btn -->
+    <p style="text-align: center" *ngIf="contentList.length > 0 && cs.user_session.user_type<2">
+      <button type="button" class="btn btn-primary" (click)="printData()">Print</button>
+    </p>
+  </div>
+</div>

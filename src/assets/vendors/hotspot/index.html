@@ -1,0 +1,208 @@
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+ <!-- Map Highlight==================================-->
+<script src="js/jquery.maphilight.js"></script>
+</head>
+
+
+	
+ <body>
+
+
+		<div class="row" id="searchContent" style="margin-top:30px;">
+
+			
+		
+			<!-- /.Chapter-VII ========================================================================================= -->
+			
+		<div class="col-md-12 col-md-offset-0" id="Illustrations" style="">
+					
+					
+				
+				
+					<div class="row">
+						<div class="col-md-12 col-md-offset-0">
+						<div class="blnk1" id="popup1"></div>
+							<div class="blnk2" id="popup2"></div>
+							<div class="blnk3" id="popup3"></div>
+							<div class="blnk4" id="popup4"></div>
+							<p align="center"><img src="img/User-Hand-Book-56.jpg" usemap="#image-map" class="mapimg"/>
+							
+							</p>
+							<map name="image-map">
+								<area title="A" href="javascript:void(0)" coords="86,141,9" shape="circle" id="btn1">
+								<area title="A" href="javascript:void(0)" coords="71,261,11" shape="circle" id="btn2">
+								<area title="B" href="javascript:void(0)" coords="238,158,9" shape="circle" id="btn3">
+								<area title="B" href="javascript:void(0)" coords="226,348,8" shape="circle" id="btn4">
+								<area title="C" href="javascript:void(0)" coords="420,160,8" shape="circle" id="btn5">
+								<area title="C" href="javascript:void(0)" coords="438,351,9" shape="circle" id="btn6">
+								<area title="D" href="javascript:void(0)" coords="289,158,9" shape="circle" id="btn7">
+								<area title="D" href="javascript:void(0)" coords="316,346,8" shape="circle" id="btn8">
+							</map>
+							
+
+							<p align="center"><b>Akash trolley in operation mode</b></p>
+							<p align="center"><b>Plate No. 4A</b></p>
+					
+						</div>
+					</div>
+					
+					
+		</div>
+	</div>
+	</body>
+</html>		
+<script type="text/javascript">
+
+$(function() {
+	$('#btn1').hover(function() { 
+		$('#popup1').show(); 
+	
+	}, function() { 
+		$('#popup1').hide();
+		
+		$('#popup2').hide(); 
+	});
+});	  
+$(function() {
+	$('#btn2').hover(function() { 
+		$('#popup1').show(); 
+	
+	}, function() { 
+		$('#popup1').hide();
+		
+	});
+});  
+$(function() {
+	$('#btn3').hover(function() { 
+		$('#popup2').show(); 
+	
+	}, function() { 
+		$('#popup2').hide();
+		
+	});
+});
+  
+$(function() {
+	$('#btn4').hover(function() { 
+		$('#popup2').show(); 
+	
+	}, function() { 
+		$('#popup2').hide();
+		
+	});
+});
+  
+$(function() {
+	$('#btn4').hover(function() { 
+		$('#popup2').show(); 
+	
+	}, function() { 
+		$('#popup2').hide();
+		
+	});
+});
+  
+$(function() {
+	$('#btn5').hover(function() { 
+		$('#popup3').show(); 
+	
+	}, function() { 
+		$('#popup3').hide();
+		
+	});
+});
+  
+$(function() {
+	$('#btn6').hover(function() { 
+		$('#popup3').show(); 
+	
+	}, function() { 
+		$('#popup3').hide();
+		
+	});
+});
+  
+$(function() {
+	$('#btn7').hover(function() { 
+		$('#popup4').show(); 
+	
+	}, function() { 
+		$('#popup4').hide();
+		
+	});
+});
+  
+$(function() {
+	$('#btn8').hover(function() { 
+		$('#popup4').show(); 
+	
+	}, function() { 
+		$('#popup4').hide();
+		
+	});
+});
+	
+
+
+
+	
+	</script>
+			
+ 	<script type="text/javascript">
+			$(function() {
+				$('.mapimg').maphilight({fade: false});
+			});
+	</script>
+
+
+ <style>
+ .blnk1 {
+		display: none;
+		width: 178px;
+		height: 17px;
+		border:2px solid red;
+		position: absolute;
+		bottom: 190px;
+		right: 150px;
+	z-index: 9;
+	}
+
+	.blnk2 {
+	display: none;
+	width: 178px;
+	height: 17px;
+	border: 2px solid red;
+	position: absolute;
+	bottom: 176px;
+	right: 150px;
+	z-index: 9;
+	}
+	.blnk3 {
+	display: none;
+	width: 178px;
+	height: 17px;
+	border: 2px solid red;
+	position: absolute;
+	bottom: 161px;
+	right: 150px;
+	z-index: 9;
+	}
+	.blnk4 {
+	display: none;
+	width: 178px;
+	height: 17px;
+	border: 2px solid red;
+	position: absolute;
+	bottom: 146px;
+	right: 150px;
+	z-index: 9;
+}
+
+ </style>
+	

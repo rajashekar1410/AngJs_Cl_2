@@ -1,0 +1,95 @@
+<!-- Restore Data========================================================================= -->
+<div class="modal-content show_div" id="box1">
+  <div class="modal-header modal_header">
+    <button type="button" class="close" (click)="modalRef?.hide()">&times;</button>
+    <h4 class="modal-title">{{formTitle}}</h4>
+  </div>
+
+  <div class="modal-body">
+   
+      <form autocomplete="off" class="form-horizontal" (ngSubmit)="processRequest()" #form="ngForm" [formGroup]="ngForm"
+        novalidate>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label">Search Keyword:</label>
+          <div class="col-sm-6">
+            <input required class="form-control" type="text" name="m_name" [formControl]="keyword">
+            <p class="text-danger" *ngIf="keyword.errors?.required  &&  form.submitted">Search keyword is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label">Content Type:</label>
+          <div class="col-sm-6">
+            <select class="form-control" [formControl]="contentType" (ngModelChange)="contentTypeChanged($event)">
+              <option *ngFor="let item of contentTypes" [value]="item.id">{{item.text}}</option>
+            </select>
+          </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+          <div class="col-sm-12 ">
+          <button type="button" class="btn btn-primary btn-sm float-right" (click)="addNewIETMChild()">
+           Add  <i  aria-hidden="true" class="fa fa-plus-circle"></i></button>
+        </div>
+        </div>
+     
+        
+             
+
+        <div class="ietm-child-container">
+              <ng-container  *ngFor="let item of ietmChildItems;let i=index">
+               
+                <div class="form-group row"  *ngIf="contentType.value != contentTypeIds.TYPE_ANNOTATION">
+
+                    <label class="col-form-label col-sm-5">Frame No:</label>
+                    <div class="col-sm-5">
+                    <input id="ietm-page-id-input" type="number" [(ngModel)]="ietmChildItems[i].page_id"
+                      [ngModelOptions]="{standalone: true}" class="form-control">
+                    </div>
+                    <div class="col-sm-1">
+                      <button type="button" class="btn btn-danger btn-sm" (click)="removeIETMChild(i)">
+                      <i class="lni lni-trash"></i>
+                    </button>
+               
+                    </div>
+                  </div>
+               
+                  <div class="form-group row" *ngIf="contentType.value == contentTypeIds.TYPE_ANNOTATION">
+                 
+                    <label class="col-form-label col-sm-5">Annotation ID:</label>
+                    <div class="col-sm-5">
+                    <input id="ietm-page-id-input" type="number" [(ngModel)]="ietmChildItems[i].id"
+                      [ngModelOptions]="{standalone: true}" class="form-control">
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-sm btn-danger" (click)="removeIETMChild(i)">
+                        <i class="lni lni-trash"></i>
+                      </button>
+                 
+                      </div>
+                 
+                </div>
+                
+              </ng-container>
+            </div>
+           
+<hr>
+     
+        <div class="form-group row">
+        
+            <label class="col-sm-5 col-form-label">Search Suggestions:</label>
+            <div  class="col-md-12 ">
+            <textarea name="suggestions"  class="form-control" [formControl]="suggestions"></textarea>
+            <p class="suggestions-hint">Use comma (,) to add multiple words.</p>
+          </div>
+         
+        </div>
+        <div class="form-group row justify-content-center">
+          <button class="btn btn-primary" type="submit">{{btnTitle}}</button>
+        </div>
+      </form>
+
+    </div>
+
+ 
+</div>

@@ -1,0 +1,48 @@
+.share-this-popover {
+  z-index: 1039;
+  ul {
+    background: var(--primary-color) !important;
+    flex-direction: row;
+
+    li {
+      display: inherit !important;
+      width: auto !important;
+      height: auto !important;
+      line-height: normal !important;
+      text-align: center !important;
+      padding: 7px 10px;
+      border-radius: 0.25em;
+      &:nth-child(even) {
+        background-color: var(--secondary-color);
+      }
+      cursor: pointer;
+    }
+  }
+  &::before {
+    border-color: var(--secondary-color) transparent !important;
+  }
+}
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .share-this-popover::before {
+    content: "Options" !important;
+    border-width: 0 !important;
+    background: #000;
+    width: auto !important;
+    height: auto !important;
+    z-index: 1;
+    margin: -0.95em -1.2em !important;
+    color: var(--color-white);
+    padding: 0px 10px;
+    border-radius: 3px;
+    text-align: center;
+  }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 1024px) {
+}

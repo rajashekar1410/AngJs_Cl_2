@@ -1,0 +1,283 @@
+<div class="user_status_bar">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <p>
+          <b>USERNAME : <span>{{cs.user_session.user_name}}</span> </b>
+        </p>
+      </div>
+      <div class="col" *ngIf="cs.user_session.user_type == 0">
+        <p class="text-center">
+          <b>Server Address : {{cs.serverip.slice(7)}} </b>
+        </p>
+      </div>
+
+      <div class="col">
+        <p class="text-right">
+          <b>ROLE : <span>{{getUserRole()}}</span> </b>
+        </p>
+      </div>
+      <!--div class="col">
+              <p class="text-primary text-right">
+                <b>LAST LOGIN :
+                  <span style="font-family: bookman;">{{cs.user_session.last_login | amDateFormat:'MMM  Do YYYY, hh:mm a'}}
+                  </span>
+                </b>
+              </p>
+            </div>-->
+
+    </div>
+  </div>
+</div>
+<!-- Body Section============================================================================== -->
+<div class="main1_warper">
+  <div class="container-fluid">
+    <div class="row justify-content-between" *ngIf="cs.user_session.user_type==1">
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <ul class="dashboard_list list-group">
+          <li>
+            <a [routerLink]="'/home/modulemanager'">
+              <span class="right_icon">
+                <i class="lni lni-briefcase"></i>
+              </span> ENTER IETM</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+            <li>
+              <a [routerLink]="['/home/users']">
+                <span class="right_icon">
+                  <i class="lni lni-users"></i>
+                </span> MANAGE USERS</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/useractivity']">
+                <span class="right_icon">
+                  <i class="lni lni-stats-up"></i>
+                </span> MANAGE USER ACTIVITY</a>
+            </li>
+            <li *ngIf="cs.buildEnv.productLevel =='v5' && isMenuItemAccessible(contentTypes.TYPE_INVENTORY)">
+              <a [routerLink]="['/home/inv_type']">
+                <span class="right_icon">
+                  <i class="lni lni-agenda"></i>
+                </span> MANAGE INVENTORY CATEGORIES</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/si']">
+                <span class="right_icon">
+                  <i class="lni lni-search"></i>
+                </span> MANAGE SEARCH INDEX</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/managebookmarks']">
+                <span class="right_icon">
+                  <i class="lni lni-bookmark"></i>
+                </span> MANAGE BOOKMARKS </a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/manageannotations']">
+                <span class="right_icon">
+                  <i class="lni lni-popup"></i>
+                </span> MANAGE ANNOTATIONS </a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/wordsexplainer']">
+                <span class="right_icon">
+                  <i class="lni lni-write"></i>
+                </span>MY HOTSPOTS </a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/backupmanager']">
+                <span class="right_icon">
+                  <i class="lni lni-save"></i>
+                </span>BACKUP & RESTORE DATA </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+            <li>
+              <a [routerLink]="['/home/changepassword']">
+                <span class="right_icon">
+                  <i class="lni lni-key"></i>
+                </span>CHANGE PASSWORD</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/updatesecurityquestions']">
+                <span class="right_icon">
+                  <i class="lni lni-lock"></i>
+                </span>SECURITY QUESTIONS</a>
+            </li>
+            <!--<li> <a href="#draggable"><span class="right_icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>LOGOUT </a> </li>-->
+            <li>
+              <a (click)="openlogout()" data-toggle="modal" data-backdrop="false">
+                <span class="right_icon">
+                  <i class="lni lni-power-switch"></i>
+                </span>LOGOUT</a>
+            </li>
+            <!--<div class="form-group" style="margin-bottom: 0px;">
+								<div class="col-md-12 control">
+									<div style="border-top: 1px solid#ddd; padding-top:5px; font-size:85%">
+										<li><span class="right_icon"><i class="fa fa-power-off" aria-hidden="true"></i><a href="#draggable" data-toggle="modal" data-backdrop="false"></span>LOGOUT</a></li>
+									</div>
+								</div>
+							</div>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-between" *ngIf="cs.user_session.user_type==0">
+
+
+      <div class="col-lg-3 col-md-4 col-sm-6 ">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+            <li>
+              <a [routerLink]="'/home/modulemanager'">
+                <span class="right_icon">
+                  <i class="lni lni-pencil-alt"></i>
+                </span> EDIT IETM</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/managemodules']">
+                <span class="right_icon">
+                  <i class="lni lni-library"></i>
+                </span> MANAGE MODULES</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/managecategory']" *ngIf="cs.buildEnv.productLevel =='v5'">
+                <span class="right_icon">
+                  <i class="lni lni-book"></i>
+                </span> MANAGE CATEGORIES</a>
+            </li>
+            <li *ngIf="isMenuItemAccessible(contentTypes.TYPE_IETM)">
+              <a [routerLink]="['/home/rel_type']">
+                <span class="right_icon">
+                  <i class="lni lni-layout"></i>
+                </span> MANAGE RELATED CONTENT TYPES</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/filemanager']">
+                <span class="right_icon">
+                  <i class="lni lni-upload"></i>
+                </span>FILE MANAGER </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+
+            <li>
+              <a [routerLink]="['/home/users']">
+                <span class="right_icon">
+                  <i class="lni lni-users"></i>
+                </span> MANAGE USERS</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/changepassword']">
+                <span class="right_icon">
+                  <i class="lni lni-reload"></i>
+                </span> CHANGE PASSWORD</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/updatesecurityquestions']">
+                <span class="right_icon">
+                  <i class="lni lni-lock"></i>
+                </span>SECURITY QUESTIONS</a>
+            </li>
+            <!--<li>
+              <a (click)="opendetails(cs.user_session)">
+                <span class="right_icon">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </span> VIEW ACTIVITY
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/changelog']">
+                <span class="right_icon">
+                  <i class="fa fa-pencil " aria-hidden="true"></i>
+                </span> CHANGE LOG </a>
+            </li>-->
+            <li>
+              <a (click)="openlogout()" data-toggle="modal" data-backdrop="false">
+                <span class="right_icon">
+                  <i class="lni lni-power-switch"></i>
+                </span>LOGOUT</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-between" *ngIf="cs.user_session.user_type>1">
+      <div class="col-lg-3 col-md-4 col-sm-6 ">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+            <li>
+              <a [routerLink]="'/home/modulemanager'">
+                <span class="right_icon">
+                  <i class="lni lni-briefcase"></i>
+                </span> ENTER IETM </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+            <li>
+              <a [routerLink]="['/home/managebookmarks']">
+                <span class="right_icon">
+                  <i class="lni lni-bookmark"></i>
+                </span> MANAGE BOOKMARKS </a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/manageannotations']">
+                <span class="right_icon">
+                  <i class="lni lni-popup"></i>
+                </span> MANAGE ANNOTATIONS</a>
+            </li>
+            <li>
+              <a [routerLink]="['/home/useractivity']">
+                <span class="right_icon">
+                  <i class="lni lni-stats-up"></i>
+                </span> MANAGE USER ACTIVITY</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 ">
+        <div class="dashboard">
+          <ul class="dashboard_list list-group">
+            <li>
+              <a [routerLink]="['/home/updatesecurityquestions']">
+                <span class="right_icon">
+                  <i class="lni lni-lock"></i>
+                </span>SECURITY QUESTIONS</a>
+            </li>
+            <!--  <li> <a href="#"><span class="right_icon"><i class="fa fa-print " aria-hidden="true"></i></span>PRINT JOBS </a> </li> -->
+
+            <li>
+              <a [routerLink]="['/home/changepassword']">
+                <span class="right_icon">
+                  <i class="lni lni-reload"></i>
+                </span>CHANGE PASSWORD</a>
+            </li>
+            <li>
+              <a (click)="openlogout()" data-toggle="modal" data-backdrop="false">
+                <span class="right_icon">
+                  <i class="lni lni-power-switch"></i>
+                </span>LOGOUT</a>
+            </li>
+            <!-- <li> <a href="#"><span class="right_icon"><i class="fa fa-power-off" aria-hidden="true"></i></span> LOGOUT </a> </li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

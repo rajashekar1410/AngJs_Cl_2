@@ -1,0 +1,17 @@
+<div bsModal #modalRef="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-sizes-name2">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header modal_header">
+                <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+                <h4 class="modal-title">Print Preview</h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 100%; height: 700px">
+                    <ng2-pdfjs-viewer [zoom]="100" [openFile]="false" [viewBookmark]="false" [download]="false"
+                        #pdfViewerAutoLoad></ng2-pdfjs-viewer>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

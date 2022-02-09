@@ -1,0 +1,36 @@
+
+<div bsModal #lrmBackdrop="bs-modal" [config]="{ignoreBackdropClick: true, keyboard: false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+
+  <div class="modal-dialog modal_custom">
+    <!-- Restore Data========================================================================= -->
+    <div class="modal-content show_div" id="box1">
+      <div class="modal-header modal_header">
+        <h4 class="modal-title"><i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>          Please wait</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="box1">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label style="text-align:center;" class="col-md-12 control-label">{{lrmS.message}}</label>
+            </div>
+
+          </form>
+          <!-- <div class="row">
+            <div class="col-md-offset-4 col-md-2">
+              <a class="btn btn-primary" (click)="restore.hide();trigerclick()">YES</a>
+            </div>
+            <div class="col-md-2">
+              <button (click)="restore.hide()" data-dismiss="modal" class="btn btn-primary" id=""
+                style="padding: 6px 13.57px;">
+                NO</button>
+            </div>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

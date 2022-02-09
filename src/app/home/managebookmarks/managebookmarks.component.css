@@ -1,0 +1,7 @@
+td {
+  text-align: center !important;
+}
+
+.dataTables_processing {
+  display: block !important;
+}

@@ -1,0 +1,18 @@
+<div class="modal-header modal_header">
+  <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+  <h4 class="modal-title">Logout</h4>
+</div>
+<div class="modal-body">
+         
+  <p >Are you sure you want to logout?  </p>
+
+</div>
+ 
+  
+    <div class="modal-footer justify-content-center">
+        <button type="button" (click)="logout()" class="btn btn-primary" id="">YES</button>
+        <button type="button"  (click)="modalRef.hide()" type="button" class="btn btn-primary" id=""
+          style="padding: 6px 13.57px;">
+          NO</button>
+    </div>
+ 

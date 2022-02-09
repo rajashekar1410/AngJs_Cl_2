@@ -1,0 +1,55 @@
+<div class="modal-header modal_header" backdrop>
+  <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+  <h4 class="modal-title">{{formTitle}}</h4>
+</div>
+<div class="modal-body">
+  <div class="box1">
+    <form class="form-horizontal" (ngSubmit)="processRequest()" [formGroup]="markConsumedForm" novalidate>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Part Number:</label>
+        <div class="col-sm-6">
+          <input required class="form-control" type="text" readonly disabled name="part_no"
+            [value]="invInfo.part_no">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Description:</label>
+        <div class="col-sm-6">
+          <input required class="form-control" type="text" readonly disabled
+            name="description" [value]="invInfo.description">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Consumed Qty:</label>
+        <div class="col-sm-6">
+          <input required class="form-control" type="number" name="consumed"
+            [formControl]="consumed">
+          <p class="text-left">Available: {{invInfo.available-consumed.value}}</p>
+          <p class="text-danger" *ngIf="consumed.errors?.required  &&  consumed.touched">This field is required</p>
+          <p class="text-danger" *ngIf="consumed.errors?.min  &&  consumed.touched">Invalid consumed amount.</p>
+          <p class="text-danger" *ngIf="consumed.errors?.max  &&  consumed.touched">Value exceeding available quantity.</p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-5 col-form-label">Remarks:</label>
+        <div class="col-sm-6">
+          <input required class="form-control" type="text" name="remarks"
+            [formControl]="remarks">
+          <p class="text-danger" *ngIf="remarks.errors?.required  &&  remarks.touched">This field is required</p>
+        </div>
+      </div>
+
+      <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+      <div class="form-group row" style="margin-bottom:0px;">
+        <div class="text-center col-sm-12">
+          <button type="submit" [disabled]="markConsumedForm.invalid" class="btn btn-primary" id="adUser"
+            style="margin-left:10px;padding: 6px 20px;">{{btnTitle}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

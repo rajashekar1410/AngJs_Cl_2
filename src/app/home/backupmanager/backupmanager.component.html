@@ -1,0 +1,180 @@
+
+<div class="main1_warper" *ngIf="backupdata.length>0">
+  <div class="container annotations-lisi">
+    <div class="row  justify-content-center align-self-center">
+      <div class="col-md-4 col-sm-6 mt-5" >
+        <div class="card card-primary ">
+          <div class="card-header">
+          
+              <p style="margin-bottom:0px;text-align:center;"><b>Backup Data</b></p>
+          
+          </div>
+          <div class="card-body" style="min-height: 245px;" >
+            <p class="text-center">
+            <button class="btn btn-primary center-block btn-sm" (click)="getbackupmanager(1)" >Backup Now</button>	</p>
+            <table id="example" data-page-length="5"  style="margin-bottom:0px;margin-top:5px;" class="table table-bordered main-content">
+              <thead>
+                <tr style="color:#fff;text-align:center;">
+                  <th style="text-align:center;">Last Backup Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Start Time : <b *ngIf="backupdata[0]['starttime'] =='0000-00-00 00:00:00'">-</b>
+                    <b *ngIf="backupdata[0]['starttime'] !='0000-00-00 00:00:00'">{{  backupdata[0]['starttime']  | amDateFormat:'MMM  Do YYYY, hh:mm a'}}</b></td>
+                </tr>
+                <tr>
+                  <td>End Time : <b *ngIf="backupdata[0]['endtime'] =='0000-00-00 00:00:00'">-</b>
+                    <b *ngIf="backupdata[0]['endtime'] !='0000-00-00 00:00:00'">{{  backupdata[0]['endtime']  | amDateFormat:'MMM  Do YYYY, hh:mm a'}}</b></td>
+                </tr>
+                <tr>
+                  <td>Status :     <span class="text-success" *ngIf="backupdata[0]['status']=='2'"><b>Completed</b></span>
+                    <span class="text-warn" *ngIf="backupdata[0]['status']=='1'"><b>In Progress</b></span>
+                    <span class="text-danger" *ngIf="backupdata[0]['status']=='3'"><b>Failed</b></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mt-5" >
+
+        <div class="card card-primary">
+          <div class="card-header">
+           
+              <p style="margin-bottom:0px;text-align:center;" ><b>Restore</b></p>
+          
+          </div>
+          <div class="card-body">
+              <form  #UploadfolderForm="ngForm" novalidate>
+                  <div class=" col-lg-12 form-group" style="display:none">
+                    <div class="form-group form-black label-stacked is-empty" >
+                      <label>Chose your File : </label>
+                      <input type="file"  accept=".sql" #restorefile class="form-control" (change)="fileChangeEvent($event)" multiple="false" name="image">
+                      <br />
+                    </div>
+                  </div>
+                  <p class="text-center">
+                      <button class="btn btn-success text-center center-block btn-sm" (click)="openconfirm()">Restore Now</button>
+                  </p>
+             </form>
+        
+            <table id="example" data-page-length="5" 
+              class="table table-bordered main-content"  style="margin-bottom:0px;margin-top:5px;">
+              <thead>
+                <tr style="color:#fff;text-align:center;">
+                  <th style="text-align:center;">Last Restororation Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Start Time : <b *ngIf="backupdata[1]['starttime'] =='0000-00-00 00:00:00'">-</b>
+                        <b *ngIf="backupdata[1]['starttime'] !='0000-00-00 00:00:00'">{{  backupdata[1]['starttime']  | amDateFormat:'MMM  Do YYYY, hh:mm a'}}</b></td>
+                    </tr>
+                    <tr>
+                      <td>End Time : <b *ngIf="backupdata[1]['endtime'] =='0000-00-00 00:00:00'">-</b>
+                        <b *ngIf="backupdata[1]['endtime'] !='0000-00-00 00:00:00'">{{  backupdata[1]['endtime']  | amDateFormat:'MMM  Do YYYY, hh:mm a'}}</b></td>
+                    </tr>
+                    <tr>
+                      <td>Last Restored File Name : <b *ngIf="backupdata[1]['file_name'] ==''">-</b>
+                        <b *ngIf="backupdata[1]['file_name'] !=''">{{  backupdata[1]['file_name'] }}</b></td>
+                    </tr>
+                  <!-- <tr>
+                      <td>Last Restored File Path : <b *ngIf="backupdata[1]['file_path'] ==''">-</b>
+                        <b *ngIf="backupdata[1]['file_path'] !=''">{{  backupdata[1]['file_path'] }}</b></td>
+                    </tr>--> 
+                <tr>
+                  <td>Status : 
+                    <span class="text-success" *ngIf="backupdata[1]['status']=='2'"><b>Completed</b></span>
+                    <span class="text-warn" *ngIf="backupdata[1]['status']=='1'"><b>In Progress</b></span>
+                    <span class="text-danger" *ngIf="backupdata[1]['status']=='3'"><b>Failed</b></span>
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div bsModal #restore="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+
+  <div class="modal-dialog modal_custom">
+    <!-- Restore Data========================================================================= -->
+    <div class="modal-content show_div" id="box1">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="restore.hide()">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Restore
+          Backup Data</h4>
+      </div>
+
+      <div class="modal-body">
+       
+        
+              <p >Are you sure you want to Restore the Backup Data</p>
+           
+           
+            </div>
+          <div class="modal-footer justify-content-center">
+            
+              <a class="btn btn-primary" (click)="restore.hide();trigerclick()">YES</a>
+           
+              <button (click)="restore.hide()" data-dismiss="modal" class="btn btn-primary" 
+                style="padding: 6px 13.57px;">
+                NO</button>
+           
+          </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+
+<div bsModal #backdrop="bs-modal" [config]="{ignoreBackdropClick: true, keyboard: false}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+
+  <div class="modal-dialog modal_custom">
+    <!-- Restore Data========================================================================= -->
+    <div class="modal-content show_div" id="box1">
+      <div class="modal-header modal_header">
+        <h4 class="modal-title"><i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>          Please wait</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="box1">
+          <form class="form-horizontal">
+            <div class="form-group" *ngIf="!errorOccurred">
+              <label style="text-align:center;" class="col-md-12 control-label" *ngIf="restoreProgress == 0">Task In Progress...</label>
+              <label style="text-align:center;" class="col-md-12 control-label" *ngIf="restoreProgress > 0">Restoring Data: {{restoreProgress}}%</label>
+            </div>
+
+            <div class="form-group" *ngIf="errorOccurred">
+              <label style="text-align:center;" class="col-md-12 control-label text-danger">An error has occurred. Please reload the page.</label>
+            </div>
+
+          </form>
+          <!-- <div class="row">
+            <div class="col-md-offset-4 col-md-2">
+              <a class="btn btn-primary" (click)="restore.hide();trigerclick()">YES</a>
+            </div>
+            <div class="col-md-2">
+              <button (click)="restore.hide()" data-dismiss="modal" class="btn btn-primary" id=""
+                style="padding: 6px 13.57px;">
+                NO</button>
+            </div>
+          </div> -->
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

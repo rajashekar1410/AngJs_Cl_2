@@ -1,0 +1,52 @@
+/* Inventory================================================================== */
+
+.inventory-warper .table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 2px 15px;
+  line-height: 1.42857143;
+  vertical-align: middle;
+  border-top: 1px solid var(--tbl-border-color);
+  color: var(--tbl-font-color);
+}
+
+.inventory {
+  height: 100vh;
+}
+.inventory-warper .manage-adduser {
+  float: right;
+  color: #fff;
+  font-size: 17px;
+  padding: 3px 8px;
+  background: #003f72;
+  border-radius: 2px;
+  transition: all 0.2s linear;
+  border: none;
+  margin-right: 5px;
+}
+
+.inventory-warper .manage-adduser:hover {
+  background: #015eaa;
+}
+
+.inventory-warper .manage-adduser i {
+  font-size: 18px;
+  text-align: center;
+}
+
+.inventory-warper button.btn,
+.inventory-warper a.btn {
+  padding: 3px 8px;
+  font-size: 17px;
+  color: #fff;
+}
+
+.ad-delte-inventory {
+  position: relative;
+  z-index: 5;
+  margin-bottom: 40px;
+  margin-top: 5px;
+}

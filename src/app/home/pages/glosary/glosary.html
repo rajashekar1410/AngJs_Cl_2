@@ -1,0 +1,169 @@
+<div class="glosary annotations-lisi">
+  <!-- <div class="col-md-4" *ngIf="cs.user_session.user_type==0" style="margin-bottom:10px">
+    <button class="manage-adduser btn float-left" (click)="glosaryaddform()" title="Add glosary">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    </button>
+
+    <button title="Delete Selected glosarys"  [disabled]='ls.enableseldelete==0' class="manage-adduser btn float-left"
+      (click)="glosarydel.show()">
+      <i class="fa fa-trash-o"></i>
+    </button>
+
+    <button style="padding: 1px 8px;"  *ngIf="ls.selectedAll==0" (click)="ls.selectalltogle(true,1);ls.enableseldelete=1" class="manage-adduser btn btn-sm float-left">SELECT ALL</button>
+    <button style="padding: 1px 8px;"  *ngIf="ls.selectedAll==1" (click)="ls.selectalltogle(false,0);ls.enableseldelete=0" class="manage-adduser btn btn-sm float-left">DESELECT</button>
+    <br>
+  </div> -->
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="alphabet">
+      <span class="alphabet-info-display">Display:</span>
+      <ul>
+        <li>
+          <a (click)="searchalpha('')" [ngClass]="{'active': alpha_filter=='', 'empty': alpha_filter!=''}">
+            <span>All</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span>#</span>
+          </a>
+        </li>
+        <ng-template ngFor let-eachalpha [ngForOf]="alpha_array ">
+          <li (click)="searchalpha(eachalpha)"
+            [ngClass]="{'active': alpha_filter==eachalpha, 'empty': alpha_filter!=eachalpha}">
+            <a>
+              <span>{{eachalpha}}</span>
+            </a>
+          </li>
+        </ng-template>
+      </ul>
+      <!-- <div class="alphabet-info" style="left: 59.2188px; top: 26px; opacity: 0;">42</div> -->
+    </div>
+    <app-ietm-table [dtOptions]="dtOptions" [dtFilters]="dtfilters" [dtTrigger]="dtTrigger"
+      [printEnabled]="cs.user_session.user_type<=1" [useInternalPrint]="false" [contentFilterEnabled]="false"
+      [deleteTableName]="'glossary'" [enableAddButton]="cs.user_session.user_type==0"
+      [enableDelButton]="cs.user_session.user_type==0" [enableSelectDeselect]="cs.user_session.user_type==0"
+      (eventEmitter)="onTableEvent($event)">
+    </app-ietm-table>
+  </div>
+</div>
+
+<!-- Add/Edit Glossary -->
+<div bsModal #glosaryadd="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="glosaryadd.hide()">&times;</button>
+        <h4 class="modal-title">{{glosary_form_title}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="box1">
+          <form *ngIf="showglosaryform==true" class="form-horizontal" (ngSubmit)="manageglosaryform(changeglosary)"
+            #changeglosary="ngForm" novalidate>
+            <div class="form-group row justify-content-center" *ngIf="changeglosaryform.id == ''">
+              <button class="btn btn-primary btn-sm mr-3" type="button" (click)="openFileUploadModal()">Upload
+                CSV</button>
+              <a class="sampledwon" target="_blank" [href]="csvSampleFilePath"><small>Sample file</small> <i class="ml-2 lni lni-download"></i></a>
+            </div>
+            <hr class="my-3" *ngIf="changeglosaryform.id == ''" />
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">{{glosary_type==1?'Abbreviation':'Term'}}:</label>
+              <div class="col-sm-8">
+                <input class="form-control" type="text" required id="golssary_name" name="golssary_name"
+                  [(ngModel)]="changeglosaryform.golssary_name" #golssary_name="ngModel">
+                <p class="text-danger" *ngIf="golssary_name.errors?.required  &&  changeglosary.submitted">
+                  {{glosary_type==1?'Abbreviation':'Term'}} is Required</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">{{glosary_type==1?'Description':'Definition'}}:</label>
+              <div class="col-sm-8">
+                <textarea class="form-control" type="text" required id="description" name="description"
+                  [(ngModel)]="changeglosaryform.description" #description="ngModel"></textarea>
+                <p class="text-danger" *ngIf="description.errors?.required  &&  changeglosary.submitted">
+                  {{glosary_type==1?'Description':'Definition'}} is Required</p>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <div class="form-group row" style="margin-bottom:0px">
+                <p align="center" style="color: #ff0000;">{{glosary_validation}}</p>
+                <div class="col-sm-12 text-center">
+                  <button type="submit" [disabled]="!changeglosary.valid || !changeglosary.dirty"
+                    class="btn btn-primary" id="adUser" style="margin-left:20px">{{glosary_form_btntitle}}</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template bsModal #fileUploadModal>
+  <div class="mmodal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="mdls.modalRef.hide()">&times;</button>
+        <h4 class="modal-title">Upload CSV</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- File upload -->
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">Choose CSV:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="file" name="csv_file" (change)="onFileChanged($event)" accept=".csv">
+          </div>
+        </div>
+
+        <div class="col-md-12 text-center">
+          <div class="form-group row" style="margin-bottom:0px" *ngIf="isUploadingFile">
+            <div class="col">
+              <p class="mx-auto mb-3 text-primary text-right">Upload in progress.......</p>
+            </div>
+            <div class="col">
+              <div class="spinner-border text-primary"> </div>
+            </div>
+          </div>
+          <div class="form-group row" style="margin-bottom:0px">
+            <div class="col-sm-12 text-center">
+              <button type="submit" class="btn btn-primary btn-sm" [disabled]="isUploadingFile"
+                (click)="processFileSubmit()" style="margin-left:20px">Submit</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+<!-- Glossary Delete -->
+<div bsModal #glosarydel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header modal_header">
+        <button type="button" class="close" (click)="glosarydel.hide()">&times;</button>
+        <h4 class="modal-title">
+          <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> Delete Glosary(s)
+        </h4>
+      </div>
+      <div class="modal-body">
+
+
+        <p>This will delete the selected Glosary(s) permanently. Would you like to proceed?
+        </p>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+
+        <a class="btn btn-primary" id="" (click)="onDeleteRequested()">YES</a>
+
+        <a (click)="glosarydel.hide()" class="btn btn-primary" id="" style="padding: 6px 13px;">NO</a>
+
+      </div>
+
+    </div>
+  </div>
+</div>

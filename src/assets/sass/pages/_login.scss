@@ -1,0 +1,69 @@
+.login_block_left {
+  .cus-bg {
+    background: var(--login-bx-bg);
+    -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    .input-group-text {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      color: var(--login-icon-color);
+      text-align: center;
+      background-color: var(--secondary-color);
+      border: 1px solid var(--secondary-color);
+      border-radius: 0;
+    }
+    .cus-bg .form-control {
+      display: block;
+      height: 34px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 0;
+      box-shadow: none;
+      border-left: 0;
+    }
+    .show-password-icon {
+      background: no-repeat;
+      border: none;
+      font-size: 20px;
+      margin-left: -20px;
+      outline: none;
+      cursor: pointer;
+      padding: 2px;
+    }
+    .eye_icon {
+      position: absolute;
+      top: 1px;
+      right: 7px;
+      z-index: 100;
+      font-size: 17px;
+    }
+    .forgot_pwd {
+      font-size: 85%;
+      color: #fff;
+      text-shadow: 1px 1px 1px #000;
+    }
+    .card-header {
+      padding: 0.5rem 1rem;
+      margin-bottom: 0;
+      background-color: var(--primary-color);
+      //  border-bottom: 2px solid var(--primary-color);
+      h6 {
+        text-align: center;
+        margin-bottom: 0;
+        color: var(--login-bx-title);
+        font-weight: 600;
+      }
+    }
+    input {
+      background: var(--login-input-bg) !important;
+      border: 1px solid var(--login-input-bg) !important;
+      color: var(--login-input-color) !important;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div class="modal-header modal_header" backdrop>
+    <button type="button" class="close" (click)="modalRef.hide()">&times;</button>
+    <h4 class="modal-title">{{formTitle}}</h4>
+  </div>
+  <div class="modal-body">
+   
+      <form  (ngSubmit)="processRequest()" [formGroup]="rltdTypeForm" novalidate>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label">Content Type Name:</label>
+          <div class="col-sm-6">
+            <input required class="form-control" type="text" name="name" [formControl]="r_name">
+            <p class="text-danger" *ngIf="r_name.errors?.required  &&  r_name.touched">Name is required
+            </p>
+          </div>
+        </div>
+       
+        <!-- <p align="center" style="color: #ff0000;">{{formvalidation}}</p> -->
+        <div class="form-group row" style="margin-bottom:0px;">
+          <div class="text-center col-sm-12">
+            <button type="submit" [disabled]="!rltdTypeForm.valid" class="btn btn-primary" id="adUser"
+              style="margin-left:10px;padding: 6px 20px;">{{btnTitle}}</button>
+          </div>
+        </div>
+      </form>
+    
+  </div>
+  

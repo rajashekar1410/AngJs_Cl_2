@@ -1,0 +1,16 @@
+<div class="main1_warper">
+    <div class="manage-user-module annotations-lisi">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12 mt-2">
+
+                    <app-ietm-table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" [contentFilterEnabled]="false"
+                        [enableAddButton]="true" [printEnabled]="true" [deleteTableName]="tableName"
+                         (eventEmitter)="onTableEvent($event)"></app-ietm-table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
